@@ -3,3 +3,82 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.jumbotron {
+  text-align: center;
+  background-color: white;
+
+}
+
+
+.navbar-expand-lg .navbar-collapse {
+  background-color: white;
+ 
+
+}
+
+.navbar-nav {
+  background-color: white;
+ 
+}
+
+a {
+  background-color: white;
+
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+  color: #FCA326;
+  float: right;
+  padding: 12px;
+  color:#FCA326;
+  text-decoration: none;
+  font-size: 25px;
+
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #FCA326;
+  float: right;
+  padding: 12px;
+  color: #FCA326;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.flex-container {
+  display: flex;
+  background-color: white;
+}
+
+.flex-container > div {
+  background-color: white;
+  margin: 10px;
+  padding: 20px;
+  font-size: 15px;
+}
+
+.blockquote-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color:#FCA326;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  margin: 100px;
+
+
+}
+
+.nav-item {
+  background-color: white;
+}
+
+.bg-light {
+  background-color: white!important;
+}

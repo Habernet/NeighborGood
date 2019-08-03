@@ -1,11 +1,28 @@
 import React, { Component } from "react";
 import "./App.css";
+import Navbar from "./component/Navbar/navbar";
+import Jumbotron from "./component/Jumbotron/jumbotron";
+import About from "./component/About/about";
+import Footer from "./component/Footer/footer";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import './App.css';
 
-class App extends Component {
-  render() {
-    //This is where we will implement react router for our different pages.
-    return <div>Hello World!</div>;
-  }
+function App() {
+  return (
+  
+        <Router>
+          <div>
+      <Navbar />
+
+      </div>
+      <Jumbotron />
+      <About />
+      <Footer />
+        </Router>
+     
+      
+    
+  );
 }
 
 export default App;
