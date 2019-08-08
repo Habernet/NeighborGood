@@ -1,13 +1,10 @@
 import React from "react";
 
-function Jumbotron() {
+function Jumbotron({children}) {
   return (
-    <div className="jumbotron">
-      <h1>Website</h1>
-      <p>
-        Welcome to our landing pages!
-      </p>
-    </div>
+    <div className="jumbotron text-center" >
+    {children}
+   </div>
   );
 }
 

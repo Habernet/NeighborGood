@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
-import About from "../components/About/about";
-import Footer from "../components/Footer/footer";
-import Card from "../components/Card";
+// import About from "../components/About/about";
+// import Footer from "../components/Footer/footer";
+import {Row,Col} from "../components/Grid";
+import {Card, CardBtn, CardBody,CardContainer,CardHeading,CardImg,CardTitle,CardTitleText}  from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
+import axios from "axios";
 
 class Events extends Component {
     state = {
@@ -16,10 +18,9 @@ class Events extends Component {
       this.loadEvents();
     }
   
-    loadBooks = () => {
-      API.getEvents()
-        .then(res =>
-          this.setState({ events: res.data })
+    loadEvents = () => {
+      axios.get("/api/events")        .then(res =>
+         {this.setState({ events: res.data });console.log(res.data)}
         )
         .catch(err => console.log(err));
     };
@@ -58,5 +59,5 @@ Save
   
   }
   
-  export default Saved;
+  export default Events;
   
