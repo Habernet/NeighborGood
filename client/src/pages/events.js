@@ -19,10 +19,11 @@ class Events extends Component {
     }
   
     loadEvents = () => {
-      axios.get("/api/events")        .then(res =>
-         {this.setState({ events: res.data });console.log(res.data)}
-        )
-        .catch(err => console.log(err));
+      API.getEvents()
+      .then(res =>
+        this.setState({ events: res.data })
+      )
+      .catch(err => console.log(err));
     };
   
     render() {

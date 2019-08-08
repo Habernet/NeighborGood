@@ -5,7 +5,7 @@ export function Card(props) {
   return (
     <div>
       <CardHeading title={props.title} />
-      <CardImg image={props.image} />
+      {/* <CardImg image={props.image} /> */}
       <CardBody decription={props.description} date={props.date} />
       <CardBtn
         style={{ opacity: props.image ? 1 : 0 }}
@@ -29,25 +29,17 @@ export function CardBtn(props) {
 
 export function CardBody(props) {
   return (
-    <div>
-      <h4>
-      Favorite language: {props.language}
-      </h4>
-      <h4>
-      Email: {props.email}
-      </h4>
-    </div>
-  )
-}
-
-export function CardContainer(props) {
-  return (
     <div className="jumbotron card-container">
       <Card title={props.title} image={props.image} language={props.language} 
         email={props.email} handleBtnClick={props.handleBtnClick} />
     </div>
-  );
+  )
 }
+
+// export function CardContainer(props) {
+//   return (
+//   );
+// }
 
 export function CardHeading(props) {
   return ( 
