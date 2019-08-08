@@ -12,12 +12,11 @@ import Events from "./pages/Events";
 import NoMatch from "./pages/NoMatch";
 
 import './App.css';
-
+import Home from "./components/Home/home";
 function App() {
   return (
   
         <Router>
-         <div>
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/users" component={Users} />
@@ -25,7 +24,7 @@ function App() {
           <Route exact path="/events" component={Events} />
           <Route component={NoMatch} />
         </Switch>
-      </div>
+ 
 
 
         </Router>
