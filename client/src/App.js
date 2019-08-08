@@ -19,15 +19,11 @@ function App() {
         <h1>NeighborGood</h1>
         <h2>Come check out our events!</h2>
       </Home>
-
       </div>
       <Jumbotron />
       <About />
       <Footer />
-        </Router>
-     
-      
-    
+    </Router>
   );
 }
 
