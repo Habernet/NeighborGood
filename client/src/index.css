@@ -53,9 +53,10 @@ a {
 
 .flex-container > div {
   background-color: white;
-  margin: 10px;
-  padding: 20px;
+  margin: 5px;
+  padding: 1px;
   font-size: 15px;
+  margin-top: auto;
 }
 
 .blockquote-footer {
@@ -81,4 +82,39 @@ footer {
 
 .bg-light {
   background-color: white!important;
+}
+
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  background-color: #FCA326;
+  display: flex; 
+  justify-content: center;
+  margin-top: 50px;
+}
+
+#footerlogos {
+  display: flex; justify-content: center;
+}
+
+.wplock {
+  height: 100px;
+  justify-content: center;
+  text-align: center;
+  
+}
+
+.wpcommunity {
+  height: 100px;
+  justify-content: center;
+  text-align: center;
+ 
+}
+.wpmobile {
+  height: 100px;
+  justify-content: center;
+  text-align: center;
+ 
+}
+.column {
+  column-count: 3;
 }
