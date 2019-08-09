@@ -4,7 +4,12 @@ export default {
 //   // Gets all books
   getEvents: function() {
     return axios.get("/api/events");
+  },
+  
+  getClassifieds: function() {
+    return axios.get("/api/events");
   }
+
 //   // Gets the book with the given id
 //   getBook: function(id) {
 //     return axios.get("/api/books/" + id);

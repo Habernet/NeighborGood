@@ -21,7 +21,7 @@ class Events extends Component {
     loadEvents = () => {
       API.getEvents()
       .then(res =>
-        this.setState({ events: res.data })
+       {this.setState({events:res.data});console.log(res.data)}
       )
       .catch(err => console.log(err));
     };
@@ -34,26 +34,28 @@ class Events extends Component {
                       
                   </Jumbotron>
   
-<Row>
-<Col size="md-12">
 <List>
-{this.state.events.map(event => (
 
-    <ListItem key={event._id} >
-        <Card>
-        <CardHeading title={event.title} />
-      <CardBody description={event.description} date={event.date}/>
-      <CardBtn
-        // onClick={this.handleBtnClick}
-      >
-Save      
-</CardBtn>
-  </Card>
-    </ListItem>))}
-    </List>
-    </Col>
-    </Row>
-  
+{this.state.events.map(event => (
+  <ListItem key={event._id}      >
+<Row>
+<Col size="md-12">   
+        <div className="card">
+
+          <div className="card-body">
+          <h4 >{event.title}</h4>
+          <h5>{event.user_id}</h5>
+          <p>{event.description}</p>
+          </div>
+          </div>
+
+          </Col>
+</Row>
+
+</ListItem>))}
+</List>
+
+
         </div>
       );
     }
