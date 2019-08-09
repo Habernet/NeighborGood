@@ -16,6 +16,9 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
+// Bodyparser
+app.use(express.urlencoded({ extended: false }));
+
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/neighborgood",
