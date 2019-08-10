@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./pages/Main";
-import Users from "./pages/Users";
-import Classifieds from "./pages/Classifieds";
-import Events from "./pages/Events";
+import Users from "./pages/users";
+import Classifieds from "./pages/classifieds";
+import Events from "./pages/events";
 import NoMatch from "./pages/NoMatch";
 
 import "./App.css";
