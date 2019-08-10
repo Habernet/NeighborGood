@@ -7,8 +7,16 @@ export default {
   },
   
   getClassifieds: function() {
-    return axios.get("/api/events");
+    return axios.get("/api/classifieds");
+  },  
+  getUser: function(user) {
+    return axios.get("/api/users/"+user);
+  },
+  getUsers: function() {
+    return axios.get("/api/users");
   }
+
+
 
 //   // Gets the book with the given id
 //   getBook: function(id) {

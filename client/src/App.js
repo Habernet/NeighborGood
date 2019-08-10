@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./pages/Main";
-import users from "./pages/users";
-import classifieds from "./pages/classifieds";
-import events from "./pages/events";
+import Users from "./pages/Users";
+import Classifieds from "./pages/Classifieds";
+import Events from "./pages/Events";
 import NoMatch from "./pages/NoMatch";
 
 import "./App.css";
@@ -14,9 +14,9 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={Main} />
-        <Route exact path="/users" component={users} />
-        <Route exact path="/classifieds" component={classifieds} />
-        <Route exact path="/events" component={events} />
+        <Route exact path="/users" component={Users} />
+        <Route exact path="/classifieds" component={Classifieds} />
+        <Route exact path="/events" component={Events} />
         <Route component={NoMatch} />
       </Switch>
     </Router>
