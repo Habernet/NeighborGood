@@ -8,6 +8,10 @@ export default {
   
   getClassifieds: function() {
     return axios.get("/api/events");
+  },
+
+  getUsers: function() {
+    return axios.get("/api/users");
   }
 
 //   // Gets the book with the given id
