@@ -31,6 +31,27 @@ const Navbar = props =>
           
         </Link>
       </li>
+      <li class="nav-item">
+              <a class="nav-link" href="/events" ><i class="fa fa-calendar" aria-hidden="true"></i>Events</a>
+              <Link to="/" className={window.location.pathname === "Events" ? "nav-link active" : "nav-link"}>
+          
+        </Link>
+      </li>
+      <li class="nav-item">
+              <a class="nav-link" href="/classifieds" ><i class="fa fa-newspaper-o" aria-hidden="true"></i>Classifieds</a>
+              <Link to="/" className={window.location.pathname === "Classifieds" ? "nav-link active" : "nav-link"}>
+          
+        </Link>
+      </li>
+
+      <li class="nav-item">
+              <a class="nav-link" href="/users" ><i class="fa fa-users" aria-hidden="true"></i>Users</a>
+              <Link to="/" className={window.location.pathname === "Users" ? "nav-link active" : "nav-link"}>
+          
+        </Link>
+      </li>
+
+
             
 
           </ul>
