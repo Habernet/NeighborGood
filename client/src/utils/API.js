@@ -7,7 +7,7 @@ export default {
   },
   
   getClassifieds: function() {
-    return axios.get("/api/events");
+    return axios.get("/api/classifieds");
   },
 
   getUsers: function() {
