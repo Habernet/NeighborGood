@@ -6,9 +6,9 @@ import About from "./components/About/about";
 import Footer from "./components/Footer/footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./pages/Main";
-import Users from "./pages/users";
-import Classifieds from "./pages/classifieds";
-import Events from "./pages/events";
+import Users from "./pages/Users";
+import Classifieds from "./pages/Classifieds";
+import Events from "./pages/Events";
 import NoMatch from "./pages/NoMatch";
 
 import './App.css';
