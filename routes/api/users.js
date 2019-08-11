@@ -10,7 +10,9 @@ router
   .post(usersController.create);
 
   router.route("/:username")
-  .get(usersController.findOne);
+  .get(usersController.findOne)
+  .put(usersController.update);
+  
 // Matches with "/api/users/:id"
 router
   .route("/:id")

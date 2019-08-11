@@ -14,6 +14,10 @@ export default {
   },
   getUsers: function() {
     return axios.get("/api/users");
+  },
+  updateUserEvent: function(user, savedEvents){
+    return axios.put("/api/users/"+user, savedEvents);
+
   }
 
 

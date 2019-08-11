@@ -13,11 +13,12 @@ import Button from "../components/Button"
 class Events extends Component {
     state = {
       events: [],
-    username:"Abhi"    };
+    username:"Abhi",
+    savedEvents:[],
+    isEnabled:true
+     };
 
 
-    
-  
     componentDidMount() {
       this.loadEvents();
     };
@@ -31,9 +32,10 @@ class Events extends Component {
       .catch(err => console.log(err));
     };
     handleClick = (id,name,title,description) => {
-      API.getUser(name)
-      .then(res=>{(res.data.savedEvents.push({id,title,description}));(console.log(res.data.savedEvents))});
-          }
+      API.updateUserEvent(this.state.username,{"$push":{"savedEvents":{id,title,description}}})
+      .then(res=>{this.setState({savedEvents:res.data.savedEvents})}
+          )
+        }
   
     render() {
       return (
@@ -43,13 +45,14 @@ class Events extends Component {
                       
                   </Jumbotron>
   <Row>
-    <Col size="md-6"><List >
+    <Col size="md-6">
+    <List >
 
 {this.state.events.map(event => (
   <ListItem key={event._id}      >
 <Row>
 <Col size="md-12">   
-        <div className="card" style={ {width:'60%'}
+        <div className="card" style={ {width:'80%'}
   }>
 
           <div className="card-body">
@@ -59,7 +62,9 @@ class Events extends Component {
         
           </div>
           <Button
+          ref="btn"
           id={event._id}
+          disabled={false}
           onClick={
             () => { {this.handleClick(event._id,event.user_id,event.title,event.description)}}}>Save to my events</Button>
 
@@ -74,14 +79,36 @@ class Events extends Component {
 </List>
 </Col>
 <Col size="md-6">
+<List >
 
+{this.state.savedEvents.map(savedEvent => (
+  <ListItem   >
+<Row>
+<Col size="md-12">   
+        <div className="card" style={ {width:'80%'}
+  }>
+
+          <div className="card-body">
+          <h4 >{savedEvent.title}</h4>
+          <h5>{savedEvent.user_id}</h5>
+          <p>{savedEvent.description}</p>
+        
+          </div>
+                      </div>
+
+
+
+          </Col>
+</Row>
+
+</ListItem>))}
+</List>
 </Col>
 </Row>
-        </div>
-      );
+</div>
+ );
     };
   
   }
-  
   export default Events;
   
