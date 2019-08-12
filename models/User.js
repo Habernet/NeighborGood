@@ -20,26 +20,10 @@ const UserSchema = new Schema({
       // TODO: use regex to make a more impactful password requirement or replace this with passport auth
     ]
   },
-  address: {
-    type: String,
-    trim: true
-  },
   email: {
     type: String,
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
-  },
-  phoneNumber: {
-    type: String
-  },
-  name: {
-    type: String
-  },
-  age: {
-    type: Number
-  },
-  gender: {
-    type: String
   },
   createdEvents: [],
   savedEvents: [],
