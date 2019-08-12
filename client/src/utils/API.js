@@ -18,7 +18,11 @@ export default {
   updateUserEvent: function(user, savedEvents){
     return axios.put("/api/users/"+user, savedEvents);
 
+  },
+  getLocalEvents: function() {
+    return axios.get("https://www.eventbriteapi.com/v3/events/search/?sort_by=-date&location.address=apex&location.within=10mi&start_date.range_end=2019-12-31T13%3A30%3A57Z&include_all_series_instances=on&token=45R2QWVW4HNS3IKSFGIK");
   }
+
 
 
 

@@ -7,7 +7,9 @@ import {Row,Col} from "../components/Grid";
 import Card  from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
-import Button from "../components/Button"
+import Button from "../components/Button";
+import Tabs from "../components/Tabs"
+
  
  
 class Events extends Component {
@@ -15,12 +17,17 @@ class Events extends Component {
       events: [],
     username:"Abhi",
     savedEvents:[],
+    localEvents:[],
     isEnabled:true
      };
 
 
     componentDidMount() {
       this.loadEvents();
+      API.getLocalEvents()
+      .then(res => {this.setState({ localEvents: res.data.events });console.log(this.state.localEvents)})
+      .catch(err => console.log(err));
+
     };
     
     loadEvents = () => {
@@ -44,7 +51,7 @@ class Events extends Component {
   <h4>Events in your neighborhood</h4>
                       
                   </Jumbotron>
-  <Row>
+  {/* <Row>
     <Col size="md-6">
     <List >
 
@@ -104,8 +111,96 @@ class Events extends Component {
 </ListItem>))}
 </List>
 </Col>
+</Row> */}
+
+<Tabs>
+Events posted by neighbors  
+<List >
+
+{this.state.events.map(event => (
+  <ListItem key={event._id}      >
+<Row>
+<Col size="md-12">   
+        <div className="card" style={ {width:'80%'}
+  }>
+
+          <div className="card-body">
+          <h4 >{event.title}</h4>
+          <h5>{event.user_id}</h5>
+          <p>{event.description}</p>
+        
+          </div>
+          <Button
+          ref="btn"
+          id={event._id}
+          disabled={false}
+          onClick={
+            () => { {this.handleClick(event._id,event.user_id,event.title,event.description)}}}>Save to my events</Button>
+
+                      </div>
+
+
+
+          </Col>
 </Row>
-</div>
+
+</ListItem>))}
+</List>
+
+My events    
+<List >
+
+{this.state.savedEvents.map(savedEvent => (
+  <ListItem   >
+<Row>
+<Col size="md-12">   
+        <div className="card" style={ {width:'80%'}
+  }>
+
+          <div className="card-body">
+          <h4 >{savedEvent.title}</h4>
+          <h5>{savedEvent.user_id}</h5>
+          <p>{savedEvent.description}</p>
+        
+          </div>
+                      </div>
+
+
+
+          </Col>
+</Row>
+
+</ListItem>))}
+</List>
+
+Local Events         
+<List >
+
+{this.state.localEvents.map(localEvent => (
+  <ListItem   >
+<Row>
+<Col size="md-12">   
+        <div className="card" style={ {width:'80%'}
+  }>
+
+          <div className="card-body">
+          <h4 >{localEvent.name.text}</h4>
+          <p>{localEvent.description.text}</p>
+          <a href={localEvent.url}>{localEvent.name.text}</a>
+        
+          </div>
+                      </div>
+
+
+
+          </Col>
+</Row>
+
+</ListItem>))}
+</List>
+
+        </Tabs>
+        </div>
  );
     };
   
