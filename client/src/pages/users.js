@@ -45,12 +45,12 @@ class Users extends Component {
 <Card>          <div className="card-body">
           <h4 >{users.username}</h4>
           <h5>{users.password}</h5>
-          <h5>{users.address}</h5>
+          <h5>{users.address || "No Address on File"}</h5>
           <h5>{users.email}</h5>
-          <h5>{users.phonenumber}</h5>
-          <h5>{users.name}</h5>
-          <p>{users.age}</p>
-          <p>{users.gender}</p>
+          <h5>{users.phonenumber || "No Phone Number on File"}</h5>
+          <h5>{users.name || "No Name on File"}</h5>
+          <p>{users.age || "No Age on File"}</p>
+          <p>{users.gender || "No Gender on File"}</p>
           </div>
           </Card>
 

@@ -13,9 +13,7 @@ import API from "../utils/API";
 function Main(){
    return( 
     <div>
-      
-<Navbar />
-      <Home backgroundImage="./images/nbrhood.jpg">
+<Home backgroundImage="./images/nbrhood.jpg">
   <h1>NeighborGood</h1>
   <h2>Community.Exchanges.Privacy</h2>
 </Home>
