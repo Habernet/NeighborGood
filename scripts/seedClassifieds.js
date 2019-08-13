@@ -13,26 +13,32 @@ const classifieds = [
     user_id: "Abhi",
     title: "Ferarri",
     description: "Enzo for sale, 10k miles.",
-    price: 1000000
+    price: 1000000,
+    email:"abhinayaa1787@gmail.com"
   },
   {
     user_id: "Patrick",
     title: "Lawn Mower",
     description: "Honda LawnMower for sale...has no power to wheels.",
-    price: 100
+    price: 100,
+    email: "phaberern@gmail.com"
+
   },
   {
     user_id: "DJ Fill",
     title: "Strobe lights",
     description:
       "Strobe lights for sale, they have seen heavy use. Price is per light.",
-    price: 20
+    price: 20,
+    email:"djphil@example.com"
   },
   {
     user_id: "Tim",
     title: ".00005 Bitcoin",
     description: "Info stored on a flash drive.",
-    price: 1000000000
+    price: 1000000000,
+    email: "TimG@example.com"
+
   }
 ];
 
