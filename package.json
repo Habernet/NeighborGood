@@ -31,10 +31,12 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
+    "leaflet": "^1.5.1",
     "mongoose": "^5.6.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-event-calendar": "^0.3.0",
+    "react-leaflet": "^2.4.0",
     "react-moment": "^0.9.2",
     "redux": "^4.0.4",
     "video-react": "^0.14.1"

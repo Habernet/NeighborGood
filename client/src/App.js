@@ -5,6 +5,7 @@ import Main from "./pages/Main";
 import Users from "./pages/users";
 import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
+import LeafletMap from "./pages/Map";
 import NoMatch from "./pages/NoMatch";
 
 import "./App.css";
@@ -17,6 +18,8 @@ function App() {
         <Route exact path="/users" component={Users} />
         <Route exact path="/classifieds" component={Classifieds} />
         <Route exact path="/events" component={Events} />
+        <Route exact path="/map" component={LeafletMap} />
+
         <Route component={NoMatch} />
       </Switch>
     </Router>
