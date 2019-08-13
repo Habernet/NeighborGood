@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, {Component}from "react";
 import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 import About from "../components/About/about";
 import Footer from "../components/Footer/footer";
 import {Row,Col} from "../components/Grid";
-import {Card, CardBtn, CardBody,CardContainer,CardHeading,CardImg,CardTitle,CardTitleText}  from "../components/Card";
+import Card  from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
@@ -42,9 +42,7 @@ class Users extends Component {
   <ListItem key={users._id}      >
 <Row>
 <Col size="md-12">   
-        <div className="card">
-
-          <div className="card-body">
+<Card>          <div className="card-body">
           <h4 >{users.username}</h4>
           <h5>{users.password}</h5>
           <h5>{users.address || "No Address on File"}</h5>
@@ -54,7 +52,7 @@ class Users extends Component {
           <p>{users.age || "No Age on File"}</p>
           <p>{users.gender || "No Gender on File"}</p>
           </div>
-          </div>
+          </Card>
 
           </Col>
 </Row>

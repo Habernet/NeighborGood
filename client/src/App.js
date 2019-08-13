@@ -13,9 +13,9 @@ import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
 import NoMatch from "./pages/NoMatch";
 import registerUser from "./pages/register";
-
+​
 class App extends Component {
-
+​
   state = {  
     userState: {
       password: "",
@@ -24,12 +24,12 @@ class App extends Component {
       username: ""
     }
   };
-
+​
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
-
+​
     if (name === "password") {
       value = value.substring(0, 15);
     }
@@ -42,7 +42,7 @@ class App extends Component {
       }}
     });
   };
-
+​
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
@@ -66,7 +66,7 @@ class App extends Component {
       }
     });
   };
-
+​
   render() { 
     return (
     <div>
@@ -82,7 +82,7 @@ class App extends Component {
         <Route component={NoMatch} />
       </Switch>
       </Router>
-
+​
     
     <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
     <Jumbotron />
@@ -92,5 +92,6 @@ class App extends Component {
     )
   };
 };
-
+​
 export default App;
+
