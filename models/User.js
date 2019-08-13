@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-  // bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
   username: {
@@ -33,22 +33,6 @@ const UserSchema = new Schema({
     default: Date.now
   }
 });
-
-// bcrypt.genSalt(10, (err, salt) =>
-//   bcrypt.hash(userSchema.password, salt, (err, hash) => {
-//     if(err) throw err;
-//     // Set password to hashed
-//     userSchema.password = hash;
-//     // Save user
-//     userSchema.save()
-//       .then(user => {
-//         // req.flash("success_msg", "You have successfully registered. Please log in.");
-//         res.redirect("/users/login");
-//       })
-//       .catch(err => console.log(err));
-//   }))
-
-// console.log("User.js = " + user)
 
 const User = mongoose.model("User", UserSchema);
 
