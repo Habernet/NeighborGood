@@ -29,7 +29,13 @@ const ClassifiedSchema = new Schema({
   price: {
     type: Number,
     trim: true
+  },
+  email: {
+    type: String,
+    unique: true,
+    match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   }
+
 });
 
 const Classified = mongoose.model("Classified", ClassifiedSchema);

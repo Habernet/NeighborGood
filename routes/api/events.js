@@ -2,12 +2,12 @@ const axios = require("axios");
 const router = require("express").Router();
 const eventsController = require("../../controllers/eventsController");
 
-// Matches with "/api/books"
+// Matches with "/api/events"
 router.route("/")
   .get(eventsController.findAll)
   .post(eventsController.create);
 
-// Matches with "/api/books/:id"
+// Matches with "/api/events/:id"
 router
   .route("/:id")
   .get(eventsController.findById)
