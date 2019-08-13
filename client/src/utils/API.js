@@ -8,12 +8,9 @@ export default {
   
   getClassifieds: function() {
     return axios.get("/api/classifieds");
-<<<<<<< HEAD
-=======
   },  
   getUser: function(user) {
     return axios.get("/api/users/"+user);
->>>>>>> bcb32982a7435622ab8f1ce8396fb5793c8c3aa6
   },
   getUsers: function() {
     return axios.get("/api/users");
