@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, {Component}from "react";
 import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 import About from "../components/About/about";
 import Footer from "../components/Footer/footer";
 import {Row,Col} from "../components/Grid";
-import {Card, CardBtn, CardBody,CardContainer,CardHeading,CardImg,CardTitle,CardTitleText}  from "../components/Card";
+import Card  from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
