@@ -5,14 +5,21 @@ import Jumbotron from "../components/Jumbotron/jumbotron";
 // import Footer from "../components/Footer/footer";
 import {Row,Col} from "../components/Grid";
 import Card from "../components/Card";
+import Button from "../components/Button";
+
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
 
-class Events extends Component {
+class Classifieds extends Component {
     state = {
       classifieds: []
     };
+
+    handleClick=(email)=>{
+      window.location.href = `mailto:${email}`;
+
+    }
   
     componentDidMount() {
       this.loadClassifieds();
@@ -46,6 +53,10 @@ class Events extends Component {
           <h5>{classified.user_id}</h5>
           <h5>{classified.price}</h5>
           <p>{classified.description}</p>
+          <Button
+          onClick={ () => this.handleClick(classified.email) }>
+            Contact Seller!!
+          </Button>
           </div>
           </Card>
 
@@ -62,5 +73,5 @@ class Events extends Component {
   
   }
   
-  export default Events;
+  export default Classifieds;
   
