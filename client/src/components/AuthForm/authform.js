@@ -4,7 +4,7 @@ function AuthForm(props) {
   
     return ( 
       <form className="form">
-      <input
+      {/* <input
         value={props.userState.firstName}
         name="firstName"
         onChange={props.inputChange}
@@ -17,7 +17,7 @@ function AuthForm(props) {
         onChange={props.inputChange}
         type="text"
         placeholder="Last Name"
-      />
+      /> */}
       <input
         value={props.userState.password}
         name="password"
@@ -46,7 +46,7 @@ function AuthForm(props) {
         type="text"
         placeholder="Username"
       />
-      <input
+      {/* <input
         value={props.userState.address}
         name="address"
         onChange={props.inputChange}
@@ -73,7 +73,7 @@ function AuthForm(props) {
         onChange={props.inputChange}
         type="text"
         placeholder="Gender"
-      />
+      /> */}
       <button onClick={props.formSubmit}>Submit</button>
     </form>
      );

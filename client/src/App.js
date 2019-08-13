@@ -12,16 +12,10 @@ class App extends Component {
 
   state = {  
     userState: {
-      firstName: "",
-      lastName: "",
       password: "",
       password2: "",
       email: "",
-      username: "",
-      address: "",
-      phoneNumber: "",
-      age: "",
-      gender: ""
+      username: ""
     }
   };
 
@@ -44,56 +38,51 @@ class App extends Component {
     });
   };
 
-   handleFormSubmit = event => {
+  handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
     let user = {
-      firstName: this.state.userState.firstName,
-      lastName: this.state.userState.lastName,
       password: this.state.userState.password,
       email: this.state.userState.email,
-      username: this.state.userState.username,
-      address: this.state.userState.address,
-      phoneNumber: this.state.userState.phoneNumber,
-      age: this.state.userState.age,
-      gender: this.state.userState.gender}
+      username: this.state.userState.username
     // if (this.state.userState...)
+    };
     API.saveUser(
       user
     ).then(console.log)
-
     this.setState({
       userState: {
-        firstName: "",
-        lastName: "",
         password: "",
         password2: "",
         email: "",
-        username: "",
-        address: "",
-        phoneNumber: "",
-        age: "",
-        gender: ""
+        username: ""
       }
     });
   };
 
   render() { 
     return (
-  
-      <Router>
-        <div>
+    <div>
     <Navbar />
+  
+        <Router>
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/users" component={Users} />
+          <Route exact path="/classifieds" component={Classifieds} />
+          <Route exact path="/events" component={Events} />
+          <Route component={NoMatch} />
+        </Switch>
+        </Router>
 
-    </div>
+    
     <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
     <Jumbotron />
     <About />
     <Footer />
-      </Router>
-  
-    );
-  }
-}
- 
+    </div>
+    )
+  };
+};
+
 export default App;

@@ -3,6 +3,7 @@ import React from "react";
 function About() {
   return (
     <div className="flex-container">
+    
        
       <div>Here is the high level version of my idea.
 
@@ -12,8 +13,14 @@ Each user can comment on other posts in Block Parties and HOA meetings (other ev
 There is room for expansion and integration of other ideas here.
 And the idea is that in the real world your neighborhood would register on the site.
 
+<section>
+<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Find your neighborhood!</a>
+
+</section>
+
 </div>
     </div>
+    
   );
 }
 
