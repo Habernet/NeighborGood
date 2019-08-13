@@ -30,6 +30,7 @@ const users = [
     gender: "male"
   },
   {
+    
     username: "Timbo",
     password: "encrypted",
     address: "500 I'm really ritch lane",
