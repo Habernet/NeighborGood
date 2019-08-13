@@ -16,7 +16,7 @@ module.exports = {
     console.log(req.body);
     db.User.create(req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(422).json(err + "Ya frikkin ijit"));
   },
   update: function(req, res) {
     db.User.findOneAndUpdate({ _id: req.params.id }, req.body)

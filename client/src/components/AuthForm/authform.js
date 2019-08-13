@@ -19,6 +19,20 @@ function AuthForm(props) {
         placeholder="Last Name"
       /> */}
       <input
+        value={props.userState.username}
+        name="username"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Username"
+      />
+      <input
+        value={props.userState.email}
+        name="email"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Email"
+      />
+      <input
         value={props.userState.password}
         name="password"
         onChange={props.inputChange}
@@ -31,20 +45,6 @@ function AuthForm(props) {
         onChange={props.inputChange}
         type="password"
         placeholder="Verify Password"
-      />
-      <input
-        value={props.userState.email}
-        name="email"
-        onChange={props.inputChange}
-        type="text"
-        placeholder="Email"
-      />
-      <input
-        value={props.userState.username}
-        name="username"
-        onChange={props.inputChange}
-        type="text"
-        placeholder="Username"
       />
       {/* <input
         value={props.userState.address}
