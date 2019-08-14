@@ -4,10 +4,37 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const flash = require("connect-flash");
+const session = require('express-session');
+const passport = require('./passport');
+const morgan = require('morgan');
+
+
 
 // Define middleware here
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({
+  secret: "secret",
+  resave: true,
+  saveUninitialized: true
+}));
+
+// Flash
+app.use(flash());
+
+// Global Vars
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+});
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session()); // will call the deserializeUser
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -15,6 +42,9 @@ if (process.env.NODE_ENV === "production") {
 
 // Add routes, both API and view
 app.use(routes);
+
+// Bodyparser
+app.use(express.urlencoded({ extended: false }));
 
 // Connect to the Mongo DB
 mongoose.connect(
