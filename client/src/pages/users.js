@@ -8,6 +8,10 @@ import Card  from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
+// import MapLeaflet from "./pages/Map";
+import { Link } from "react-router-dom";
+
+
 
 class Users extends Component {
     state = {
@@ -76,6 +80,12 @@ class Users extends Component {
           <li>Events</li>
         </ul>
         </div>
+        <li class="nav-item">
+              <a class="nav-link" href="/map" >Map</a>
+              <Link to="/" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}>
+          
+        </Link>
+      </li>
       </div>
     <div class='biocolumn'>
       <div class='eventscolumn'>
