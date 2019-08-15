@@ -5,13 +5,12 @@ import {Card, CardBtn, CardBody,CardContainer,CardHeading,CardImg,CardTitle,Card
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
-import RegisterForm from '../components/RegisterForm/registerform';
+import LoginForm from '../components/LoginForm/LoginForm';
 
-function registerUser(props) {
-  // console.log(props);
+function loginUser() {
   return ( 
-    <RegisterForm {...props}/>
+    <LoginForm />
   );
 }
  
-export default registerUser;
+export default loginUser;

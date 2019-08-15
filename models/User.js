@@ -34,6 +34,31 @@ const UserSchema = new Schema({
   }
 });
 
+// UserSchema.pre("save", (next) => {
+//   var user = this;
+//   console.log("got to pre");
+//   bcrypt.genSalt(10, (err, salt) => {
+//     bcrypt.hash(user.password, salt, (err, hash) => {
+//     if(err) throw err;
+//     user.password = hash;
+//     next();
+//     });
+//   });
+// });
+
+  //   // Set password to hashed
+  //   UserSchema.password = hash;
+  //   // Save user
+  //   UserSchema.save()
+  //     .then(user => {
+  //       // req.flash("success_msg", "You have successfully registered. Please log in.");
+  //       res.redirect("/users/login");
+  //     })
+  //     .catch(err => console.log(err));
+  // }))
+
+// console.log("User.js = " + user)
+
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;

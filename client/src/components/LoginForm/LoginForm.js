@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AuthForm(props) {
+function LoginForm(props) {
   
     return ( 
       <form className="form">
@@ -17,14 +17,14 @@ function AuthForm(props) {
         onChange={props.inputChange}
         type="text"
         placeholder="Last Name"
-      /> */}
+      /> 
       <input
         value={props.userState.username}
         name="username"
         onChange={props.inputChange}
         type="text"
         placeholder="Username"
-      />
+      />*/}
       <input
         value={props.userState.email}
         name="email"
@@ -39,13 +39,13 @@ function AuthForm(props) {
         type="password"
         placeholder="Password"
       />
-      <input
+      {/* <input
         value={props.userState.password2}
         name="password2"
         onChange={props.inputChange}
         type="password"
         placeholder="Verify Password"
-      />
+      /> */}
       {/* <input
         value={props.userState.address}
         name="address"
@@ -74,10 +74,10 @@ function AuthForm(props) {
         type="text"
         placeholder="Gender"
       /> */}
-      <button onClick={props.formSubmit}>Submit</button>
+      <button onClick={props.handleLogin}>Submit</button>
     </form>
      );
   }
 
  
-export default AuthForm;
+export default LoginForm;
