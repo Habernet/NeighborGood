@@ -7,9 +7,9 @@ import API from "../utils/API";
 import axios from "axios";
 import LoginForm from '../components/LoginForm/LoginForm';
 
-function loginUser() {
+function loginUser(props) {
   return ( 
-    <LoginForm />
+    <LoginForm {...props}/>
   );
 }
  

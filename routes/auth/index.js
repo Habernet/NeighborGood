@@ -13,7 +13,9 @@ router.post(
   usersController.authenticate
 );
 // hit this route with  a post request to logout a user
-router.post("/logout", passport.authenticate("local"), usersController.logout);
+router.post("/logout", 
+  // passport.authenticate("local"), 
+  usersController.logout);
 // hit this route with a post request to register a user
 router.post("/register", usersController.register);
 

@@ -6,6 +6,7 @@ import About from "./components/About/about";
 import Footer from "./components/Footer/footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
+import AUTH from "./utils/AUTH";
 import Main from "./pages/Main";
 import Users from "./pages/users";
 import Classifieds from "./pages/classifieds";
@@ -58,7 +59,7 @@ class App extends Component {
       username: this.state.userState.username
       // if (this.state.userState...)
     }
-    API.saveUser(
+    AUTH.register(
       user
     ).then(console.log)
     this.setState({
