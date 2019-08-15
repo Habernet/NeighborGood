@@ -49,38 +49,38 @@ module.exports = {
   },
   register: (req, res) => {
     console.log("Req body:", req.body);
-    // db.User.findOne({ email: req.body.email })
-    //   .then(resp => {
-    //     console.log(`Finding email: ${resp}`);
-    //     if (resp === null) {
-    //       console.log("New user");
-    //       db.User.create(req.body)
-    //         .then(resp => {
-    //           console.log("User saved: " + resp);
-    //           let cleanUser = resp;
-    //           cleanUser.password = "";
-    //           res.json({ message: "User saved!", user: cleanUser });
-    //         })
-    //         .catch(err => {
-    //           console.log("Error saving user " + err);
-    //           res.json({ error: `Error saving user: ${err}` });
-    //         });
-    //     } else if (resp.email) {
-    //       // User matched...
-    //       res.json({
-    //         error: `Sorry, there is already a user with the email: ${
-    //           resp.email
-    //         }`
-    //       });
-    //     } else {
-    //       console.log("Something reallly odd happened.");
-    //       res.json({ message: "Super weird error" });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     res.json(err);
-    //   });
+    db.User.findOne({ email: req.body.email })
+      .then(resp => {
+        console.log(`Finding email: ${resp}`);
+        if (resp === null) {
+          console.log("New user");
+          db.User.create(req.body)
+            .then(resp => {
+              console.log("User saved: " + resp);
+              let cleanUser = resp;
+              cleanUser.password = "";
+              res.json({ message: "User saved!", user: cleanUser });
+            })
+            .catch(err => {
+              console.log("Error saving user " + err);
+              res.json({ error: `Error saving user: ${err}` });
+            });
+        } else if (resp.email) {
+          // User matched...
+          res.json({
+            error: `Sorry, there is already a user with the email: ${
+              resp.email
+            }`
+          });
+        } else {
+          console.log("Something reallly odd happened.");
+          res.json({ message: "Super weird error" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.json(err);
+      });
   },
   logout: (req, res) => {
     console.log("LOGOUT");
