@@ -13,7 +13,10 @@ import API from "../utils/API";
 function Main(){
    return( 
     <div>
-       <Navbar/>
+<Home backgroundImage="./images/nbrhood.jpg">
+  <h1>NeighborGood</h1>
+  <h2>Community.Exchanges.Privacy</h2>
+</Home>
 
      <Jumbotron>
      <div className="jumbotron">
@@ -31,12 +34,6 @@ function Main(){
     </div>
     </div>
 </Jumbotron>
-<Navbar />
-
-<Home backgroundImage="./images/nbrhood.jpg">
-  <h1>NeighborGood</h1>
-  <h2>Come check out our events!</h2>
-</Home>
 
 
 <About/>

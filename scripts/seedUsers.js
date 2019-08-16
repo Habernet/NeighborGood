@@ -15,7 +15,7 @@ const users = [
     address: "404 Not Found lane",
     email: "djphil@example.com",
     phonenumber: 8675309,
-    name: "Phillip",
+    name: "Philip",
     age: 75,
     gender: "male"
   },
@@ -30,6 +30,7 @@ const users = [
     gender: "male"
   },
   {
+    
     username: "Timbo",
     password: "encrypted",
     address: "500 I'm really ritch lane",

@@ -1,0 +1,22 @@
+.button{
+    float:right;
+    margin-right:15px;
+    padding:5px;
+    background-color:rgb(130, 200, 228);
+    border-radius:5px;
+    font-size:1.2em;
+
+
+
+}
+.button a:link{
+    text-decoration:none; 
+    background-color:rgb(130, 200, 228);
+
+    /* color:white; */
+}
+
+.button a:visited{
+    /* text-decoration:none;  */
+    color:black;
+}
