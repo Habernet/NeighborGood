@@ -12,17 +12,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
 
-
-
-
-
 class Users extends Component {
-
   state = {
     users: []
     // ,
     // isShowing: false
-
   };
 
   componentDidMount() {
@@ -31,21 +25,23 @@ class Users extends Component {
 
   loadUsers = () => {
     API.getUsers()
-      .then(res => { this.setState({ users: res.data }); console.log(res.data) }
-      )
+      .then(res => {
+        this.setState({ users: res.data });
+        console.log(res.data);
+      })
       .catch(err => console.log(err));
   };
   openModalHandler = () => {
     this.setState({
-        isShowing: true
+      isShowing: true
     });
-}
+  };
 
-closeModalHandler = () => {
+  closeModalHandler = () => {
     this.setState({
-        isShowing: false
+      isShowing: false
     });
-}
+  };
 
   render() {
     return (
@@ -109,11 +105,11 @@ closeModalHandler = () => {
             </ListItem>))}
           </List>*/}
 
- <Row>
+        <Row>
           <div className="col-sm-3">
-            <div className="userfront" >
-              <h5>User Profile  </h5>
-              <img src="./images/tp.png" className="usi"></img>
+            <div className="userfront">
+              <h5>User Profile </h5>
+              <img src="./images/tp.png" className="usi" />
               <h5>Areas of Interest</h5>
               <ul>
                 <li>Yard Sales</li>
@@ -121,15 +117,14 @@ closeModalHandler = () => {
                 <li>A E-Commerce Marketplace near me</li>
                 <li>Events</li>
               </ul>
-              </div>
-              </div> 
-              </Row>
-              <Row>
-
-              <div className="navbar col-sm-12" >
-          <ul className="navbar-nav">
-            <li className="nav-item active">
-            {/* { this.state.isShowing ? <div onClick={this.closeModalHandler} ></div> : null }
+            </div>
+          </div>
+        </Row>
+        <Row>
+          <div className="navbar col-sm-12">
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                {/* { this.state.isShowing ? <div onClick={this.closeModalHandler} ></div> : null }
 
             <button className="open-modal-btn" onClick={this.openModalHandler}>Classifieds</button>
 
@@ -141,30 +136,42 @@ closeModalHandler = () => {
 All user classifieds
     </Modal> */}
 
-
-
-              {/* {/* <a className="nav-link" href="/classifieds"><i class="fa fa-newspaper"></i>Classifieds</a>
+                {/* {/* <a className="nav-link" href="/classifieds"><i class="fa fa-newspaper"></i>Classifieds</a>
               <Link to="/" className={window.location.pathname === "Classifieds" ? "nav-link active" : "nav-link"}> */}
-          
-        {/* </Link>  */}
-      </li>
-      <li className="nav-item active">
-              <a className="nav-link" href="/map"><i class="fa fa-map-marker-alt"></i>Map</a>
-              <Link to="/" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}>
-          
-        </Link>
-      </li>
 
-      <li className="nav-item active">
-              <a className="nav-link" href="/events"><i class="fa fa-calendar-alt"></i>Events</a>
-              <Link to="/" className={window.location.pathname === "Events" ? "nav-link active" : "nav-link"}>
-          
-        </Link>
-      </li>
-      </ul>
-      </div>
-      </Row>
-      {/* <div>
+                {/* </Link>  */}
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/map">
+                  <i class="fa fa-map-marker-alt" />Map
+                </a>
+                <Link
+                  to="/"
+                  className={
+                    window.location.pathname === "MapLeaflet"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
+                />
+              </li>
+
+              <li className="nav-item active">
+                <a className="nav-link" href="/events">
+                  <i class="fa fa-calendar-alt" />Events
+                </a>
+                <Link
+                  to="/"
+                  className={
+                    window.location.pathname === "Events"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
+                />
+              </li>
+            </ul>
+          </div>
+        </Row>
+        {/* <div>
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
 
@@ -176,11 +183,9 @@ All user classifieds
     </Modal>
             </div>
  */}
+      </div>
 
-     </div>
-
-
-            /* <li className="nav-item">
+      /* <li className="nav-item">
               <a className="nav-link" href="/map" >Map</a>
               <Link to="/" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}>
 
@@ -221,73 +226,65 @@ All user classifieds
               </div>
             </div>
           </div> */
-    )
-        }
-
+    );
+  }
 }
 
+//  <Row>
 
+//  <div className="col-sm-3">
+//         <div className="userfront">
+//         <h5>User Profile  </h5>
+//         <img src="./images/tp.png" className="usi"></img>
+//         <h5>Areas of Interest</h5>
+//         <ul>
+//           <li>Yard Sales</li>
+//           <li>Knick Nacks</li>
+//           <li>A E-Commerce Marketplace near me</li>
+//           <li>Events</li>
+//         </ul>
+//         </div>
+//       </div>
+//     <div class='biocolumn'>
+//       <div class='eventscolumn'>
+//        <h5>List of saved events</h5>
+//    <a class="nav-link" href="/events" ><i class="/" aria-hidden="true"></i>Events</a>
+//       </div>
+//     </div>
+//     <div class='biocolumn'>
+//       <div class='posteventscolumn'>
+//         <h5>Post an Event</h5>
+//     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+//         <button type="button" class="btn btn-warning">Submit</button>
+//       </div>
+//     </div>
+//   <div class='row'>
+//     <div class='biocolumn'>
+//       <div class='classcolumn'>
+//           <h5> Classifieds</h5>
+//     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+//         <button type="button" class="btn btn-warning">Submit</button>
+//       </div>
+//     </div>
+//     <div class='biocolumn'>
+//       <div class='posteventscolumn'>
+//         <p></p>
 
+//       </div>
+//     </div>
+//     <div class='biocolumn'>
+//       <div class='posteventscolumn'>
+//           <h5>Post a Listing</h5>
+//     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+//         <button type="button" class="btn btn-warning">Submit</button>
+//       </div>
+//     </div>
+//   </div>
+// </Row>
+// <Footer/>
+// </div>  );
+//     }
 
+//   }
 
- <Row>
-    
- <div className="col-sm-3">
-        <div className="userfront">
-        <h5>User Profile  </h5>
-        <img src="./images/tp.png" className="usi"></img>
-        <h5>Areas of Interest</h5>
-        <ul>
-          <li>Yard Sales</li>
-          <li>Knick Nacks</li>
-          <li>A E-Commerce Marketplace near me</li>
-          <li>Events</li>
-        </ul>
-        </div>
-      </div>
-    <div class='biocolumn'>
-      <div class='eventscolumn'>
-       <h5>List of saved events</h5>
-   <a class="nav-link" href="/events" ><i class="/" aria-hidden="true"></i>Events</a>
-      </div>
-    </div>
-    <div class='biocolumn'>
-      <div class='posteventscolumn'>
-        <h5>Post an Event</h5>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        <button type="button" class="btn btn-warning">Submit</button>
-      </div>
-    </div>
-  <div class='row'>
-    <div class='biocolumn'>
-      <div class='classcolumn'>
-          <h5> Classifieds</h5>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        <button type="button" class="btn btn-warning">Submit</button>
-      </div>
-    </div>
-    <div class='biocolumn'>
-      <div class='posteventscolumn'>
-        <p></p>
-     
-      </div>
-    </div>
-    <div class='biocolumn'>
-      <div class='posteventscolumn'>
-          <h5>Post a Listing</h5>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        <button type="button" class="btn btn-warning">Submit</button>
-      </div>
-    </div>
-  </div>
-</Row>
-<Footer/>
-</div>  );
-    }
-  
-  }
- 
-  
-  export default Users;
-  
-
+export default Users;
