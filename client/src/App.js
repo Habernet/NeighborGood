@@ -19,7 +19,7 @@ import axios from "axios";
 class App extends Component {
   state = {
     userState: {
-      isLoggedIn: true,
+      isLoggedIn: false,
       password: "",
       password2: "",
       email: "",
@@ -27,8 +27,34 @@ class App extends Component {
     }
   };
 
-  updateUser (userObject) {
-    this.setState(userObject)
+  componentDidMount() {
+		AUTH.getUser().then(response => {
+			if (response.data.user) {
+				this.setState({
+					userState: {
+            loggedIn: true,
+            username: response.data.user
+          }
+				});
+			} else {
+				this.setState({
+					loggedIn: false,
+					user: null
+				});
+			}
+		});
+	};
+
+  updateUser = res => {
+    console.log("updateUser response: ")
+    console.log(res);
+    this.setState({
+      userState: {
+        isLoggedIn: true,
+        email: res.email,
+        username: res.username
+      }
+    });
   };
 
   handleInputChange = event => {
@@ -61,14 +87,16 @@ class App extends Component {
     }
     AUTH.register(
       user
-    ).then(console.log)
-    this.setState({
-      userState: {
-        password: "",
-        password2: "",
-        email: "",
-        username: ""
-      }
+    ).then(res => {
+      console.log("this user was registered: ", res);
+      this.setState({
+        userState: {
+          email: res.data.user.email,
+          username: res.data.user.username,
+          password: "",
+          isLoggedIn: true
+        }
+      });
     });
   };
 
@@ -87,9 +115,10 @@ class App extends Component {
       console.log("login response: ");
       console.log(response);
       if (response.status === 200) {
-        this.props.updateUser({
-          loggedIn: true,
-          username: response.data.username
+        this.updateUser({
+          isLoggedIn: true,
+          username: response.data.user.username,
+          email: response.data.user.email
         })
         this.setState({
           redirectoTo: "/"
@@ -118,10 +147,20 @@ class App extends Component {
           {/* {!isLoggedIn && (
             <Switch> */}
               <Route exact path="/register" 
-                render={(routeProps) => (<RegisterUser {...routeProps} 
-                userState={this.state.userState} inputChange={this.handleInputChange} handleRegister={this.handleRegister}/> )} />
+                render={(routeProps) => (<RegisterUser 
+                {...routeProps} 
+                userState={this.state.userState} 
+                inputChange={this.handleInputChange} 
+                handleRegister={this.handleRegister}/> 
+                )} />
               <Route exact path="/login" 
-                render={(routeProps) => (<LoginUser {...routeProps} userState={this.state.userState} inputChange={this.handleInputChange} handleLogin={this.handleLogin} /> )} />
+                render={(routeProps) => (<LoginUser 
+                {...routeProps} 
+                userState={this.state.userState} 
+                inputChange={this.handleInputChange} 
+                updateUser={this.updateUser} 
+                handleLogin={this.handleLogin} /> 
+                )} />
               <Route component={NoMatch} />
             </Switch>
           {/* )} */}

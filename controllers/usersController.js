@@ -84,13 +84,13 @@ module.exports = {
   },
   logout: (req, res) => {
     console.log("LOGOUT");
-    // if (req.user) {
-    //   req.session.destroy();
-    //   res.clearCookie("connect.sid"); // clean up!
-    //   return res.json({ msg: "logging you out" });
-    // } else {
-    //   return res.json({ msg: "no user to log out!" });
-    // }
+    if (req.user) {
+      req.session.destroy();
+      res.clearCookie("connect.sid"); // clean up!
+      return res.json({ msg: "logging you out" });
+    } else {
+      return res.json({ msg: "no user to log out!" });
+    }
   },
   auth: function(req, res, next) {
     console.log("================");
@@ -98,15 +98,15 @@ module.exports = {
   },
   authenticate: (req, res) => {
     console.log("AUTHENTICATE");
-    //   const user = JSON.parse(JSON.stringify(req.user)); // hack
-    //   const cleanUser = Object.assign({}, user);
-    //   if (cleanUser) {
-    //     console.log(`Deleting ${cleanUser.password}`);
-    //     delete cleanUser.password;
-    //   }
-    //   res.json({ user: cleanUser });
-    // }
+    const user = JSON.parse(JSON.stringify(req.user)); // hack
+    const cleanUser = Object.assign({}, user);
+    if (cleanUser) {
+      console.log(`Deleting ${cleanUser.password}`);
+      delete cleanUser.password;
+    }
+    res.json({ user: cleanUser });
   }
+  // }
 };
 // const db = require("../models");
 

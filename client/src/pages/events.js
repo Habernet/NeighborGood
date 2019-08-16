@@ -182,7 +182,7 @@ Local Events
   }>
 
           <div className="card-body">
-          <h4 >{localEvent.name.text}</h4>
+          <h4>{localEvent.name.text}</h4>
           <p>{localEvent.description.text}</p>
           <p>{localEvent.start.local}</p>
 
