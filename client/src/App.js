@@ -14,6 +14,7 @@ import Events from "./pages/events";
 import MapLeaflet from "./pages/Map";
 import NoMatch from "./pages/NoMatch";
 import registerUser from "./pages/register";
+import ModalTest from "./pages/modaltest";
 
 class App extends Component {
   state = {
@@ -81,16 +82,18 @@ class App extends Component {
             <Route exact path="/classifieds" component={Classifieds} />
             <Route exact path="/events" component={Events} />
             <Route exact path="/map" component={MapLeaflet} />
+            <Route exact path="/modal" component={ModalTest} />
+
 
             <Route component={NoMatch} />
           </Switch>
         </Router>
 
 
-        <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
-        <Jumbotron />
-        <About />
-        <Footer />
+        {/* <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
+        <Jumbotron /> */}
+        {/* <About /> */}
+        {/* <Footer /> */}
       </div>
     )
   };

@@ -55,11 +55,23 @@ class Events extends Component {
       .catch(err => console.log(err));
     };
 
+
+    // this.setState((prevState, props) => ({
+    //   counter: prevState.counter + props.increment
+    // }));
+    
     handleClick = (host_name,title,description,date) => {
       API.updateUserEvent(this.state.username,{"$push":{"savedEvents":{host_name,title,description,date}}})
-      .then(res=>{this.setState({savedEvents:res.data.savedEvents})}
-          ).catch(err=>console.log(err))
-        }
+      .then(res=>{(
+        this.setState(prevState => ({
+          savedEvents: prevState.savedEvents
+      })
+        )
+      )}
+      )
+  }
+      
+        
   
     render() {
       return (
