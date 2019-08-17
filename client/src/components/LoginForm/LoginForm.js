@@ -26,14 +26,14 @@ function LoginForm(props) {
         placeholder="Username"
       />*/}
       <input
-        value={props.userState.email}
+        value={props.formState}
         name="email"
         onChange={props.inputChange}
         type="text"
         placeholder="Email"
       />
       <input
-        value={props.userState.password}
+        value={props.formState}
         name="password"
         onChange={props.inputChange}
         type="password"

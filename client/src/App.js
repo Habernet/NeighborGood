@@ -24,6 +24,11 @@ class App extends Component {
       password2: "",
       email: "",
       username: ""
+    },
+    formState: {
+      username: "",
+      email: "",
+      password: ""
     }
   };
 
@@ -66,10 +71,10 @@ class App extends Component {
       value = value.substring(0, 15);
     }
     // Updating the input's state
-    this.setState(prevState => {
+    this.setState( prevState => {
       return {
-        userState: {
-          ...prevState.userState,
+        formState: {
+          ...prevState.formState,
           [name]: value
         }
       }
@@ -103,8 +108,8 @@ class App extends Component {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
     let user = {
-      password: this.state.userState.password,
-      email: this.state.userState.email
+      password: this.state.formState.password,
+      email: this.state.formState.email
     }
     axios
       .post("/auth/login",
@@ -149,6 +154,7 @@ class App extends Component {
                 render={(routeProps) => (<RegisterUser 
                 {...routeProps} 
                 userState={this.state.userState} 
+                formState={this.state.formState}
                 inputChange={this.handleInputChange} 
                 handleRegister={this.handleRegister}/> 
                 )} />
@@ -156,6 +162,7 @@ class App extends Component {
                 render={(routeProps) => (<LoginUser 
                 {...routeProps} 
                 userState={this.state.userState} 
+                formstate={this.state.formState}
                 inputChange={this.handleInputChange} 
                 updateUser={this.updateUser} 
                 handleLogin={this.handleLogin} /> 

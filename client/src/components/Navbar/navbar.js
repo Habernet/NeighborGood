@@ -51,6 +51,11 @@ const Navbar = props =>
         </Link>
       </li>
 
+        <li class="nav-item">
+          <Link to="/Login" className={window.location.pathname === "Login" ? "nav-link active" : "nav-link"}>
+            <i class="fa fa-sign-in" area-hidden="true"></i>Login
+          </Link>
+        </li>
 
             
 
