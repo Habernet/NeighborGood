@@ -20,6 +20,12 @@ export default {
     return axios.get("/api/users");
   },
 
+  getUserAddrLatLong:function(address){
+    return axios.get("http://www.mapquestapi.com/geocoding/v1/address?key=dhqUSipT8jFl3NGid7eL6SwE8YhAcdY9&location="+address)
+  }
+  
+
+
 };
 
 // ABOVE IS AN EXAMPLE OF THE API HELPER
