@@ -79,10 +79,9 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
+    let {password, email, username} = this.state.userState;
     let user = {
-      password: this.state.userState.password,
-      email: this.state.userState.email,
-      username: this.state.userState.username
+      password, email, username
       // if (this.state.userState...)
     }
     AUTH.register(
