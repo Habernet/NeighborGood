@@ -5,21 +5,21 @@ const app = express();
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const flash = require("connect-flash");
-const session = require('express-session');
-const passport = require('./passport');
-const morgan = require('morgan');
-
-
+const session = require("express-session");
+const passport = require("./passport");
+const morgan = require("morgan");
 
 // Define middleware here
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({
-  secret: "secret",
-  resave: true,
-  saveUninitialized: true
-}));
+app.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
 // Flash
 app.use(flash());
@@ -54,7 +54,7 @@ mongoose.connect(
 
 // Send every other request to the React app
 // Define any API routes before this runs`
- app.get("*", function(req, res) {
+app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
