@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import RegisterForm from '../components/RegisterForm/registerform';
+import LoginForm from '../components/LoginForm/LoginForm';
 import { Row, Col } from "../components/Grid";
 
-function registerUser(props) {
-  // console.log(props);
+function LoginUser(props) {
   return ( 
     <Row>
       <div style={{"margin-right": "auto", "margin-left": "auto"}}>
 
       <Col size="md-12">
-
-      <RegisterForm {...props}/>
+        <LoginForm {...props}/>
       </Col>
       </div>
-      </Row>
+    </Row>
   );
 }
  
-export default registerUser;
+export default LoginUser;

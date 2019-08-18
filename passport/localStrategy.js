@@ -1,6 +1,6 @@
 const db = require('../models');
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 
 const strategy = new LocalStrategy(
 	{
@@ -10,7 +10,7 @@ const strategy = new LocalStrategy(
 		db.User.findOne({ 'email': username }, (err, user) => {
 			if (err) { return done(err); }
 			if (!user) { return done(null, false); }
-			if (!bcrypt.compareSync(password, user.password)) { return done(null, false); }
+			if (!(password === user.password)) { return done(null, false); }
 			return done(null, user);
 		});
 	}

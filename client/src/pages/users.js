@@ -8,13 +8,28 @@ import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
+import ClassifiedsForm from "../components/ClassifiedsForm/classifiedsform";
+import EventsForm from "../components/EventsForm/eventsform";
 // import MapLeaflet from "./pages/Map";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
 
 class Users extends Component {
   state = {
-    users: []
+    users: [],
+    classifiedsForm: {
+      //user_id
+      title: "",
+      description: "",
+      price: ""
+    },
+    eventsForm: {
+      //user_id
+      title: "",
+      description: "",
+      date: "",
+      price: ""
+    }
     // ,
     // isShowing: false
   };
@@ -23,7 +38,56 @@ class Users extends Component {
     this.loadUsers();
   }
 
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState(prevState => {
+      return {
+        users: prevState.users,
+        classifiedsForm: {
+          ...prevState.classifiedsForm,
+          [name]: value
+        },
+        eventsForm: {
+          ...prevState.eventsForm,
+          [name]: value
+        }
+      };
+    });
+  };
+
+  handleClassifiedsFormSubmit = event => {
+    // grab the data we need
+    // price, description, title from the form state.
+    // make a post request to /api/classifieds
+    event.preventDefault();
+    axios
+      .post("/api/classifieds", this.state.classifiedsForm)
+      .then(res => {
+        console.log("POSTED SUCCESSFULLY: ", res);
+      })
+      .catch(err => {
+        console.log("POSTED UNSUCCESSFULLY:", err);
+      });
+  };
+
+  handleEventsFormSubmit = event => {
+    event.preventDefault();
+    axios
+      .post("/api/events", this.state.eventsForm)
+      .then(res => {
+        console.log("POSTED SUCCESSFULLY: ", res);
+      })
+      .catch(err => {
+        console.log("POSTED UNSUCCESSFULLY: ", err);
+      });
+  };
+
   loadUsers = () => {
+    // This must be rewritten to check for the cookie and load from there..only one user.
     API.getUsers()
       .then(res => {
         this.setState({ users: res.data });
@@ -143,7 +207,8 @@ All user classifieds
               </li>
               <li className="nav-item active">
                 <a className="nav-link" href="/map">
-                  <i class="fa fa-map-marker-alt" />Map
+                  <i class="fa fa-map-marker-alt" />
+                  Map
                 </a>
                 <Link
                   to="/"
@@ -157,7 +222,8 @@ All user classifieds
 
               <li className="nav-item active">
                 <a className="nav-link" href="/events">
-                  <i class="fa fa-calendar-alt" />Events
+                  <i class="fa fa-calendar-alt" />
+                  Events
                 </a>
                 <Link
                   to="/"
@@ -170,6 +236,16 @@ All user classifieds
               </li>
             </ul>
           </div>
+        </Row>
+        <Row>
+          <ClassifiedsForm
+            inputChange={this.handleInputChange}
+            formSubmit={this.handleClassifiedsFormSubmit}
+          />
+          <EventsForm
+            inputChange={this.handleInputChange}
+            formSubmit={this.handleEventsFormSubmit}
+          />
         </Row>
         {/* <div>
 

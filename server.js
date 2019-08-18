@@ -2,24 +2,28 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
-const mongoose = require("mongoose");
 const routes = require("./routes");
 const flash = require("connect-flash");
-const session = require('express-session');
-const passport = require('./passport');
-const morgan = require('morgan');
 
-
+const session = require("express-session");
+const passport = require("./passport");
+const morgan = require("morgan");
+const MongoStore = require("connect-mongo")(session);
+const dbConnection = require("./db");
 
 // Define middleware here
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({
-  secret: "secret",
-  resave: true,
-  saveUninitialized: true
-}));
+
+app.use(
+  session({
+    secret: "secret",
+    store: new MongoStore({ mongooseConnection: dbConnection }),
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 // Flash
 app.use(flash());
@@ -46,15 +50,9 @@ app.use(routes);
 // Bodyparser
 app.use(express.urlencoded({ extended: false }));
 
-// Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/neighborgood",
-  { useNewUrlParser: true }
-);
-
 // Send every other request to the React app
 // Define any API routes before this runs`
- app.get("*", function(req, res) {
+app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 

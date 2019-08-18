@@ -6,8 +6,8 @@ const EventSchema = new Schema({
   // Reference user rather than store additional data ... best practice?
   // Is this necessary or does this only make it more simple to access data? i.e. requesting event by the array on the user instead of storing user_id here?
   user_id: {
-    type: String,
-    required: "user_id is Required"
+    type: String
+    // required: "user_id is Required"
   },
   title: {
     type: String,
