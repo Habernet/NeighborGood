@@ -78,64 +78,50 @@ class Events extends Component {
         <Jumbotron>
           <h4>Events in your neighborhood</h4>
         </Jumbotron>
-
         {/* <Row>
-    <Col size="md-6">
-    <List >
-
+  <Col size="md-6">
+  <List >
 {this.state.events.map(event => (
-  <ListItem key={event._id}      >
+<ListItem key={event._id}      >
 <Row>
 <Col size="md-12">   
-        <div className="card" style={ {width:'80%'}
-  }>
-
-          <div className="card-body">
-          <h4 >{event.title}</h4>
-          <h5>{event.user_id}</h5>
-          <p>{event.description}</p>
-        
-          </div>
-          <Button
-          ref="btn"
-          id={event._id}
-          disabled={false}
-          onClick={
-            () => { {this.handleClick(event._id,event.user_id,event.title,event.description)}}}>Save to my events</Button>
-
-                      </div>
-
-
-
-          </Col>
+      <div className="card" style={ {width:'80%'}
+}>
+        <div className="card-body">
+        <h4 >{event.title}</h4>
+        <h5>{event.user_id}</h5>
+        <p>{event.description}</p>
+      
+        </div>
+        <Button
+        ref="btn"
+        id={event._id}
+        disabled={false}
+        onClick={
+          () => { {this.handleClick(event._id,event.user_id,event.title,event.description)}}}>Save to my events</Button>
+                    </div>
+        </Col>
 </Row>
-
 </ListItem>))}
 </List>
 </Col>
 <Col size="md-6">
 <List >
-
 {this.state.savedEvents.map(savedEvent => (
-  <ListItem   >
+<ListItem   >
 <Row>
 <Col size="md-12">   
-        <div className="card" style={ {width:'80%'}
-  }>
-
-          <div className="card-body">
-          <h4 >{savedEvent.title}</h4>
-          <h5>{savedEvent.user_id}</h5>
-          <p>{savedEvent.description}</p>
-        
-          </div>
-                      </div>
-
-
-
-          </Col>
+      <div className="card" style={ {width:'80%'}
+}>
+        <div className="card-body">
+        <h4 >{savedEvent.title}</h4>
+        <h5>{savedEvent.user_id}</h5>
+        <p>{savedEvent.description}</p>
+      
+        </div>
+                    </div>
+        </Col>
 </Row>
-
 </ListItem>))}
 </List>
 </Col>
@@ -161,42 +147,6 @@ class Events extends Component {
                         <h5>{event.user_id}</h5>
                         <p>{event.description}</p>
                       </div>
-                    </div>
-                  </Col>
-                </Row>
-              </ListItem>
-            ))}
-          </List>
-          Local Events
-          <List>
-            {this.state.localEvents.map(localEvent => (
-              <ListItem>
-                <Row>
-                  <Col size="md-12">
-                    <div className="card" style={{ width: "80%" }}>
-                      <div className="card-body">
-                        <h4>{localEvent.name.text}</h4>
-                        <p>{localEvent.description.text}</p>
-                        <p>{localEvent.start.local}</p>
-
-                        <a href={localEvent.url}>{localEvent.name.text}</a>
-                      </div>
-                      <Button
-                        ref="btn"
-                        disabled={false}
-                        onClick={() => {
-                          {
-                            this.handleClick(
-                              localEvent.name.text,
-                              localEvent.name.text,
-                              localEvent.description.text,
-                              localEvent.start.local
-                            );
-                          }
-                        }}
-                      >
-                        Save to my events
-                      </Button>
                       <Button
                         ref="btn"
                         id={event._id}
