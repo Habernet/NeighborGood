@@ -13,14 +13,11 @@ import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
 import MapLeaflet from "./pages/Map";
 import NoMatch from "./pages/NoMatch";
-<<<<<<< HEAD
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
-=======
 import registerUser from "./pages/register";
 import ModalTest from "./pages/modaltest";
->>>>>>> 3dd6084b641313ff8637c03dcb75e29f87956930
 
 class App extends Component {
   state = {
@@ -90,7 +87,7 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username} = this.state.userState;
+    let {password, email, username} = this.state.formState;
     let user = {
       password, email, username
       // if (this.state.userState...)
@@ -146,13 +143,14 @@ class App extends Component {
       <div>
         <Router>
           <Navbar />
-<<<<<<< HEAD
           {/* {isLoggedIn && ( */}
             <Switch>
               <Route exact path="/" component={Main} />
               <Route exact path="/users" component={Users} />
               <Route exact path="/classifieds" component={Classifieds} />
               <Route exact path="/events" component={Events} />
+              <Route exact path="/map" component={MapLeaflet} />
+              <Route exact path="/modal" component={ModalTest} />
             {/* </Switch>
           )} */}
           {/* {!isLoggedIn && (
@@ -179,30 +177,12 @@ class App extends Component {
           {/* )} */}
 
           </Router>
-        <Jumbotron />
-        <About />
-        <Footer />
-=======
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/users" component={Users} />
-            <Route exact path="/users/register" component={registerUser} />
-            <Route exact path="/classifieds" component={Classifieds} />
-            <Route exact path="/events" component={Events} />
-            <Route exact path="/map" component={MapLeaflet} />
-            <Route exact path="/modal" component={ModalTest} />
-
-
-            <Route component={NoMatch} />
-          </Switch>
-        </Router>
 
 
         {/* <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
         <Jumbotron /> */}
         {/* <About /> */}
         {/* <Footer /> */}
->>>>>>> 3dd6084b641313ff8637c03dcb75e29f87956930
       </div>
     );
   }
