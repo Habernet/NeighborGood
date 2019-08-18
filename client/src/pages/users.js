@@ -20,10 +20,6 @@ import Button from '../components/Button';
 // const EventCalendar = require('react-event-calendar');
 
 
-
-
-
-
 class Users extends Component {
   state = {
     users: [],
@@ -40,6 +36,7 @@ class Users extends Component {
 }
   
 
+
   componentDidMount() {
     this.loadUsers();
     this.loadUserEvents();
@@ -54,8 +51,10 @@ class Users extends Component {
 
   loadUsers = () => {
     API.getUsers()
-      .then(res => { this.setState({ users: res.data }); console.log(res.data) }
-      )
+      .then(res => {
+        this.setState({ users: res.data });
+        console.log(res.data);
+      })
       .catch(err => console.log(err));
   };
 
@@ -78,7 +77,6 @@ class Users extends Component {
 
   openModalHandler1=() =>{
     this.setState({
-      ...this.state,
         isShowing1: true
 
     });
@@ -112,6 +110,32 @@ closeModalHandler2=()=>{
         {/* <Jumbotron >
           <h4>
             Please sign up!!
+
+    state = {
+      users: []
+    };
+  
+    componentDidMount() {
+        this.loadUsers();
+      }
+    
+      loadUsers = () => {
+        API.getUsers()
+        .then(res =>
+         {this.setState({users:res.data});console.log(res.data)}
+        )
+        .catch(err => console.log(err));
+      };
+  
+    render() {
+      return (
+        <div>
+          <Navbar />
+
+                          <Jumbotron >
+  <h4>
+      Please sign up!!
+
   </h4>
 
         </Jumbotron>
