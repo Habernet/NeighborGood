@@ -9,6 +9,7 @@ import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
 import ClassifiedsForm from "../components/ClassifiedsForm/classifiedsform";
+import EventsForm from "../components/EventsForm/eventsform";
 // import MapLeaflet from "./pages/Map";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
@@ -17,8 +18,16 @@ class Users extends Component {
   state = {
     users: [],
     classifiedsForm: {
+      //user_id
       title: "",
       description: "",
+      price: ""
+    },
+    eventsForm: {
+      //user_id
+      title: "",
+      description: "",
+      date: "",
       price: ""
     }
     // ,
@@ -41,6 +50,10 @@ class Users extends Component {
         classifiedsForm: {
           ...prevState.classifiedsForm,
           [name]: value
+        },
+        eventsForm: {
+          ...prevState.eventsForm,
+          [name]: value
         }
       };
     });
@@ -58,6 +71,18 @@ class Users extends Component {
       })
       .catch(err => {
         console.log("POSTED UNSUCCESSFULLY:", err);
+      });
+  };
+
+  handleEventsFormSubmit = event => {
+    event.preventDefault();
+    axios
+      .post("/api/events", this.state.eventsForm)
+      .then(res => {
+        console.log("POSTED SUCCESSFULLY: ", res);
+      })
+      .catch(err => {
+        console.log("POSTED UNSUCCESSFULLY: ", err);
       });
   };
 
@@ -216,6 +241,10 @@ All user classifieds
           <ClassifiedsForm
             inputChange={this.handleInputChange}
             formSubmit={this.handleClassifiedsFormSubmit}
+          />
+          <EventsForm
+            inputChange={this.handleInputChange}
+            formSubmit={this.handleEventsFormSubmit}
           />
         </Row>
         {/* <div>
