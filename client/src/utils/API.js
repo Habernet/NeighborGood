@@ -12,6 +12,14 @@ export default {
   getUser: function(user) {
     return axios.get("/api/users/"+user);
   },
+  getEvent: function(user) {
+    console.log(user)
+    return axios.get("/api/events/"+user);
+  },
+  getClassified: function(user) {
+    return axios.get("/api/classifieds/"+user);
+  },
+
   getUsers: function() {
     return axios.get("/api/users");
   },

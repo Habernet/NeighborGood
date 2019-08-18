@@ -12,6 +12,13 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  find: function(req, res) {
+    console.log(req.params.user_id)
+    db.Event.find({user_id:req.params.user_id})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
 
   create: function(req, res) {
     db.Event.create(req.body)

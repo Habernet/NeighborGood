@@ -11,7 +11,7 @@ import Main from "./pages/Main";
 import Users from "./pages/users";
 import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
-import MapLeaflet from "./pages/Map";
+// import MapLeaflet from "./pages/Map";
 import NoMatch from "./pages/NoMatch";
 import registerUser from "./pages/register";
 import ModalTest from "./pages/modaltest";
@@ -81,7 +81,7 @@ class App extends Component {
             <Route exact path="/users/register" component={registerUser} />
             <Route exact path="/classifieds" component={Classifieds} />
             <Route exact path="/events" component={Events} />
-            <Route exact path="/map" component={MapLeaflet} />
+            {/* <Route exact path="/map" component={MapLeaflet} /> */}
             <Route exact path="/modal" component={ModalTest} />
 
 

@@ -31,20 +31,24 @@ class Events extends Component {
 
     componentDidMount() {
       const date=Date();
-      API.getUser(this.state.username)
-      .then(res =>
-        {
-          const savedEvents = this.state.savedEvents.filter(savedEvents => savedEvents.date < date);
-          this.setState({savedEvents:res.data.savedEvents});
-          console.log(res.data.savedEvents)}) 
-        .catch(err => console.log(err));
-
+this.loadUser();
       this.loadEvents();
       API.getLocalEvents(this.state.city+","+this.state.state)
       .then(res => {this.setState({ localEvents: res.data.events });console.log(this.state.localEvents)})
       .catch(err => console.log(err));
 
     };
+    loadUser=()=>{
+      API.getUser(this.state.username)
+      .then(res =>
+        {
+          // const savedEvents = this.state.savedEvents.filter(savedEvents => savedEvents.date < date);
+          this.setState({savedEvents:res.data.savedEvents});
+          console.log(res.data.savedEvents)}) 
+        .catch(err => console.log(err));
+
+
+        }
     
     loadEvents = () => {
       API.getEvents()
@@ -61,13 +65,17 @@ class Events extends Component {
     // }));
     
     handleClick = (host_name,title,description,date) => {
+
       API.updateUserEvent(this.state.username,{"$push":{"savedEvents":{host_name,title,description,date}}})
       .then(res=>{(
-        this.setState(prevState => ({
-          savedEvents: prevState.savedEvents
-      })
+        this.setState( ({
+          savedEvents: res.data.savedEvents
+      }),       this.loadUser()
+
         )
       )}
+       
+
       )
   }
       

@@ -30,12 +30,21 @@ class ModalTest extends Component {
                 { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
 
                 <Modal
                     className="modal"
                     show={this.state.isShowing}
                     close={this.closeModalHandler}>
-Abcdefg    </Modal>
+  </Modal>
+{/* <Modal
+                    className="modal"
+                    show={this.state.isShowing}
+                    close={this.closeModalHandler}>
+css    </Modal> */}
+
             </div>
         );
     }

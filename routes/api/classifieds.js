@@ -8,6 +8,11 @@ router
   .get(classifiedsController.findAll)
   .post(classifiedsController.create);
 
+  router.route("/:user_id")
+  .get(classifiedsController.find)
+  .put(classifiedsController.update);
+
+
 // Matches with "/api/classifieds/:id"
 router
   .route("/:id")

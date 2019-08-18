@@ -3,14 +3,22 @@ import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 import About from "../components/About/about";
 import Footer from "../components/Footer/footer";
-import { Row, Col } from "../components/Grid";
+import { Row, Col,Container } from "../components/Grid";
 import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
-// import MapLeaflet from "./pages/Map";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
+import Wrapper from "../components/Wrapper";
+import Moment from 'react-moment';
+import{ Map, TileLayer, Marker, Popup } from 'react-leaflet';
+
+
+import Button from '../components/Button';
+
+// const EventCalendar = require('react-event-calendar');
+
 
 
 
@@ -18,14 +26,30 @@ import Modal from "../components/Modal";
 
 class Users extends Component {
   state = {
-    users: []
-    // ,
-    // isShowing: false
+    users: [],
+    username:"Abhi",
+    isShowing1: false,
+    isShowing2: false,
+    myEvents:[],
+    myClassifieds:[],
+      lat:"",
+      lng:""  ,
+      address:"10230, Broadstone way,nc 27502"
+        
 
-  };
+}
+  
 
   componentDidMount() {
     this.loadUsers();
+    this.loadUserEvents();
+    this.loadUserClassifieds();
+    API.getUserAddrLatLong(this.state.address)
+    .then(res => {this.setState({ lat: res.data.results[0].locations[0].latLng.lat,lng:res.data.results[0].locations[0].latLng.lng });console.log(this.state.lat,this.state.lng)})
+    .catch(err => console.log(err));
+
+
+
   }
 
   loadUsers = () => {
@@ -34,22 +58,56 @@ class Users extends Component {
       )
       .catch(err => console.log(err));
   };
-  openModalHandler = () => {
+
+  loadUserEvents = () =>{
+    API.getEvent(this.state.username)
+    .then(res => { this.setState({ myEvents: res.data }); console.log(this.state.myEvents) }
+    )
+    .catch(err => console.log(err));
+
+  };
+
+  loadUserClassifieds = () =>{
+    API.getClassified(this.state.username)
+    .then(res => { this.setState({ myClassifieds: res.data }); console.log(res.data) }
+    )
+    .catch(err => console.log(err));
+
+  };
+
+
+  openModalHandler1=() =>{
     this.setState({
-        isShowing: true
+      ...this.state,
+        isShowing1: true
+
     });
+}
+openModalHandler2=()=>{
+  console.log("clicked!");
+  this.setState({
+    isShowing2: true
+
+
+  });
 }
 
-closeModalHandler = () => {
+closeModalHandler1= ()=> {
     this.setState({
-        isShowing: false
+        isShowing1: false
     });
 }
+closeModalHandler2=()=>{
+  this.setState({
+      isShowing2: false
+  });
+}
+
 
   render() {
     return (
-      <div>
-        {/* <Navbar />
+      // <div>
+<Container>      
 
         {/* <Jumbotron >
           <h4>
@@ -83,121 +141,121 @@ closeModalHandler = () => {
           </List>*/}
 
  <Row>
-          <div className="col-sm-3">
-            <div className="userfront" >
-              <h5>User Profile  </h5>
-              <img src="./images/tp.png" className="usi"></img>
-              <h5>Areas of Interest</h5>
+<Col size="ms-6">
+          {/* <div className="userfront" > */}
+          <h4 >{this.state.username}</h4>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" className="usi" style={{borderRadius:'50%',height:'200px',width:'200px'}}></img>
+              {/* <h5>Areas of Interest</h5>
               <ul>
                 <li>Yard Sales</li>
                 <li>Knick Nacks</li>
                 <li>A E-Commerce Marketplace near me</li>
                 <li>Events</li>
-              </ul>
-              </div>
-              </div> 
-              </Row>
-              <Row>
-
-              <div className="navbar col-sm-12" >
-          <ul className="navbar-nav">
-            <li className="nav-item active">
-            {/* { this.state.isShowing ? <div onClick={this.closeModalHandler} ></div> : null }
-
-            <button className="open-modal-btn" onClick={this.openModalHandler}>Classifieds</button>
+              </ul> */}
+              {/* </div> */}
+</Col>            
+  </Row>
+  <Row>
 
 
-            <Modal
-                    className="modal"
-                    show={this.state.isShowing}
-                    close={this.closeModalHandler}>
-All user classifieds
-    </Modal> */}
-
-
-
-              {/* {/* <a className="nav-link" href="/classifieds"><i class="fa fa-newspaper"></i>Classifieds</a>
-              <Link to="/" className={window.location.pathname === "Classifieds" ? "nav-link active" : "nav-link"}> */}
-          
-        {/* </Link>  */}
-      </li>
+          {/* <ul className="navbar-nav">
       <li className="nav-item active">
-              <a className="nav-link" href="/map"><i class="fa fa-map-marker-alt"></i>Map</a>
-              <Link to="/" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}>
+              <Link to="/map" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}><span class="fa fa-map-marker-alt"></span> Map
           
         </Link>
-      </li>
+      </li> 
 
-      <li className="nav-item active">
-              <a className="nav-link" href="/events"><i class="fa fa-calendar-alt"></i>Events</a>
-              <Link to="/" className={window.location.pathname === "Events" ? "nav-link active" : "nav-link"}>
-          
-        </Link>
-      </li>
-      </ul>
+      </ul> */}
+<div >
+
+      <Map style={{width:'300px',height:'300px'}}
+center={[this.state.lat, this.state.lng]}
+zoom={6}
+maxZoom={10}
+attributionControl={true}
+zoomControl={true}
+doubleClickZoom={true}
+scrollWheelZoom={true}
+dragging={true}
+animate={true}
+easeLinearity={0.35}      >
+      <TileLayer
+       url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+         />
+
+      <Marker position={[this.state.lat, this.state.lng]}>
+  <Popup>
+{this.state.address}
+  </Popup>
+</Marker>
+</Map>
       </div>
-      </Row>
-      {/* <div>
+        </Row> 
+                <Row>
+                  <Col size="sm-4">
+<button className="open-modal-btn" onClick={this.openModalHandler2}>Events</button> 
+<button className="open-modal-btn" onClick={ this.openModalHandler1}>Classifieds</button>
 
-                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
+</Col>
 
-                <Modal
-                    className="modal"
-                    show={this.state.isShowing}
-                    close={this.closeModalHandler}>
+    <Col size="sm-4"> <Modal
+            className="modal"
 
-    </Modal>
-            </div>
- */}
+           show={this.state.isShowing2}
+           close={this.closeModalHandler2}>
+        
+ 
 
+{this.state.myEvents.map(myEvent => ( 
+
+<ListItem key={myEvent._id}>
+<div className="modal-body">
+<h3>{myEvent.title}</h3>
+
+<h4>   <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
+</h4>
+          <h4>{myEvent.price}</h4>
+
+    
+     <p>{myEvent.description}</p>
+</div>
+        
+</ListItem>
+   ))}
+
+ </Modal>
+ </Col>
+
+ <Col size="sm-4">
+ <Modal
+   className="modal"     show={this.state.isShowing1}
+close={this.closeModalHandler1}>
+    {this.state.myClassifieds.map(myClassified => ( 
+
+<ListItem key={myClassified._id}>
+<div className="modal-body">
+<h3>{myClassified.title}</h3>
+
+ <h4>   <Moment format="MMM-DD-YY">{myClassified.date}</Moment>
+ </h4>
+          <h4>{myClassified.price}</h4>
+
+    
+     <p>{myClassified.description}</p>
      </div>
 
+        
+</ListItem>
+  ))}
 
-            /* <li className="nav-item">
-              <a className="nav-link" href="/map" >Map</a>
-              <Link to="/" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}>
+ </Modal>
+ </Col>
+ </Row>
+</Container>
 
-              </Link>
-            </li>
-          <div className='biocolumn'>
-            <div className='eventscolumn'>
-              <h5>List of saved events</h5>
-              <a className="nav-link" href="/events" ><i class="/" aria-hidden="true"></i>Events</a>
-            </div>
-          </div>
-          <div className='biocolumn'>
-            <div className='posteventscolumn'>
-              <h5>Post an Event</h5>
-              <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              <button type="button" className="btn btn-warning">Submit</button>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='biocolumn'>
-              <div className='classcolumn'>
-                <h5> Classifieds</h5>
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                <button type="button" class="btn btn-warning">Submit</button>
-              </div>
-            </div>
-            <div className='biocolumn'>
-              <div className='posteventscolumn'>
-                <p></p>
 
-              </div>
-            </div>
-            <div className='biocolumn'>
-              <div className='posteventscolumn'>
-                <h5>Post a Listing</h5>
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                <button type="button" class="btn btn-warning">Submit</button>
-              </div>
-            </div>
-          </div> */
-    )
-        }
-
+)
 }
-
+}
 
 export default Users;
