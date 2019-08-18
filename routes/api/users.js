@@ -16,7 +16,6 @@ router
 router
   .route("/:id")
   .get(usersController.findById)
-
   .put(usersController.update)
   .delete(usersController.remove);
 

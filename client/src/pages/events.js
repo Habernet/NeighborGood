@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 // import About from "../components/About/about";
 // import Footer from "../components/Footer/footer";
@@ -79,6 +78,7 @@ class Events extends Component {
         <Jumbotron>
           <h4>Events in your neighborhood</h4>
         </Jumbotron>
+
         {/* <Row>
     <Col size="md-6">
     <List >
@@ -161,6 +161,42 @@ class Events extends Component {
                         <h5>{event.user_id}</h5>
                         <p>{event.description}</p>
                       </div>
+                    </div>
+                  </Col>
+                </Row>
+              </ListItem>
+            ))}
+          </List>
+          Local Events
+          <List>
+            {this.state.localEvents.map(localEvent => (
+              <ListItem>
+                <Row>
+                  <Col size="md-12">
+                    <div className="card" style={{ width: "80%" }}>
+                      <div className="card-body">
+                        <h4>{localEvent.name.text}</h4>
+                        <p>{localEvent.description.text}</p>
+                        <p>{localEvent.start.local}</p>
+
+                        <a href={localEvent.url}>{localEvent.name.text}</a>
+                      </div>
+                      <Button
+                        ref="btn"
+                        disabled={false}
+                        onClick={() => {
+                          {
+                            this.handleClick(
+                              localEvent.name.text,
+                              localEvent.name.text,
+                              localEvent.description.text,
+                              localEvent.start.local
+                            );
+                          }
+                        }}
+                      >
+                        Save to my events
+                      </Button>
                       <Button
                         ref="btn"
                         id={event._id}
