@@ -1,8 +1,12 @@
 import React from "react";
 
 function ClassifiedsForm(props) {
+  const formStyle = {
+    width: "500px"
+  };
   return (
     <form className="form">
+      <h3>Post a classifieds listing of your own!</h3>
       <input
         name="title"
         onChange={props.inputChange}
@@ -10,6 +14,7 @@ function ClassifiedsForm(props) {
         placeholder="Title"
       />
       <input
+        style={formStyle}
         name="description"
         onChange={props.inputChange}
         type="text"

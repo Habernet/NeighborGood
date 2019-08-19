@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 import About from "../components/About/about";
 import Footer from "../components/Footer/footer";
@@ -16,28 +15,53 @@ import Modal from "../components/Modal";
 
 class Users extends Component {
   state = {
-    users: [],
     classifiedsForm: {
-      //user_id
       title: "",
       description: "",
       price: ""
     },
     eventsForm: {
-      //user_id
       title: "",
       description: "",
       date: "",
       price: ""
-    }
+    },
     // ,
-    // isShowing: false
+    isShowing: false
   };
 
   componentDidMount() {
-    this.loadUsers();
+    // Check the state to see if the user is logged in...if they are not redirect them to login page. If they are load the page with stuff from users database entry.
+    // this.loadUsers();
+    // this.setState({
+    //   ...this.prevState
+    // // });
+    // // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
+    // console.log(
+    //   "PROPS.USERSTATE.ISLOGGEDIN: ",
+    //   this.props.userState.isLoggedIn
+    // );
+    // if (this.props.userState.isLoggedIn) {
+    //   // use the API to grab the user and it's information...
+    //   console.log(
+    //     `USER IS LOGGED IN, RETRIVING ${
+    //       this.props.userState.username
+    //     }'s information...`
+    //   );
+    //   API.getUser(this.props.userState.username)
+    //   .then(res => {
+    //     console.log(`USER: ${this.props.userState.username} FOUND`),
+    //       console.log(res);
+    //     //Change the state of the page to the users information...this way we can use JSX to render their profile.
+    //     this.setState({ state: this.state });
+    //   })
+    //   .catch(err => {
+    //     console.log(`ERROR RETRIEVING LOGGED IN USER: `,)
+    //   });
+    // }
   }
 
+  // Split this into two functions for each of the forms to update the state
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
@@ -46,7 +70,6 @@ class Users extends Component {
     // Updating the input's state
     this.setState(prevState => {
       return {
-        users: prevState.users,
         classifiedsForm: {
           ...prevState.classifiedsForm,
           [name]: value
@@ -63,9 +86,13 @@ class Users extends Component {
     // grab the data we need
     // price, description, title from the form state.
     // make a post request to /api/classifieds
+    let formObject = this.state.classifiedsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
     event.preventDefault();
     axios
-      .post("/api/classifieds", this.state.classifiedsForm)
+      .post("/api/classifieds", formObject)
       .then(res => {
         console.log("POSTED SUCCESSFULLY: ", res);
       })
@@ -76,8 +103,13 @@ class Users extends Component {
 
   handleEventsFormSubmit = event => {
     event.preventDefault();
+
+    let formObject = this.state.eventsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
     axios
-      .post("/api/events", this.state.eventsForm)
+      .post("/api/events", formObject)
       .then(res => {
         console.log("POSTED SUCCESSFULLY: ", res);
       })
