@@ -32,8 +32,9 @@ this.loadUser();
       API.getLocalEvents(this.state.city+","+this.state.state)
       .then(res => {this.setState({ localEvents: res.data.events });console.log(this.state.localEvents)})
       .catch(err => console.log(err));
-
     };
+
+
     loadUser=()=>{
       API.getUser(this.state.username)
       .then(res =>
@@ -55,9 +56,6 @@ this.loadUser();
       .catch(err => console.log(err));
       }
 
-    // this.setState((prevState, props) => ({
-    //   counter: prevState.counter + props.increment
-    // }));
     
     handleClick = (host_name,title,description,date) => {
 
@@ -80,7 +78,7 @@ this.loadUser();
       return (
 <Container>           
       <Jumbotron >
-                      
+                 <h3>Events near you</h3>     
                   </Jumbotron>
   {/* <Row>
     <Col size="md-6">

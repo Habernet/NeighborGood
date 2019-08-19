@@ -1,10 +1,11 @@
-input{
+input,textarea{
   display: block;
   padding: 5px;
   margin: 10px;
   border-radius: 10px;
 
 }
+
 
 .submitButton{
   padding: 5px;

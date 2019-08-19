@@ -1,15 +1,20 @@
 import React from "react";
 
 function EventsForm(props) {
+  const formStyle = {
+    width: "500px"
+  };
   return (
     <form className="form">
+      <h3>Post Events of your own!</h3>
       <input
         name="title"
         onChange={props.inputChange}
         type="text"
         placeholder="Title"
       />
-      <input
+      <textarea
+        // style={formStyle}
         name="description"
         onChange={props.inputChange}
         type="text"
@@ -22,7 +27,7 @@ function EventsForm(props) {
         placeholder="Price"
       />
       <input type="date" name="date" onChange={props.inputChange} />
-      <button onClick={props.formSubmit}>Submit</button>
+      <button className="submitButton" onClick={props.formSubmit}>Submit</button>
     </form>
   );
 }

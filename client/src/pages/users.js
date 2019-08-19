@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 import About from "../components/About/about";
 import Footer from "../components/Footer/footer";
@@ -10,7 +9,6 @@ import API from "../utils/API";
 import axios from "axios";
 import ClassifiedsForm from "../components/ClassifiedsForm/classifiedsform";
 import EventsForm from "../components/EventsForm/eventsform";
-// import MapLeaflet from "./pages/Map";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
 import Wrapper from "../components/Wrapper";
@@ -35,20 +33,18 @@ class Users extends Component {
     lng: "",
     address: "10230, Broadstone way,nc 27502",
     classifiedsForm: {
-      //user_id
       title: "",
       description: "",
       price: ""
     },
     eventsForm: {
-      //user_id
       title: "",
       description: "",
       date: "",
       price: ""
-    }
+    },
     // ,
-    // isShowing: false
+    isShowing: false
   };
 
   componentDidMount() {
@@ -61,9 +57,38 @@ class Users extends Component {
 
 
 
+    // Check the state to see if the user is logged in...if they are not redirect them to login page. If they are load the page with stuff from users database entry.
+    // this.loadUsers();
+    // this.setState({
+    //   ...this.prevState
+    // // });
+    // // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
+    // console.log(
+    //   "PROPS.USERSTATE.ISLOGGEDIN: ",
+    //   this.props.userState.isLoggedIn
+    // );
+    // if (this.props.userState.isLoggedIn) {
+    //   // use the API to grab the user and it's information...
+    //   console.log(
+    //     `USER IS LOGGED IN, RETRIVING ${
+    //       this.props.userState.username
+    //     }'s information...`
+    //   );
+    //   API.getUser(this.props.userState.username)
+    //   .then(res => {
+    //     console.log(`USER: ${this.props.userState.username} FOUND`),
+    //       console.log(res);
+    //     //Change the state of the page to the users information...this way we can use JSX to render their profile.
+    //     this.setState({ state: this.state });
+    //   })
+    //   .catch(err => {
+    //     console.log(`ERROR RETRIEVING LOGGED IN USER: `,)
+    //   });
+    // }
   }
 
-  handleInputChange = event => {
+  // Split this into two functions for each of the forms to update the state
+  handleEventsInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
@@ -71,14 +96,30 @@ class Users extends Component {
     // Updating the input's state
     this.setState(prevState => {
       return {
-        users: prevState.users,
+        classifiedsForm: {
+          ...prevState.classifiedsForm
+        },
+        eventsForm: {
+          ...prevState.eventsForm,
+          [name]: value
+        }
+      };
+    });
+  };
+  handleClassifiedsInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState(prevState => {
+      return {
         classifiedsForm: {
           ...prevState.classifiedsForm,
           [name]: value
         },
         eventsForm: {
-          ...prevState.eventsForm,
-          [name]: value
+          ...prevState.eventsForm
         }
       };
     });
@@ -88,9 +129,13 @@ class Users extends Component {
     // grab the data we need
     // price, description, title from the form state.
     // make a post request to /api/classifieds
+    let formObject = this.state.classifiedsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
     event.preventDefault();
     axios
-      .post("/api/classifieds", this.state.classifiedsForm)
+      .post("/api/classifieds", formObject)
       .then(res => {
         console.log("POSTED SUCCESSFULLY: ", res);
       })
@@ -101,8 +146,13 @@ class Users extends Component {
 
   handleEventsFormSubmit = event => {
     event.preventDefault();
+
+    let formObject = this.state.eventsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
     axios
-      .post("/api/events", this.state.eventsForm)
+      .post("/api/events", formObject)
       .then(res => {
         console.log("POSTED SUCCESSFULLY: ", res);
       })
@@ -244,7 +294,7 @@ class Users extends Component {
               </ul> */}
               </div>
             </Col>
-            <Col-sm-1></Col-sm-1>
+            <Col size="sm-1"></Col>
             <Col size="sm-3">
 
 
@@ -292,7 +342,7 @@ class Users extends Component {
                 </Marker>
               </Map>
               </Col>
-              {/* <Col size="sm-1"></Col> */}
+              <Col size="sm-1"></Col>
 
         <Col size="sm-3">
 
@@ -329,18 +379,20 @@ class Users extends Component {
 
         </Col>
 
-        <Col size="sm-4"> <Modal
+        <Col size="sm-4"> 
+        <Modal
           className="modal"
 
           show={this.state.isShowing2}
           close={this.closeModalHandler2}>
 
 
-          <div className="modal-body">
 
             {this.state.myEvents.map(myEvent => (
 
               <ListItem key={myEvent._id}>
+                        <div className="modal-body">
+
                 <h3>{myEvent.title}</h3>
 
                 <h4>   <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
@@ -349,10 +401,10 @@ class Users extends Component {
 
 
                 <p>{myEvent.description}</p>
+                </div>
 
               </ListItem>
             ))}
-          </div>
 
         </Modal>
         </Col>
