@@ -16,7 +16,6 @@ import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
 import registerUser from "./pages/register";
-import ModalTest from "./pages/modaltest";
 
 class App extends Component {
   state = {

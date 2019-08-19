@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/jumbotron";
-import About from "../components/About/about";
-import Footer from "../components/Footer/footer";
+// import Footer from "../components/Footer/footer";
 import { Row, Col, Container } from "../components/Grid";
-import Card from "../components/Card";
-import { List, ListItem } from "../components/List";
+import {  ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
 import ClassifiedsForm from "../components/ClassifiedsForm/classifiedsform";
 import EventsForm from "../components/EventsForm/eventsform";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
-import Wrapper from "../components/Wrapper";
 import Moment from 'react-moment';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
@@ -279,12 +276,13 @@ class Users extends Component {
 <div className="userProfileDiv" style={{padding:'50px'}}>      
     <Row>
             <Col size="sm-6">
-              <div className='userData'>
+              <div className='userData text-center'>
                 {/* <div className="userfront" > */}
                 <h4 >{this.state.username}</h4>
                 <img
                   // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" 
                   src="http://www.dentistdarlington.com/img/portfolio/photo.png" style={{ borderRadius: '50%', height: '250px', width: '250px' }}></img>
+                   {/* <Button>Update info</Button> */}
                 {/* <h5>Areas of Interest</h5>
               <ul>
                 <li>Yard Sales</li>
@@ -353,16 +351,6 @@ class Users extends Component {
 
             </Col>
 </Row>
-        <Row>
-          <ClassifiedsForm
-            inputChange={this.handleClassifiedsInputChange}
-            formSubmit={this.handleClassifiedsFormSubmit}
-          />
-          <EventsForm
-            inputChange={this.handleEventsInputChange}
-            formSubmit={this.handleEventsFormSubmit}
-          />
-        </Row>
         {/* <div>
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
@@ -444,7 +432,6 @@ class Users extends Component {
       </Row>
       </div>
       </div>
-
 </Container >
 
 )

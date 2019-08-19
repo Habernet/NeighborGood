@@ -208,7 +208,7 @@ Local Events
 <List >
 
 {this.state.localEvents.map(localEvent => (
-  <ListItem   >
+  <ListItem  >
 <Row>
 <Col size="md-12">   
 <div className="card-title" >
@@ -247,7 +247,7 @@ My events
 <List >
 
 {this.state.savedEvents.map(savedEvent => (
-  <ListItem   >
+  <ListItem  >
 <Row>
 <Col size="md-12">   
 <div className="card-title" >

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RegisterForm from '../components/RegisterForm/registerform';
 import { Row, Col,Container } from "../components/Grid";
 
