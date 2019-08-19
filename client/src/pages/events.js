@@ -26,17 +26,17 @@ class Events extends Component {
 
   componentDidMount() {
     const date = Date();
-    console.log("HERE");
+    console.log("GETTING USER...");
     API.getUser(this.state.username)
       .then(res => {
-        console.log("RESPONSE", res.data);
+        console.log("USER: ", res.data);
         const savedEvents = this.state.savedEvents.filter(
           savedEvents => savedEvents.date < date
         );
         this.setState({ savedEvents: res.data.savedEvents });
         console.log(res.data.savedEvents);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log("ERROR: ", err));
 
     this.loadEvents();
     API.getLocalEvents(this.state.city + "," + this.state.state)
