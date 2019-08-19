@@ -353,8 +353,16 @@ class Users extends Component {
 
             </Col>
 </Row>
-              {/* </div> */}
-
+        <Row>
+          <ClassifiedsForm
+            inputChange={this.handleClassifiedsInputChange}
+            formSubmit={this.handleClassifiedsFormSubmit}
+          />
+          <EventsForm
+            inputChange={this.handleEventsInputChange}
+            formSubmit={this.handleEventsFormSubmit}
+          />
+        </Row>
         {/* <div>
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
