@@ -62,7 +62,25 @@ class Users extends Component {
   }
 
   // Split this into two functions for each of the forms to update the state
-  handleInputChange = event => {
+  handleEventsInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState(prevState => {
+      return {
+        classifiedsForm: {
+          ...prevState.classifiedsForm
+        },
+        eventsForm: {
+          ...prevState.eventsForm,
+          [name]: value
+        }
+      };
+    });
+  };
+  handleClassifiedsInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
@@ -75,8 +93,7 @@ class Users extends Component {
           [name]: value
         },
         eventsForm: {
-          ...prevState.eventsForm,
-          [name]: value
+          ...prevState.eventsForm
         }
       };
     });
@@ -271,11 +288,11 @@ All user classifieds
         </Row>
         <Row>
           <ClassifiedsForm
-            inputChange={this.handleInputChange}
+            inputChange={this.handleClassifiedsInputChange}
             formSubmit={this.handleClassifiedsFormSubmit}
           />
           <EventsForm
-            inputChange={this.handleInputChange}
+            inputChange={this.handleEventsInputChange}
             formSubmit={this.handleEventsFormSubmit}
           />
         </Row>
