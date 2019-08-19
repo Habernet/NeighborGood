@@ -24,7 +24,7 @@ function ClassifiedsForm(props) {
         name="price"
         onChange={props.inputChange}
         type="text"
-        placeholder="Price"
+        placeholder="Price (Needs to be a number)"
       />
       <button onClick={props.formSubmit}>Submit</button>
     </form>

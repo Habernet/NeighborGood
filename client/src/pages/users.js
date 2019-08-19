@@ -31,34 +31,7 @@ class Users extends Component {
   };
 
   componentDidMount() {
-    // Check the state to see if the user is logged in...if they are not redirect them to login page. If they are load the page with stuff from users database entry.
-    // this.loadUsers();
-    // this.setState({
-    //   ...this.prevState
-    // // });
-    // // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
-    // console.log(
-    //   "PROPS.USERSTATE.ISLOGGEDIN: ",
-    //   this.props.userState.isLoggedIn
-    // );
-    // if (this.props.userState.isLoggedIn) {
-    //   // use the API to grab the user and it's information...
-    //   console.log(
-    //     `USER IS LOGGED IN, RETRIVING ${
-    //       this.props.userState.username
-    //     }'s information...`
-    //   );
-    //   API.getUser(this.props.userState.username)
-    //   .then(res => {
-    //     console.log(`USER: ${this.props.userState.username} FOUND`),
-    //       console.log(res);
-    //     //Change the state of the page to the users information...this way we can use JSX to render their profile.
-    //     this.setState({ state: this.state });
-    //   })
-    //   .catch(err => {
-    //     console.log(`ERROR RETRIEVING LOGGED IN USER: `,)
-    //   });
-    // }
+    this.loadUser();
   }
 
   // Split this into two functions for each of the forms to update the state
@@ -135,15 +108,36 @@ class Users extends Component {
       });
   };
 
-  loadUsers = () => {
-    // This must be rewritten to check for the cookie and load from there..only one user.
-    API.getUsers()
-      .then(res => {
-        this.setState({ users: res.data });
-        console.log(res.data);
-      })
-      .catch(err => console.log(err));
+  loadUser = () => {
+    // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
+
+    if (this.props.userState.isLoggedIn) {
+      console.log(
+        `USER IS LOGGED IN, RETRIVING ${
+          this.props.userState.username
+        }'s information...`
+      );
+
+      // use the API to grab the user and it's information...
+
+      API.getUser(this.props.userState.username)
+        .then(res => {
+          console.log(`FOUND ${this.props.userState.username} `, res);
+          this.setState({
+            ...this.prevState,
+            username: res.data.username,
+            savedEvents: res.data.savedEvents,
+            createdEvents: res.data.createdEvents
+          });
+        })
+        .catch(err => {
+          console.log(`ERROR FINDING ${this.props.userState.username}`, err);
+        });
+    } else {
+      console.log(`USER ISN'T LOGGED IN, FAILED.`);
+    }
   };
+
   openModalHandler = () => {
     this.setState({
       isShowing: true
@@ -221,14 +215,22 @@ class Users extends Component {
         <Row>
           <div className="col-sm-3">
             <div className="userfront">
-              <h5>User Profile </h5>
-              <img src="./images/tp.png" className="usi" />
-              <h5>Areas of Interest</h5>
+              <h5>{this.props.userState.username}'s User Profile</h5>
+              {/* <img src="./images/tp.png" className="usi" /> */}
+              {/* MY EVENTS AND SAVED EVENTS */}
+              <h5>MY SAVED EVENTS</h5>
               <ul>
-                <li>Yard Sales</li>
-                <li>Knick Nacks</li>
-                <li>A E-Commerce Marketplace near me</li>
-                <li>Events</li>
+                {this.state.savedEvents &&
+                  this.state.savedEvents.map(event => (
+                    <li>
+                      {event.title}: {event.description}, {event.date}
+                    </li>
+                  ))}
+              </ul>
+              <h5>MY POSTED EVENTS</h5>
+              <ul>
+                {this.state.createdEvents &&
+                  this.state.createdEvents.map(event => <li>{event.title}</li>)}
               </ul>
             </div>
           </div>

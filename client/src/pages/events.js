@@ -13,7 +13,7 @@ import Moment from "react-moment";
 class Events extends Component {
   state = {
     events: [],
-    username: "Abhi",
+    username: "patrick",
     city: "apex",
     state: "north carolina",
     savedEvents: [],
@@ -27,7 +27,7 @@ class Events extends Component {
   componentDidMount() {
     const date = Date();
     console.log("GETTING USER...");
-    API.getUser(this.state.username)
+    API.getUser(this.props.userState.username)
       .then(res => {
         console.log("USER: ", res.data);
         const savedEvents = this.state.savedEvents.filter(
@@ -63,7 +63,7 @@ class Events extends Component {
   // }));
 
   handleClick = (host_name, title, description, date) => {
-    API.updateUserEvent(this.state.username, {
+    API.updateUserEvent(this.props.userState.username, {
       $push: { savedEvents: { host_name, title, description, date } }
     }).then(res => {
       this.setState(prevState => ({

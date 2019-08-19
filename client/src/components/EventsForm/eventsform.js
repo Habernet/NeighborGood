@@ -24,7 +24,7 @@ function EventsForm(props) {
         name="price"
         onChange={props.inputChange}
         type="text"
-        placeholder="Price"
+        placeholder="Price (Needs to be a number)"
       />
       <input type="date" name="date" onChange={props.inputChange} />
       <button onClick={props.formSubmit}>Submit</button>
