@@ -26,6 +26,7 @@ class App extends Component {
       password: "",
       password2: "",
       email: "",
+      address: "",
       username: ""
     },
     formState: {
@@ -60,6 +61,7 @@ class App extends Component {
       userState: {
         isLoggedIn: true,
         email: res.email,
+        address: res.address,
         username: res.username
       }
     });
@@ -87,9 +89,9 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username} = this.state.formState;
+    let {password, email, username, address} = this.state.formState;
     let user = {
-      password, email, username
+      password, email, username, address
       // if (this.state.userState...)
     }
     AUTH.register(
@@ -101,6 +103,7 @@ class App extends Component {
           email: res.data.user.email,
           username: res.data.user.username,
           password: "",
+          address: res.data.user.address,
           isLoggedIn: true
         }
       });
@@ -125,7 +128,8 @@ class App extends Component {
         this.updateUser({
           isLoggedIn: true,
           username: response.data.user.username,
-          email: response.data.user.email
+          email: response.data.user.email,
+          address: response.data.user.address
         })
         this.setState({
           redirectoTo: "/"

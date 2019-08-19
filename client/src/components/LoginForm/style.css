@@ -22,4 +22,6 @@ form{
   background-color: rgb(218, 118, 118);
   border: 3px solid black;
   border-radius: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }

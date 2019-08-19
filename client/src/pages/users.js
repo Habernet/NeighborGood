@@ -207,7 +207,7 @@ All user classifieds
               </li>
               <li className="nav-item active">
                 <a className="nav-link" href="/map">
-                  <i class="fa fa-map-marker-alt" />
+                  <i className="fa fa-map-marker-alt" />
                   Map
                 </a>
                 <Link
@@ -222,7 +222,7 @@ All user classifieds
 
               <li className="nav-item active">
                 <a className="nav-link" href="/events">
-                  <i class="fa fa-calendar-alt" />
+                  <i className="fa fa-calendar-alt" />
                   Events
                 </a>
                 <Link

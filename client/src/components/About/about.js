@@ -1,8 +1,9 @@
 import React from "react";
+import "./style.css";
 
 function About() {
   return (
-    <div className="flex-container">
+    <div id="about" className="flex-container">
     
        
       <div>Here is the high level version of my idea.
@@ -14,7 +15,7 @@ There is room for expansion and integration of other ideas here.
 And the idea is that in the real world your neighborhood would register on the site.
 
 <section>
-<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Find your neighborhood!</a>
+<a href="#" className="btn btn-primary btn-lg active" role="button" aria-pressed="true">Find your neighborhood!</a>
 
 </section>
 
