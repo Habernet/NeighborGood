@@ -10,11 +10,13 @@
 .modal-body {
     padding: 10px 15px;
     text-align: center;
+    height: 400px;
+    overflow-y: auto;
 }
 
 .modal-footer {
     height: 35px;
-    padding: 15px;
+    padding: 25px;
 }
 
 .close-modal-btn {
@@ -29,7 +31,7 @@
     color: black;
 }
 
-.btn-cancel, .btn-continue {
+.btn-cancel {
     background: coral;
     border: none;
     color: white;
@@ -44,23 +46,17 @@
     float: left;
 }
 
-.btn-continue {
-    background-color: #1b5e20;
-    float: right;
-}
-/* 
-.back-drop {
-    background-color: rgba(48, 49, 48, 0.42);
-    height: 100%;
-    position: fixed;
-    transition: all 1.3s;
-    width: 100%;
-} */
-
 .open-modal-btn {
     margin: 15px;
     padding: 10px;
-    /* font-weight: bold; */
+        border:none;
+        margin: 10px 10px 0 80px;
+        color:#6aa06c;
+        font-size:25px;
+        
+      }
+.open-modal-btn:focus{
+    outline:none;
 }
 
 

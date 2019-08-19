@@ -104,7 +104,8 @@ closeModalHandler2=()=>{
 
   render() {
     return (
-      // <div>
+       <div>
+
 <Container>      
 
         {/* <Jumbotron >
@@ -166,9 +167,12 @@ closeModalHandler2=()=>{
 
  <Row>
 <Col size="ms-6">
+<div className='userData'>
           {/* <div className="userfront" > */}
           <h4 >{this.state.username}</h4>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" className="usi" style={{borderRadius:'50%',height:'200px',width:'200px'}}></img>
+              <img 
+              // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" 
+              src="http://www.dentistdarlington.com/img/portfolio/photo.png" style={{borderRadius:'50%',height:'250px',width:'250px'}}></img>
               {/* <h5>Areas of Interest</h5>
               <ul>
                 <li>Yard Sales</li>
@@ -176,7 +180,7 @@ closeModalHandler2=()=>{
                 <li>A E-Commerce Marketplace near me</li>
                 <li>Events</li>
               </ul> */}
-              {/* </div> */}
+              </div>
 </Col>            
   </Row>
   <Row>
@@ -190,7 +194,7 @@ closeModalHandler2=()=>{
       </li> 
 
       </ul> */}
-<div >
+<div className="map">
 
       <Map style={{width:'300px',height:'300px'}}
 center={[this.state.lat, this.state.lng]}
@@ -218,6 +222,11 @@ easeLinearity={0.35}      >
                 <Row>
                   <Col size="sm-4">
 <button className="open-modal-btn" onClick={this.openModalHandler2}>Events</button> 
+</Col>
+</Row>
+<Row>
+                  <Col size="sm-4">
+
 <button className="open-modal-btn" onClick={ this.openModalHandler1}>Classifieds</button>
 
 </Col>
@@ -229,11 +238,11 @@ easeLinearity={0.35}      >
            close={this.closeModalHandler2}>
         
  
+        <div className="modal-body">
 
 {this.state.myEvents.map(myEvent => ( 
 
 <ListItem key={myEvent._id}>
-<div className="modal-body">
 <h3>{myEvent.title}</h3>
 
 <h4>   <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
@@ -242,10 +251,10 @@ easeLinearity={0.35}      >
 
     
      <p>{myEvent.description}</p>
-</div>
         
 </ListItem>
    ))}
+</div>
 
  </Modal>
  </Col>
@@ -277,7 +286,7 @@ close={this.closeModalHandler1}>
  </Row>
 </Container>
 
-
+</div>
 )
 }
 }

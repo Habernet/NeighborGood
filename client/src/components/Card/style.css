@@ -1,0 +1,8 @@
+.card-title{
+border-bottom:1px solid lightgrey;
+padding:30px;
+}
+.card{
+    border:1px solid lightgrey;
+    margin-bottom:20px;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./style.css"
 
 
 const Navbar = props => 
@@ -18,7 +19,7 @@ const Navbar = props =>
         </Link>
       </li>
             
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="/contact"><i className="fa fa-mobile" aria-hidden="true"></i>Contact</a>
               <Link to="/" className={window.location.pathname === "Contact" ? "nav-link active" : "nav-link"}>
           
@@ -30,7 +31,7 @@ const Navbar = props =>
               <Link to="/" className={window.location.pathname === "Register" ? "nav-link active" : "nav-link"}>
           
         </Link>
-      </li>
+      </li> */}
       <li className="nav-item">
               <a className="nav-link" href="/events" ><i class="fa fa-calendar" aria-hidden="true"></i>Events</a>
               <Link to="/" className={window.location.pathname === "Events" ? "nav-link active" : "nav-link"}>

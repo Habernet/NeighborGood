@@ -12,17 +12,18 @@
       /* border-bottom: 2px solid rgba(0,0,0,0.5); */
   }
   .tab:hover {
-    background-color: rgb(228, 165, 165);
+    background-color: rgb(226, 166, 166);
   }
   
   /* Create an active/current "tab button" class */
   .tab.active {
-    background-color: rgb(218, 118, 118);
+    background-color:#f97575;
   }
   
   .content
   {
     padding: 60px;
     color: rgba(0,0,0,0.6);
-    background: rgb(218, 118, 118);
+    background:#f97575
+    /* background: rgb(218, 118, 118); */
   }

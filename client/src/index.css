@@ -6,7 +6,8 @@ body {
 
 .jumbotron {
   text-align: center;
-  background-color: white;
+  margin-top:10px;
+  background-color: #f97575;
 
 }
 
@@ -28,22 +29,25 @@ a {
 }
 
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
-  color: #FCA326;
+  /* color: #FCA326; */
+  color:#6aa06c;
   float: right;
   padding: 12px;
-  color:#FCA326;
+  /* color:#FCA326; */
   text-decoration: none;
   font-size: 25px;
 
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: #FCA326;
+  color:#6aa06c;
   float: right;
   padding: 12px;
-  color: #FCA326;
   text-decoration: none;
   font-size: 25px;
+}
+.navbar:hover{
+  color: #1a010114;
 }
 
 .flex-container {
