@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 // import About from "../components/About/about";
 // import Footer from "../components/Footer/footer";
@@ -11,10 +10,6 @@ import Button from "../components/Button";
 import Tabs from "../components/Tabs";
 import Moment from "react-moment";
 
-
-
- 
- 
 class Events extends Component {
     state = {
       events: [],
@@ -58,8 +53,7 @@ this.loadUser();
       //  ;console.log(res.data)}
       )
       .catch(err => console.log(err));
-    };
-
+      }
 
     // this.setState((prevState, props) => ({
     //   counter: prevState.counter + props.increment
@@ -78,7 +72,7 @@ this.loadUser();
        
 
       )
-  }
+  };
       
         
   
@@ -92,59 +86,81 @@ this.loadUser();
     <Col size="md-6">
     <List >
 
+  loadEvents = () => {
+    API.getEvents()
+      .then(
+        res => {
+          this.setState({ events: res.data });
+        }
+        //  ;console.log(res.data)}
+      )
+      .catch(err => console.log(err));
+  };
+
+  // this.setState((prevState, props) => ({
+  //   counter: prevState.counter + props.increment
+  // }));
+
+  handleClick = (host_name, title, description, date) => {
+    API.updateUserEvent(this.state.username, {
+      $push: { savedEvents: { host_name, title, description, date } }
+    }).then(res => {
+      this.setState(prevState => ({
+        savedEvents: prevState.savedEvents
+      }));
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <Jumbotron>
+          <h4>Events in your neighborhood</h4>
+        </Jumbotron>
+        {/* <Row>
+  <Col size="md-6">
+  <List >
 {this.state.events.map(event => (
-  <ListItem key={event._id}      >
+<ListItem key={event._id}      >
 <Row>
 <Col size="md-12">   
-        <div className="card" style={ {width:'80%'}
-  }>
-
-          <div className="card-body">
-          <h4 >{event.title}</h4>
-          <h5>{event.user_id}</h5>
-          <p>{event.description}</p>
-        
-          </div>
-          <Button
-          ref="btn"
-          id={event._id}
-          disabled={false}
-          onClick={
-            () => { {this.handleClick(event._id,event.user_id,event.title,event.description)}}}>Save to my events</Button>
-
-                      </div>
-
-
-
-          </Col>
+      <div className="card" style={ {width:'80%'}
+}>
+        <div className="card-body">
+        <h4 >{event.title}</h4>
+        <h5>{event.user_id}</h5>
+        <p>{event.description}</p>
+      
+        </div>
+        <Button
+        ref="btn"
+        id={event._id}
+        disabled={false}
+        onClick={
+          () => { {this.handleClick(event._id,event.user_id,event.title,event.description)}}}>Save to my events</Button>
+                    </div>
+        </Col>
 </Row>
-
 </ListItem>))}
 </List>
 </Col>
 <Col size="md-6">
 <List >
-
 {this.state.savedEvents.map(savedEvent => (
-  <ListItem   >
+<ListItem   >
 <Row>
 <Col size="md-12">   
-        <div className="card" style={ {width:'80%'}
-  }>
-
-          <div className="card-body">
-          <h4 >{savedEvent.title}</h4>
-          <h5>{savedEvent.user_id}</h5>
-          <p>{savedEvent.description}</p>
-        
-          </div>
-                      </div>
-
-
-
-          </Col>
+      <div className="card" style={ {width:'80%'}
+}>
+        <div className="card-body">
+        <h4 >{savedEvent.title}</h4>
+        <h5>{savedEvent.user_id}</h5>
+        <p>{savedEvent.description}</p>
+      
+        </div>
+                    </div>
+        </Col>
 </Row>
-
 </ListItem>))}
 </List>
 </Col>
@@ -165,7 +181,7 @@ Events posted by neighbors
 
           <div className="card-body">
           <h5>{event.user_id}</h5>
-          <p>{event.description}</p>
+<p>{event.description}</p>
           <p>
 <Moment format="MMM-DD-YY">{event.date}</Moment>
 </p>
@@ -203,8 +219,8 @@ Local Events
 
 
           <div className="card-body">
-          <p>{localEvent.description.text}</p>
-          <p>{localEvent.start.local}</p>
+          <p style={{overflow:'scroll',height:'150px',width:'100%'}}>{localEvent.description.text}</p>
+          <p><Moment format="MMM-DD-YY">{localEvent.start.local}</Moment></p>
 
           <a href={localEvent.url}>{localEvent.name.text}</a>
         
@@ -212,7 +228,7 @@ Local Events
           <Button
           ref="btn"
           disabled={false}
-          style={{float:'right'}}
+          style={{margin:'0 100px 30px 600px',width:'200px'}}
 
           onClick={
             () => { {this.handleClick(localEvent.name.text,localEvent.name.text,localEvent.description.text,localEvent.start.local)}}}>Save to my events</Button>
@@ -242,7 +258,7 @@ My events
 
           <div className="card-body">
           <h5> {savedEvent.host_name}</h5>
-          <p>{savedEvent.description}>{savedEvent.description}</p>
+          <p style={{overflow:'scroll',height:'150px',width:'100%'}}>{savedEvent.description}>{savedEvent.description}</p>
         <p>     <Moment format="MMM-DD-YY">{savedEvent.date}</Moment>
 </p>
           </div>
@@ -258,7 +274,7 @@ My events
 </Container> 
 );
     };
-  
   }
-  export default Events;
+
   
+export default Events;

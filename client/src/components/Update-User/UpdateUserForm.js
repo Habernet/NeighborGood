@@ -1,10 +1,10 @@
 import React from 'react';
 
-function AuthForm(props) {
+function UpdateUserForm(props) {
   
     return ( 
       <form className="form">
-      {/* <input
+      <input
         value={props.userState.firstName}
         name="firstName"
         onChange={props.inputChange}
@@ -17,7 +17,7 @@ function AuthForm(props) {
         onChange={props.inputChange}
         type="text"
         placeholder="Last Name"
-      /> */}
+      /> 
       <input
         value={props.userState.username}
         name="username"
@@ -26,14 +26,14 @@ function AuthForm(props) {
         placeholder="Username"
       />
       <input
-        value={props.userState.email}
+        value={props.formState}
         name="email"
         onChange={props.inputChange}
         type="text"
         placeholder="Email"
       />
       <input
-        value={props.userState.password}
+        value={props.formState}
         name="password"
         onChange={props.inputChange}
         type="password"
@@ -46,7 +46,7 @@ function AuthForm(props) {
         type="password"
         placeholder="Verify Password"
       />
-      {/* <input
+      <input
         value={props.userState.address}
         name="address"
         onChange={props.inputChange}
@@ -73,11 +73,11 @@ function AuthForm(props) {
         onChange={props.inputChange}
         type="text"
         placeholder="Gender"
-      /> */}
-      <button onClick={props.formSubmit}>Submit</button>
+      />
+      <button onClick={props.handleLogin}>Submit</button>
     </form>
      );
   }
 
  
-export default AuthForm;
+export default UpdateUserForm;

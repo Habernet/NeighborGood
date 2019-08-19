@@ -19,6 +19,7 @@ module.exports = {
   },
 
   create: function(req, res) {
+    console.log("REQ BODY FOR CLASSIFIEDS POST REQUEST: ", req.body);
     db.Classified.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
