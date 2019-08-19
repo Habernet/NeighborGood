@@ -4,7 +4,7 @@ import './style.css';
 
 const modal = (props) => {
     return (
-        <div>
+        <div id="modal">
             <div className="modal-wrapper"
                 style={{
                     transform: props.show ? 'translateY(0vh)' : 'translateY(-100vh)',

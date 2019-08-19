@@ -3,6 +3,9 @@
   background-size: cover;
   background-position: center;
   position: relative;
+  margin-bottom: 25px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .home::after {

@@ -21,6 +21,13 @@ function RegisterForm(props) {
         placeholder="Email"
       />
       <input
+        value={props.formState.password2}
+        name="address"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Street Address"
+      />
+      <input
         value={props.formState.password}
         name="password"
         onChange={props.inputChange}
@@ -34,6 +41,7 @@ function RegisterForm(props) {
         type="password"
         placeholder="Verify Password"
       />
+      
       <button onClick={props.handleRegister}>Submit</button>
     </form>
      );
