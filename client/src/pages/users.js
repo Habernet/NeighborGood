@@ -1,29 +1,165 @@
 import React, { Component } from "react";
-import Navbar from "../components/Navbar/navbar";
 import Jumbotron from "../components/Jumbotron/jumbotron";
-import About from "../components/About/about";
-import Footer from "../components/Footer/footer";
-import { Row, Col } from "../components/Grid";
-import Card from "../components/Card";
-import { List, ListItem } from "../components/List";
+// import Footer from "../components/Footer/footer";
+import { Row, Col, Container } from "../components/Grid";
+import {  ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
-// import MapLeaflet from "./pages/Map";
+import ClassifiedsForm from "../components/ClassifiedsForm/classifiedsform";
+import EventsForm from "../components/EventsForm/eventsform";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
+import Moment from 'react-moment';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+
+
+import Button from '../components/Button';
+
+// const EventCalendar = require('react-event-calendar');
+
 
 class Users extends Component {
   state = {
-    users: []
+    users: [],
+    username: "Abhi",
+    isShowing1: false,
+    isShowing2: false,
+    myEvents: [],
+    myClassifieds: [],
+    lat: "",
+    lng: "",
+    address: "10230, Broadstone way,nc 27502",
+    classifiedsForm: {
+      title: "",
+      description: "",
+      price: ""
+    },
+    eventsForm: {
+      title: "",
+      description: "",
+      date: "",
+      price: ""
+    },
     // ,
-    // isShowing: false
+    isShowing: false
   };
 
   componentDidMount() {
     this.loadUsers();
+    this.loadUserEvents();
+    this.loadUserClassifieds();
+    API.getUserAddrLatLong(this.state.address)
+      .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
+      .catch(err => console.log(err));
+
+
+
+    // Check the state to see if the user is logged in...if they are not redirect them to login page. If they are load the page with stuff from users database entry.
+    // this.loadUsers();
+    // this.setState({
+    //   ...this.prevState
+    // // });
+    // // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
+    // console.log(
+    //   "PROPS.USERSTATE.ISLOGGEDIN: ",
+    //   this.props.userState.isLoggedIn
+    // );
+    // if (this.props.userState.isLoggedIn) {
+    //   // use the API to grab the user and it's information...
+    //   console.log(
+    //     `USER IS LOGGED IN, RETRIVING ${
+    //       this.props.userState.username
+    //     }'s information...`
+    //   );
+    //   API.getUser(this.props.userState.username)
+    //   .then(res => {
+    //     console.log(`USER: ${this.props.userState.username} FOUND`),
+    //       console.log(res);
+    //     //Change the state of the page to the users information...this way we can use JSX to render their profile.
+    //     this.setState({ state: this.state });
+    //   })
+    //   .catch(err => {
+    //     console.log(`ERROR RETRIEVING LOGGED IN USER: `,)
+    //   });
+    // }
   }
 
+  // Split this into two functions for each of the forms to update the state
+  handleEventsInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState(prevState => {
+      return {
+        classifiedsForm: {
+          ...prevState.classifiedsForm
+        },
+        eventsForm: {
+          ...prevState.eventsForm,
+          [name]: value
+        }
+      };
+    });
+  };
+  handleClassifiedsInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState(prevState => {
+      return {
+        classifiedsForm: {
+          ...prevState.classifiedsForm,
+          [name]: value
+        },
+        eventsForm: {
+          ...prevState.eventsForm
+        }
+      };
+    });
+  };
+
+  handleClassifiedsFormSubmit = event => {
+    // grab the data we need
+    // price, description, title from the form state.
+    // make a post request to /api/classifieds
+    let formObject = this.state.classifiedsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
+    event.preventDefault();
+    axios
+      .post("/api/classifieds", formObject)
+      .then(res => {
+        console.log("POSTED SUCCESSFULLY: ", res);
+      })
+      .catch(err => {
+        console.log("POSTED UNSUCCESSFULLY:", err);
+      });
+  };
+
+  handleEventsFormSubmit = event => {
+    event.preventDefault();
+
+    let formObject = this.state.eventsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
+    axios
+      .post("/api/events", formObject)
+      .then(res => {
+        console.log("POSTED SUCCESSFULLY: ", res);
+      })
+      .catch(err => {
+        console.log("POSTED UNSUCCESSFULLY: ", err);
+      });
+  };
+
   loadUsers = () => {
+    // This must be rewritten to check for the cookie and load from there..only one user.
     API.getUsers()
       .then(res => {
         this.setState({ users: res.data });
@@ -31,24 +167,57 @@ class Users extends Component {
       })
       .catch(err => console.log(err));
   };
-  openModalHandler = () => {
-    this.setState({
-      isShowing: true
-    });
+
+  loadUserEvents = () => {
+    API.getEvent(this.state.username)
+      .then(res => { this.setState({ myEvents: res.data }); console.log(this.state.myEvents) }
+      )
+      .catch(err => console.log(err));
+
   };
 
-  closeModalHandler = () => {
-    this.setState({
-      isShowing: false
-    });
+  loadUserClassifieds = () => {
+    API.getClassified(this.state.username)
+      .then(res => { this.setState({ myClassifieds: res.data }); console.log(res.data) }
+      )
+      .catch(err => console.log(err));
+
   };
+
+
+  openModalHandler1 = () => {
+    this.setState({
+      isShowing1: true
+
+    });
+  }
+  openModalHandler2 = () => {
+    console.log("clicked!");
+    this.setState({
+      isShowing2: true
+
+
+    });
+  }
+
+  closeModalHandler1 = () => {
+    this.setState({
+      isShowing1: false
+    });
+  }
+  closeModalHandler2 = () => {
+    this.setState({
+      isShowing2: false
+    });
+  }
+
 
   render() {
     return (
-      <div>
-        {/* <Navbar />
 
-        {/* <Jumbotron >
+        <Container>
+
+          {/* <Jumbotron >
           <h4>
             Please sign up!!
 
@@ -104,73 +273,84 @@ class Users extends Component {
 
             </ListItem>))}
           </List>*/}
-
-        <Row>
-          <div className="col-sm-3">
-            <div className="userfront">
-              <h5>User Profile </h5>
-              <img src="./images/tp.png" className="usi" />
-              <h5>Areas of Interest</h5>
+<div className="userProfileDiv" style={{padding:'50px'}}>      
+    <Row>
+            <Col size="sm-6">
+              <div className='userData text-center'>
+                {/* <div className="userfront" > */}
+                <h4 >{this.state.username}</h4>
+                <img
+                  // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" 
+                  src="http://www.dentistdarlington.com/img/portfolio/photo.png" style={{ borderRadius: '50%', height: '250px', width: '250px' }}></img>
+                   {/* <Button>Update info</Button> */}
+                {/* <h5>Areas of Interest</h5>
               <ul>
                 <li>Yard Sales</li>
                 <li>Knick Nacks</li>
                 <li>A E-Commerce Marketplace near me</li>
                 <li>Events</li>
-              </ul>
-            </div>
-          </div>
-        </Row>
-        <Row>
-          <div className="navbar col-sm-12">
-            <ul className="navbar-nav">
-              <li className="nav-item active">
-                {/* { this.state.isShowing ? <div onClick={this.closeModalHandler} ></div> : null }
-
-            <button className="open-modal-btn" onClick={this.openModalHandler}>Classifieds</button>
+              </ul> */}
+              </div>
+            </Col>
+            <Col size="sm-1"></Col>
+            <Col size="sm-3">
 
 
-            <Modal
-                    className="modal"
-                    show={this.state.isShowing}
-                    close={this.closeModalHandler}>
-All user classifieds
-    </Modal> */}
+        <ClassifiedsForm
+          inputChange={this.handleInputChange}
+          formSubmit={this.handleClassifiedsFormSubmit}
+        />
+        </Col>
+        
+            </Row>
 
-                {/* {/* <a className="nav-link" href="/classifieds"><i class="fa fa-newspaper"></i>Classifieds</a>
-              <Link to="/" className={window.location.pathname === "Classifieds" ? "nav-link active" : "nav-link"}> */}
 
-                {/* </Link>  */}
-              </li>
-              <li className="nav-item active">
-                <a className="nav-link" href="/map">
-                  <i class="fa fa-map-marker-alt" />Map
-                </a>
-                <Link
-                  to="/"
-                  className={
-                    window.location.pathname === "MapLeaflet"
-                      ? "nav-link active"
-                      : "nav-link"
-                  }
+            {/* <ul className="navbar-nav">
+      <li className="nav-item active">
+              <Link to="/map" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}><span class="fa fa-map-marker-alt"></span> Map
+          
+        </Link>
+      </li> 
+
+      </ul> */}
+            {/* <div className="map"> */}
+            <Row>
+              <Col size="sm-1"></Col>
+            <Col size="sm-5" >
+
+              <Map style={{ width: '400px', height: '400px' }}
+                center={[this.state.lat, this.state.lng]}
+                zoom={6}
+                maxZoom={10}
+                attributionControl={true}
+                zoomControl={true}
+                doubleClickZoom={true}
+                scrollWheelZoom={true}
+                dragging={true}
+                animate={true}
+                easeLinearity={0.35}      >
+                <TileLayer
+                  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
-              </li>
 
-              <li className="nav-item active">
-                <a className="nav-link" href="/events">
-                  <i class="fa fa-calendar-alt" />Events
-                </a>
-                <Link
-                  to="/"
-                  className={
-                    window.location.pathname === "Events"
-                      ? "nav-link active"
-                      : "nav-link"
-                  }
-                />
-              </li>
-            </ul>
-          </div>
-        </Row>
+                <Marker position={[this.state.lat, this.state.lng]}>
+                  <Popup>
+                    {this.state.address}
+                  </Popup>
+                </Marker>
+              </Map>
+              </Col>
+              <Col size="sm-1"></Col>
+
+        <Col size="sm-3">
+
+        <EventsForm
+          inputChange={this.handleInputChange}
+          formSubmit={this.handleEventsFormSubmit}
+        />
+
+            </Col>
+</Row>
         {/* <div>
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
@@ -181,110 +361,81 @@ All user classifieds
                     close={this.closeModalHandler}>
 
     </Modal>
-            </div>
  */}
+ <div className="modalDiv" style={{marginTop:'30px'}}>
+      <Row >
+        <Col size="sm-4">
+          <button className="open-modal-btn" onClick={this.openModalHandler2}>Events</button>
+        </Col>
+      </Row>
+      <Row>
+        <Col size="sm-4">
+
+          <button className="open-modal-btn" onClick={this.openModalHandler1}>Classifieds</button>
+
+        </Col>
+
+        <Col size="sm-4"> 
+        <Modal
+          className="modal"
+
+          show={this.state.isShowing2}
+          close={this.closeModalHandler2}>
+
+
+
+            {this.state.myEvents.map(myEvent => (
+
+              <ListItem key={myEvent._id}>
+                        <div className="modal-body">
+
+                <h3>{myEvent.title}</h3>
+
+                <h4>   <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
+                </h4>
+                <h4>{myEvent.price}</h4>
+
+
+                <p>{myEvent.description}</p>
+                </div>
+
+              </ListItem>
+            ))}
+
+        </Modal>
+        </Col>
+
+        <Col size="sm-4">
+          <Modal
+            className="modal" show={this.state.isShowing1}
+            close={this.closeModalHandler1}>
+            {this.state.myClassifieds.map(myClassified => (
+
+              <ListItem key={myClassified._id}>
+                <div className="modal-body">
+                  <h3>{myClassified.title}</h3>
+
+                  <h4>   <Moment format="MMM-DD-YY">{myClassified.date}</Moment>
+                  </h4>
+                  <h4>{myClassified.price}</h4>
+
+
+                  <p>{myClassified.description}</p>
+                </div>
+
+
+              </ListItem>
+            ))}
+
+          </Modal>
+        </Col>
+      </Row>
       </div>
+      </div>
+</Container >
 
-      /* <li className="nav-item">
-              <a className="nav-link" href="/map" >Map</a>
-              <Link to="/" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}>
-
-              </Link>
-            </li>
-          <div className='biocolumn'>
-            <div className='eventscolumn'>
-              <h5>List of saved events</h5>
-              <a className="nav-link" href="/events" ><i class="/" aria-hidden="true"></i>Events</a>
-            </div>
-          </div>
-          <div className='biocolumn'>
-            <div className='posteventscolumn'>
-              <h5>Post an Event</h5>
-              <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              <button type="button" className="btn btn-warning">Submit</button>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='biocolumn'>
-              <div className='classcolumn'>
-                <h5> Classifieds</h5>
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                <button type="button" class="btn btn-warning">Submit</button>
-              </div>
-            </div>
-            <div className='biocolumn'>
-              <div className='posteventscolumn'>
-                <p></p>
-
-              </div>
-            </div>
-            <div className='biocolumn'>
-              <div className='posteventscolumn'>
-                <h5>Post a Listing</h5>
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                <button type="button" class="btn btn-warning">Submit</button>
-              </div>
-            </div>
-          </div> */
-    );
+)
   }
 }
-
-//  <Row>
-
-//  <div className="col-sm-3">
-//         <div className="userfront">
-//         <h5>User Profile  </h5>
-//         <img src="./images/tp.png" className="usi"></img>
-//         <h5>Areas of Interest</h5>
-//         <ul>
-//           <li>Yard Sales</li>
-//           <li>Knick Nacks</li>
-//           <li>A E-Commerce Marketplace near me</li>
-//           <li>Events</li>
-//         </ul>
-//         </div>
-//       </div>
-//     <div class='biocolumn'>
-//       <div class='eventscolumn'>
-//        <h5>List of saved events</h5>
-//    <a class="nav-link" href="/events" ><i class="/" aria-hidden="true"></i>Events</a>
-//       </div>
-//     </div>
-//     <div class='biocolumn'>
-//       <div class='posteventscolumn'>
-//         <h5>Post an Event</h5>
-//     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-//         <button type="button" class="btn btn-warning">Submit</button>
-//       </div>
-//     </div>
-//   <div class='row'>
-//     <div class='biocolumn'>
-//       <div class='classcolumn'>
-//           <h5> Classifieds</h5>
-//     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-//         <button type="button" class="btn btn-warning">Submit</button>
-//       </div>
-//     </div>
-//     <div class='biocolumn'>
-//       <div class='posteventscolumn'>
-//         <p></p>
-
-//       </div>
-//     </div>
-//     <div class='biocolumn'>
-//       <div class='posteventscolumn'>
-//           <h5>Post a Listing</h5>
-//     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-//         <button type="button" class="btn btn-warning">Submit</button>
-//       </div>
-//     </div>
-//   </div>
-// </Row>
-// <Footer/>
-// </div>  );
-//     }
-
-//   }
 
 export default Users;

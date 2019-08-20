@@ -17,6 +17,14 @@ const events = [
     price: 15
   },
   {
+    user_id: "Abhi",
+    title: "Game night",
+    description: "We play Settlers of Catan all night.",
+    date: new Date(Date.now()),
+    price: 100
+  },
+
+  {
     user_id: "Tim",
     title: "Game night",
     description: "We play Settlers of Catan all night.",

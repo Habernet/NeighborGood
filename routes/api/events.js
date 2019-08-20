@@ -7,6 +7,10 @@ router.route("/")
   .get(eventsController.findAll)
   .post(eventsController.create);
 
+  router.route("/:user_id")
+  .get(eventsController.find)
+  .put(eventsController.update);
+
 // Matches with "/api/events/:id"
 router
   .route("/:id")

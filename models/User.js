@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-  // bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
   username: {
@@ -34,19 +34,28 @@ const UserSchema = new Schema({
   }
 });
 
-// bcrypt.genSalt(10, (err, salt) =>
-//   bcrypt.hash(userSchema.password, salt, (err, hash) => {
+// UserSchema.pre("save", (next) => {
+//   var user = this;
+//   console.log("got to pre");
+//   bcrypt.genSalt(10, (err, salt) => {
+//     bcrypt.hash(user.password, salt, (err, hash) => {
 //     if(err) throw err;
-//     // Set password to hashed
-//     userSchema.password = hash;
-//     // Save user
-//     userSchema.save()
-//       .then(user => {
-//         // req.flash("success_msg", "You have successfully registered. Please log in.");
-//         res.redirect("/users/login");
-//       })
-//       .catch(err => console.log(err));
-//   }))
+//     user.password = hash;
+//     next();
+//     });
+//   });
+// });
+
+  //   // Set password to hashed
+  //   UserSchema.password = hash;
+  //   // Save user
+  //   UserSchema.save()
+  //     .then(user => {
+  //       // req.flash("success_msg", "You have successfully registered. Please log in.");
+  //       res.redirect("/users/login");
+  //     })
+  //     .catch(err => console.log(err));
+  // }))
 
 // console.log("User.js = " + user)
 

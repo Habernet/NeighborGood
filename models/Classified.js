@@ -6,8 +6,8 @@ const ClassifiedSchema = new Schema({
   // Reference user rather than store additional data ... best practice?
   // Is this necessary or does this only make it more simple to access data? i.e. requesting classified by the array on the user instead of storing user_id here?
   user_id: {
-    type: String,
-    required: "user_id is Required"
+    type: String
+    // required: "user_id is Required"
   },
   title: {
     type: String,
@@ -35,7 +35,6 @@ const ClassifiedSchema = new Schema({
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   }
-
 });
 
 const Classified = mongoose.model("Classified", ClassifiedSchema);
