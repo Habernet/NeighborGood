@@ -21,8 +21,8 @@ class App extends Component {
   state = {
     userState: {
       isLoggedIn: false,
-      password: "",
-      password2: "",
+      password: "", //Do we need this?
+      password2: "", //Do we need this?
       email: "",
       address: "",
       username: ""
@@ -30,7 +30,9 @@ class App extends Component {
     formState: {
       username: "",
       email: "",
-      password: ""
+      address: "",
+      password: "",
+      password2: ""
     }
   };
 
@@ -87,9 +89,12 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username, address} = this.state.formState;
+    let { password, email, username, address } = this.state.formState;
     let user = {
-      password, email, username, address
+      password,
+      email,
+      username,
+      address
       // if (this.state.userState...)
     };
     AUTH.register(user).then(res => {
@@ -98,7 +103,7 @@ class App extends Component {
         userState: {
           email: res.data.user.email,
           username: res.data.user.username,
-          password: "",
+          password: "", // Do we need this?
           address: res.data.user.address,
           isLoggedIn: true
         }
@@ -114,28 +119,26 @@ class App extends Component {
       email: this.state.formState.email
     };
     axios
-      .post("/auth/login",
-        user
-      )
-    .then(response => {
-      console.log("login response: ");
-      console.log(response);
-      if (response.status === 200) {
-        this.updateUser({
-          isLoggedIn: true,
-          username: response.data.user.username,
-          email: response.data.user.email,
-          address: response.data.user.address
-        })
-        this.setState({
-          redirectoTo: "/"
-        })
-      }
-    }).catch(error => {
-      console.log("login error: ")
-      console.log(error);
-    })
-
+      .post("/auth/login", user)
+      .then(response => {
+        console.log("login response: ");
+        console.log(response);
+        if (response.status === 200) {
+          this.updateUser({
+            isLoggedIn: true,
+            username: response.data.user.username,
+            email: response.data.user.email,
+            address: response.data.user.address
+          });
+          this.setState({
+            redirectoTo: "/" // Do we need this? This is where we would redirect the user, but this is just setting a state. We then need to implement the actual redirect.
+          });
+        }
+      })
+      .catch(error => {
+        console.log("login error: ");
+        console.log(error);
+      });
   };
 
   render() {

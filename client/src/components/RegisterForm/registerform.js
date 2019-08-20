@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import "./style.css";
 
 function RegisterForm(props) {
   console.log(props);
-    return ( 
-      <form className="form">
+  return (
+    <form className="form">
       <h3>Register:</h3>
       <input
         value={props.formState.username}
@@ -21,7 +21,7 @@ function RegisterForm(props) {
         placeholder="Email"
       />
       <input
-        value={props.formState.password2}
+        value={props.formState.address}
         name="address"
         onChange={props.inputChange}
         type="text"
@@ -41,10 +41,11 @@ function RegisterForm(props) {
         type="password"
         placeholder="Verify Password"
       />
-      <button className="submitButton" onClick={props.handleRegister}>Submit</button>
+      <button className="submitButton" onClick={props.handleRegister}>
+        Submit
+      </button>
     </form>
-     );
-  }
+  );
+}
 
- 
 export default RegisterForm;
