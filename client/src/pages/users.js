@@ -2,21 +2,19 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 // import Footer from "../components/Footer/footer";
 import { Row, Col, Container } from "../components/Grid";
-import {  ListItem } from "../components/List";
+import { ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
 import ClassifiedsForm from "../components/ClassifiedsForm/classifiedsform";
 import EventsForm from "../components/EventsForm/eventsform";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
-import Moment from 'react-moment';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import Moment from "react-moment";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
-
-import Button from '../components/Button';
+import Button from "../components/Button";
 
 // const EventCalendar = require('react-event-calendar');
-
 
 class Users extends Component {
   state = {
@@ -49,10 +47,14 @@ class Users extends Component {
     this.loadUserEvents();
     this.loadUserClassifieds();
     API.getUserAddrLatLong(this.state.address)
-      .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
+      .then(res => {
+        this.setState({
+          lat: res.data.results[0].locations[0].latLng.lat,
+          lng: res.data.results[0].locations[0].latLng.lng
+        });
+        console.log(this.state.lat, this.state.lng);
+      })
       .catch(err => console.log(err));
-
-
 
     // Check the state to see if the user is logged in...if they are not redirect them to login page. If they are load the page with stuff from users database entry.
     // this.loadUsers();
@@ -170,54 +172,49 @@ class Users extends Component {
 
   loadUserEvents = () => {
     API.getEvent(this.state.username)
-      .then(res => { this.setState({ myEvents: res.data }); console.log(this.state.myEvents) }
-      )
+      .then(res => {
+        this.setState({ myEvents: res.data });
+        console.log(this.state.myEvents);
+      })
       .catch(err => console.log(err));
-
   };
 
   loadUserClassifieds = () => {
     API.getClassified(this.state.username)
-      .then(res => { this.setState({ myClassifieds: res.data }); console.log(res.data) }
-      )
+      .then(res => {
+        this.setState({ myClassifieds: res.data });
+        console.log(res.data);
+      })
       .catch(err => console.log(err));
-
   };
-
 
   openModalHandler1 = () => {
     this.setState({
       isShowing1: true
-
     });
-  }
+  };
   openModalHandler2 = () => {
     console.log("clicked!");
     this.setState({
       isShowing2: true
-
-
     });
-  }
+  };
 
   closeModalHandler1 = () => {
     this.setState({
       isShowing1: false
     });
-  }
+  };
   closeModalHandler2 = () => {
     this.setState({
       isShowing2: false
     });
-  }
-
+  };
 
   render() {
     return (
-
-        <Container>
-
-          {/* <Jumbotron >
+      <Container>
+        {/* <Jumbotron >
           <h4>
             Please sign up!!
 
@@ -273,16 +270,22 @@ class Users extends Component {
 
             </ListItem>))}
           </List>*/}
-<div className="userProfileDiv" style={{padding:'50px'}}>      
-    <Row>
+        <div className="userProfileDiv" style={{ padding: "50px" }}>
+          <Row>
             <Col size="sm-6">
-              <div className='userData text-center'>
+              <div className="userData text-center">
                 {/* <div className="userfront" > */}
-                <h4 >{this.state.username}</h4>
+                <h4>{this.state.username}</h4>
                 <img
-                  // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" 
-                  src="http://www.dentistdarlington.com/img/portfolio/photo.png" style={{ borderRadius: '50%', height: '250px', width: '250px' }}></img>
-                   {/* <Button>Update info</Button> */}
+                  // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b"
+                  src="http://www.dentistdarlington.com/img/portfolio/photo.png"
+                  style={{
+                    borderRadius: "50%",
+                    height: "250px",
+                    width: "250px"
+                  }}
+                />
+                {/* <Button>Update info</Button> */}
                 {/* <h5>Areas of Interest</h5>
               <ul>
                 <li>Yard Sales</li>
@@ -292,20 +295,16 @@ class Users extends Component {
               </ul> */}
               </div>
             </Col>
-            <Col size="sm-1"></Col>
+            <Col size="sm-1" />
             <Col size="sm-3">
+              <ClassifiedsForm
+                inputChange={this.handleClassifiedsInputChange}
+                formSubmit={this.handleClassifiedsFormSubmit}
+              />
+            </Col>
+          </Row>
 
-
-        <ClassifiedsForm
-          inputChange={this.handleInputChange}
-          formSubmit={this.handleClassifiedsFormSubmit}
-        />
-        </Col>
-        
-            </Row>
-
-
-            {/* <ul className="navbar-nav">
+          {/* <ul className="navbar-nav">
       <li className="nav-item active">
               <Link to="/map" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}><span class="fa fa-map-marker-alt"></span> Map
           
@@ -313,12 +312,12 @@ class Users extends Component {
       </li> 
 
       </ul> */}
-            {/* <div className="map"> */}
-            <Row>
-              <Col size="sm-1"></Col>
-            <Col size="sm-5" >
-
-              <Map style={{ width: '400px', height: '400px' }}
+          {/* <div className="map"> */}
+          <Row>
+            <Col size="sm-1" />
+            <Col size="sm-5">
+              <Map
+                style={{ width: "400px", height: "400px" }}
                 center={[this.state.lat, this.state.lng]}
                 zoom={6}
                 maxZoom={10}
@@ -328,30 +327,25 @@ class Users extends Component {
                 scrollWheelZoom={true}
                 dragging={true}
                 animate={true}
-                easeLinearity={0.35}      >
-                <TileLayer
-                  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                />
+                easeLinearity={0.35}
+              >
+                <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
 
                 <Marker position={[this.state.lat, this.state.lng]}>
-                  <Popup>
-                    {this.state.address}
-                  </Popup>
+                  <Popup>{this.state.address}</Popup>
                 </Marker>
               </Map>
-              </Col>
-              <Col size="sm-1"></Col>
-
-        <Col size="sm-3">
-
-        <EventsForm
-          inputChange={this.handleInputChange}
-          formSubmit={this.handleEventsFormSubmit}
-        />
-
             </Col>
-</Row>
-        {/* <div>
+            <Col size="sm-1" />
+
+            <Col size="sm-3">
+              <EventsForm
+                inputChange={this.handleEventsInputChange}
+                formSubmit={this.handleEventsFormSubmit}
+              />
+            </Col>
+          </Row>
+          {/* <div>
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
 
@@ -362,79 +356,81 @@ class Users extends Component {
 
     </Modal>
  */}
- <div className="modalDiv" style={{marginTop:'30px'}}>
-      <Row >
-        <Col size="sm-4">
-          <button className="open-modal-btn" onClick={this.openModalHandler2}>Events</button>
-        </Col>
-      </Row>
-      <Row>
-        <Col size="sm-4">
+          <div className="modalDiv" style={{ marginTop: "30px" }}>
+            <Row>
+              <Col size="sm-4">
+                <button
+                  className="open-modal-btn"
+                  onClick={this.openModalHandler2}
+                >
+                  Events
+                </button>
+              </Col>
+            </Row>
+            <Row>
+              <Col size="sm-4">
+                <button
+                  className="open-modal-btn"
+                  onClick={this.openModalHandler1}
+                >
+                  Classifieds
+                </button>
+              </Col>
 
-          <button className="open-modal-btn" onClick={this.openModalHandler1}>Classifieds</button>
+              <Col size="sm-4">
+                <Modal
+                  className="modal"
+                  show={this.state.isShowing2}
+                  close={this.closeModalHandler2}
+                >
+                  {this.state.myEvents.map(myEvent => (
+                    <ListItem key={myEvent._id}>
+                      <div className="modal-body">
+                        <h3>{myEvent.title}</h3>
 
-        </Col>
+                        <h4>
+                          {" "}
+                          <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
+                        </h4>
+                        <h4>{myEvent.price}</h4>
 
-        <Col size="sm-4"> 
-        <Modal
-          className="modal"
+                        <p>{myEvent.description}</p>
+                      </div>
+                    </ListItem>
+                  ))}
+                </Modal>
+              </Col>
 
-          show={this.state.isShowing2}
-          close={this.closeModalHandler2}>
+              <Col size="sm-4">
+                <Modal
+                  className="modal"
+                  show={this.state.isShowing1}
+                  close={this.closeModalHandler1}
+                >
+                  {this.state.myClassifieds.map(myClassified => (
+                    <ListItem key={myClassified._id}>
+                      <div className="modal-body">
+                        <h3>{myClassified.title}</h3>
 
+                        <h4>
+                          {" "}
+                          <Moment format="MMM-DD-YY">
+                            {myClassified.date}
+                          </Moment>
+                        </h4>
+                        <h4>{myClassified.price}</h4>
 
-
-            {this.state.myEvents.map(myEvent => (
-
-              <ListItem key={myEvent._id}>
-                        <div className="modal-body">
-
-                <h3>{myEvent.title}</h3>
-
-                <h4>   <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
-                </h4>
-                <h4>{myEvent.price}</h4>
-
-
-                <p>{myEvent.description}</p>
-                </div>
-
-              </ListItem>
-            ))}
-
-        </Modal>
-        </Col>
-
-        <Col size="sm-4">
-          <Modal
-            className="modal" show={this.state.isShowing1}
-            close={this.closeModalHandler1}>
-            {this.state.myClassifieds.map(myClassified => (
-
-              <ListItem key={myClassified._id}>
-                <div className="modal-body">
-                  <h3>{myClassified.title}</h3>
-
-                  <h4>   <Moment format="MMM-DD-YY">{myClassified.date}</Moment>
-                  </h4>
-                  <h4>{myClassified.price}</h4>
-
-
-                  <p>{myClassified.description}</p>
-                </div>
-
-
-              </ListItem>
-            ))}
-
-          </Modal>
-        </Col>
-      </Row>
-      </div>
-      </div>
-</Container >
-
-)
+                        <p>{myClassified.description}</p>
+                      </div>
+                    </ListItem>
+                  ))}
+                </Modal>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </Container>
+    );
   }
 }
 
