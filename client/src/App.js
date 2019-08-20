@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/navbar";
-import Jumbotron from "./components/Jumbotron/jumbotron";
-import About from "./components/About/about";
-import Footer from "./components/Footer/footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 import AUTH from "./utils/AUTH";
@@ -16,7 +13,6 @@ import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
-import registerUser from "./pages/register";
 import ModalTest from "./pages/modaltest";
 
 class App extends Component {
@@ -36,23 +32,23 @@ class App extends Component {
     }
   };
 
-  componentDidMount() {
-		AUTH.getUser().then(response => {
-			if (response.data.user) {
-				this.setState({
-					userState: {
-            loggedIn: true,
-            username: response.data.user
-          }
-				});
-			} else {
-				this.setState({
-					loggedIn: false,
-					user: null
-				});
-			}
-		});
-	};
+  // componentDidMount() {
+	// 	AUTH.getUser().then(response => {
+	// 		if (response.data.user) {
+	// 			this.setState({
+	// 				userState: {
+  //           loggedIn: true,
+  //           username: response.data.user
+  //         }
+	// 			});
+	// 		} else {
+	// 			this.setState({
+	// 				loggedIn: false,
+	// 				user: null
+	// 			});
+	// 		}
+	// 	});
+	// };
 
   updateUser = res => {
     console.log("updateUser response: ")

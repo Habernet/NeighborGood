@@ -22,7 +22,7 @@ function RegisterForm(props) {
       />
       <input
         value={props.formState.password2}
-        name="address"
+        name="password2"
         onChange={props.inputChange}
         type="text"
         placeholder="Street Address"
