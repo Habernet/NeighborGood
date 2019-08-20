@@ -17,9 +17,9 @@ ul {
     border-right: none;
   }
   
-  .list-overflow-container li * {
-    cursor: pointer;
-  }
+  /* .list-overflow-container li * {
+    /* cursor: pointer; */
+   
   
   .list-overflow-container li a {
     color: #2A878C;
@@ -34,6 +34,9 @@ ul {
   }
   
   .list-group-item{
-border:none;
-      padding:50px;
+border:1 px solid lightgrey;
+box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+
+      padding:60px;
   }
+  

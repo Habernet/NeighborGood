@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RegisterForm from '../components/RegisterForm/registerform';
-import { Row, Col } from "../components/Grid";
+import { Row, Col,Container } from "../components/Grid";
 
 function registerUser(props) {
   // console.log(props);
   return ( 
+    <Container>
     <Row>
-      <div style={{"margin-right": "auto", "margin-left": "auto"}}>
+      <div style={{"margin-right": "auto", "margin-left": "auto","padding":"200px"}}>
 
       <Col size="md-12">
 
@@ -14,6 +15,7 @@ function registerUser(props) {
       </Col>
       </div>
       </Row>
+      </Container>
   );
 }
  

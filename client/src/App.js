@@ -11,13 +11,11 @@ import Main from "./pages/Main";
 import Users from "./pages/users";
 import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
-import MapLeaflet from "./pages/Map";
 import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
 import registerUser from "./pages/register";
-import ModalTest from "./pages/modaltest";
 
 class App extends Component {
   state = {
@@ -173,8 +171,6 @@ class App extends Component {
                   <Events {...routeProps} userState={this.state.userState} />
                 )}
               />
-              <Route exact path="/map" component={MapLeaflet} />
-              <Route exact path="/modal" component={ModalTest} />
             </Switch>
           )}
           {!isLoggedIn && (

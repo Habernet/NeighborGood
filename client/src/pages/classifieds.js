@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 // import About from "../components/About/about";
 // import Footer from "../components/Footer/footer";
-import {Row,Col} from "../components/Grid";
+import {Row,Col,Container} from "../components/Grid";
 import Card from "../components/Card";
 import Button from "../components/Button";
 
@@ -34,10 +34,14 @@ class Classifieds extends Component {
   
     render() {
       return (
-        <div>
-                          <Jumbotron >
-  <h4>Listings </h4>
-                      
+        <Container>
+        <div> 
+
+                          <Jumbotron
+                          // backgroundImage="./images/classifieds.png"
+                          >
+
+                  <h3> Listings posted by your neighbours</h3>
                   </Jumbotron>
   
 <List>
@@ -46,18 +50,19 @@ class Classifieds extends Component {
   <ListItem key={classified._id}      >
 <Row>
 <Col size="md-12">   
-<Card>
+  <div className="card-title text-center" >
+  <h4 >{classified.title}</h4>
+
+  </div>
           <div className="card-body">
-          <h4 >{classified.title}</h4>
-          <h5>{classified.user_id}</h5>
-          <h5>{classified.price}</h5>
+          <h4> Posted by {classified.user_id} </h4>
+          <h5>Listed for ${classified.price}</h5>
           <p>{classified.description}</p>
           <Button
-          onClick={ () => this.handleClick(classified.email) }>
-            Contact Seller!!
+          onClick={ () => this.handleClick(classified.email) }
+>            Contact Seller!!
           </Button>
           </div>
-          </Card>
 
           </Col>
 </Row>
@@ -67,6 +72,7 @@ class Classifieds extends Component {
 
 
         </div>
+        </Container>
       );
     }
   

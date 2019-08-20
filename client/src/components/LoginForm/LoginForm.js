@@ -20,7 +20,7 @@ function LoginForm(props) {
         type="password"
         placeholder="Password"
       />
-      <button onClick={props.handleLogin}>Submit</button>
+      <button className="loginButton" onClick={props.handleLogin}>Submit</button>
     </form>
      );
   }

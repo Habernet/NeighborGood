@@ -13,8 +13,8 @@ function EventsForm(props) {
         type="text"
         placeholder="Title"
       />
-      <input
-        style={formStyle}
+      <textarea
+        // style={formStyle}
         name="description"
         onChange={props.inputChange}
         type="text"
@@ -27,7 +27,7 @@ function EventsForm(props) {
         placeholder="Price"
       />
       <input type="date" name="date" onChange={props.inputChange} />
-      <button onClick={props.formSubmit}>Submit</button>
+      <button className="submitButton" onClick={props.formSubmit}>Submit</button>
     </form>
   );
 }

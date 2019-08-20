@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 import About from "../components/About/about";
 import Home from "../components/Home/home";

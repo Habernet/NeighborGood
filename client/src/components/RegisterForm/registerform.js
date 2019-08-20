@@ -41,8 +41,7 @@ function RegisterForm(props) {
         type="password"
         placeholder="Verify Password"
       />
-      
-      <button onClick={props.handleRegister}>Submit</button>
+      <button className="submitButton" onClick={props.handleRegister}>Submit</button>
     </form>
      );
   }
