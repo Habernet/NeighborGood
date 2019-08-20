@@ -37,7 +37,7 @@ export default {
   },
   getUserAddrLatLong: function(address) {
     return axios.get(
-      "http://www.mapquestapi.com/geocoding/v1/address?key=dhqUSipT8jFl3NGid7eL6SwE8YhAcdY9&location=" +
+      "https://www.mapquestapi.com/geocoding/v1/address?key=dhqUSipT8jFl3NGid7eL6SwE8YhAcdY9&location=" +
         address
     );
   }

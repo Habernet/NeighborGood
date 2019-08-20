@@ -48,7 +48,7 @@ module.exports = {
     // }
   },
   register: (req, res) => {
-    console.log("Req body:", req.body);
+    console.log("Req body:", req.body.address1, req.body);
     db.User.findOne({ email: req.body.email })
       .then(resp => {
         console.log(`Finding email: ${resp}`);

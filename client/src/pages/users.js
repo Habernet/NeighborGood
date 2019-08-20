@@ -18,37 +18,104 @@ import Button from '../components/Button';
 // const EventCalendar = require('react-event-calendar');
 
 
-class Users extends Component {
-  state = {
+// class Users extends Component {
+//   state = {
+//     users: [],
+//     username: "Abhi",
+//     isShowing1: false,
+//     isShowing2: false,
+//     myEvents: [],
+//     myClassifieds: [],
+//     lat: "",
+//     lng: "",
+//     address: "10230, Broadstone way,nc 27502",
+//     classifiedsForm: {
+//       title: "",
+//       description: "",
+//       price: ""
+//     },
+//     eventsForm: {
+//       title: "",
+//       description: "",
+//       date: "",
+//       price: ""
+//     },
+//     // ,
+//     isShowing: false
+//   };
+
+  class Users extends Component {
+    state = {
+      classifiedsForm: {
+        title: "",
+        description: "",
+        price: ""
+      },
+      eventsForm: {
+        title: "",
+        description: "",
+        date: "",
+        price: ""
+      },
     users: [],
-    username: "Abhi",
+    username: "",
     isShowing1: false,
     isShowing2: false,
     myEvents: [],
     myClassifieds: [],
     lat: "",
     lng: "",
-    address: "10230, Broadstone way,nc 27502",
-    classifiedsForm: {
-      title: "",
-      description: "",
-      price: ""
-    },
-    eventsForm: {
-      title: "",
-      description: "",
-      date: "",
-      price: ""
-    },
-    // ,
-    isShowing: false
-  };
+    address: "",
+};
+  
+  
+    // Split this into two functions for each of the forms to update the state
+    handleEventsInputChange = event => {
+      // Getting the value and name of the input which triggered the change
+      let value = event.target.value;
+      const name = event.target.name;
+  
+      // Updating the input's state
+      this.setState(prevState => {
+        return {
+          classifiedsForm: {
+            ...prevState.classifiedsForm
+          },
+          eventsForm: {
+            ...prevState.eventsForm,
+            [name]: value
+          }
+        };
+      });
+    };
+    handleClassifiedsInputChange = event => {
+      // Getting the value and name of the input which triggered the change
+      let value = event.target.value;
+      const name = event.target.name;
+  
+      // Updating the input's state
+      this.setState(prevState => {
+        return {
+          classifiedsForm: {
+            ...prevState.classifiedsForm,
+            [name]: value
+          },
+          eventsForm: {
+            ...prevState.eventsForm
+          }
+        };
+      });
+    };
+  
 
   componentDidMount() {
+    console.log(this.props.userState.username);
+    this.loadUser();
+
     this.loadUsers();
     this.loadUserEvents();
     this.loadUserClassifieds();
-    API.getUserAddrLatLong(this.state.address)
+    API.getUserAddrLatLong(this.state.addr)
       .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
       .catch(err => console.log(err));
 
@@ -85,41 +152,77 @@ class Users extends Component {
   }
 
   // Split this into two functions for each of the forms to update the state
-  handleEventsInputChange = event => {
-    // Getting the value and name of the input which triggered the change
-    let value = event.target.value;
-    const name = event.target.name;
+  // handleEventsInputChange = event => {
+  //   // Getting the value and name of the input which triggered the change
+  //   let value = event.target.value;
+  //   const name = event.target.name;
 
-    // Updating the input's state
-    this.setState(prevState => {
-      return {
-        classifiedsForm: {
-          ...prevState.classifiedsForm
-        },
-        eventsForm: {
-          ...prevState.eventsForm,
-          [name]: value
-        }
-      };
-    });
+  //   // Updating the input's state
+  //   this.setState(prevState => {
+  //     return {
+  //       classifiedsForm: {
+  //         ...prevState.classifiedsForm
+  //       },
+  //       eventsForm: {
+  //         ...prevState.eventsForm,
+  //         [name]: value
+  //       }
+  //     };
+  //   });
+  // };
+  // handleClassifiedsInputChange = event => {
+  //   // Getting the value and name of the input which triggered the change
+  //   let value = event.target.value;
+  //   const name = event.target.name;
+
+  //   // Updating the input's state
+  //   this.setState(prevState => {
+  //     return {
+  //       classifiedsForm: {
+  //         ...prevState.classifiedsForm,
+  //         [name]: value
+  //       },
+  //       eventsForm: {
+  //         ...prevState.eventsForm
+  //       }
+  //     };
+  //   });
+  // };
+
+  handleClassifiedsFormSubmit = event => {
+    // grab the data we need
+    // price, description, title from the form state.
+    // make a post request to /api/classifieds
+    let formObject = this.state.classifiedsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
+    event.preventDefault();
+    axios
+      .post("/api/classifieds", formObject)
+      .then(res => {
+        console.log("POSTED SUCCESSFULLY: ", res);
+      })
+      .catch(err => {
+        console.log("POSTED UNSUCCESSFULLY:", err);
+      });
   };
-  handleClassifiedsInputChange = event => {
-    // Getting the value and name of the input which triggered the change
-    let value = event.target.value;
-    const name = event.target.name;
 
-    // Updating the input's state
-    this.setState(prevState => {
-      return {
-        classifiedsForm: {
-          ...prevState.classifiedsForm,
-          [name]: value
-        },
-        eventsForm: {
-          ...prevState.eventsForm
-        }
-      };
-    });
+  handleEventsFormSubmit = event => {
+    event.preventDefault();
+
+    let formObject = this.state.eventsForm;
+    formObject.email = this.props.userState.email;
+    console.log("OBJECT TO SUBMIT: ", formObject);
+
+    axios
+      .post("/api/events", formObject)
+      .then(res => {
+        console.log("POSTED SUCCESSFULLY: ", res);
+      })
+      .catch(err => {
+        console.log("POSTED UNSUCCESSFULLY: ", err);
+      });
   };
 
   handleClassifiedsFormSubmit = event => {
@@ -158,6 +261,40 @@ class Users extends Component {
       });
   };
 
+  loadUser = () => {
+    // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
+
+    if (this.props.userState.isLoggedIn) {
+      console.log(
+        `USER IS LOGGED IN, RETRIVING ${
+          this.props.userState.username
+        }'s information...`
+      );
+
+      // use the API to grab the user and it's information...
+
+      API.getUser(this.props.userState.username)
+        .then(res => {
+          console.log(`FOUND ${this.props.userState.username} `, res);
+          this.setState({
+            ...this.prevState,
+            username: res.data.username,
+            savedEvents: res.data.savedEvents,
+            address:res.data.address1+","+res.data.address2+","+res.data.city+","+
+            res.data.state         // createdEvents: res.data.createdEvents
+          });
+        })
+        .catch(err => {
+          console.log(`ERROR FINDING ${this.props.userState.username}`, err);
+        });
+    } else {
+      console.log(`USER ISN'T LOGGED IN, FAILED.`);
+    }
+  };
+
+
+
+
   loadUsers = () => {
     // This must be rewritten to check for the cookie and load from there..only one user.
     API.getUsers()
@@ -169,7 +306,7 @@ class Users extends Component {
   };
 
   loadUserEvents = () => {
-    API.getEvent(this.state.username)
+    API.getEvent(this.props.userState.username)
       .then(res => { this.setState({ myEvents: res.data }); console.log(this.state.myEvents) }
       )
       .catch(err => console.log(err));
@@ -177,7 +314,7 @@ class Users extends Component {
   };
 
   loadUserClassifieds = () => {
-    API.getClassified(this.state.username)
+    API.getClassified(this.props.userState.username)
       .then(res => { this.setState({ myClassifieds: res.data }); console.log(res.data) }
       )
       .catch(err => console.log(err));
@@ -278,7 +415,7 @@ class Users extends Component {
             <Col size="sm-6">
               <div className='userData text-center'>
                 {/* <div className="userfront" > */}
-                <h4 >{this.state.username}</h4>
+                <h4 >{this.props.userState.username}</h4>
                 <img
                   // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" 
                   src="http://www.dentistdarlington.com/img/portfolio/photo.png" style={{ borderRadius: '50%', height: '250px', width: '250px' }}></img>

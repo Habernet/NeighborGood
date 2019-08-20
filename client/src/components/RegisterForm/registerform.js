@@ -21,12 +21,43 @@ function RegisterForm(props) {
         placeholder="Email"
       />
       <input
-        value={props.formState.password2}
-        name="address"
+        value={props.formState.address1}
+        name="address1"
         onChange={props.inputChange}
         type="text"
-        placeholder="Street Address"
+        placeholder="Street Address Line1"
       />
+      <input
+        value={props.formState.address2}
+        name="address2"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Street Address Line2"
+      />
+       <input
+        value={props.formState.city}
+        name="city"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="City"
+      />
+             <input
+        value={props.formState.state}
+        name="state"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="State"
+      />
+       <input
+        value={props.formState.zipcode}
+        name="zipcode"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Zipcode"
+      />
+
+
+
       <input
         value={props.formState.password}
         name="password"

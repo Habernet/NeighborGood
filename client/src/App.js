@@ -24,7 +24,11 @@ class App extends Component {
       password: "",
       password2: "",
       email: "",
-      address: "",
+      address1: "",
+      address2: "",
+      city:"",
+      state:"",
+      zipcode:"",
       username: ""
     },
     formState: {
@@ -59,8 +63,13 @@ class App extends Component {
       userState: {
         isLoggedIn: true,
         email: res.email,
-        address: res.address,
-        username: res.username
+        username: res.username,
+        address1:res.address1,
+        address2:res.address2,
+        city:res.city,
+        state:res.state,
+        zipcode:res.zipcode
+
       }
     });
   };
@@ -87,9 +96,9 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username, address} = this.state.formState;
+    let {password, email, username,address1,address2,city,state,zipcode} = this.state.formState;
     let user = {
-      password, email, username, address
+      password, email, username,address1,address2,city,state,zipcode
       // if (this.state.userState...)
     };
     AUTH.register(user).then(res => {
@@ -99,7 +108,11 @@ class App extends Component {
           email: res.data.user.email,
           username: res.data.user.username,
           password: "",
-          address: res.data.user.address,
+          address1:res.data.user.address1,
+          address2:res.data.user.address2,
+          city:res.data.user.city,
+          state:res.data.user.state,
+          zipcode:res.data.user.zipcode,
           isLoggedIn: true
         }
       });
@@ -125,8 +138,13 @@ class App extends Component {
           isLoggedIn: true,
           username: response.data.user.username,
           email: response.data.user.email,
-          address: response.data.user.address
-        })
+          address1:response.data.user.address1,
+          address2:response.data.user.address2,
+          city:response.data.user.city,
+          state:response.data.user.state,
+          zipcode:response.data.user.zipcode,
+
+                  })
         this.setState({
           redirectoTo: "/"
         })
