@@ -2,15 +2,19 @@ input{
   display: block;
   padding: 5px;
   margin: 10px;
+  border-radius: 10px;
+
 }
 
-button{
+.loginButton{
   padding: 5px;
   margin: 10px;
   background-color: black;
   color: white;
   border: 0px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 10px;
+
 }
 
 h3{
@@ -20,8 +24,10 @@ h3{
 form{
   padding: 20px;
   background-color: rgb(218, 118, 118);
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 10px;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+  /* margin-top: 25px;
+  margin-bottom: 25px; */
 }

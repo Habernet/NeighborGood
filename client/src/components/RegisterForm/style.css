@@ -1,13 +1,16 @@
-input{
+input,textarea{
   display: block;
   padding: 5px;
   margin: 10px;
+  border-radius: 10px;
+
 }
 
-button{
+
+.submitButton{
   padding: 5px;
   margin: 10px;
-  background-color: black;
+  background-color: black; 
   color: white;
   border: 0px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -19,6 +22,8 @@ h3{
 
 form{
   background-color: rgb(218, 118, 118);
-  border: 3px solid black;
+  border: 2px solid black;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  padding:30px;
   border-radius: 10px;
 }

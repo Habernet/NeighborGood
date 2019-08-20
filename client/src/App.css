@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #90cdd1;
+  /* background-color: #90cdd1; */
 }
 
 .App-logo {
@@ -23,3 +23,14 @@ biocolumn
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+.map{
+  /* border: 1px solid #f97575; */
+  margin:30px 30px 30px 0;;
+}
+.userData{
+text-align: center;
+padding:25px;
+
+
+}
+

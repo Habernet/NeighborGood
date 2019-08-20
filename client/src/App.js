@@ -8,7 +8,6 @@ import Main from "./pages/Main";
 import Users from "./pages/users";
 import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
-import MapLeaflet from "./pages/Map";
 import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
@@ -51,7 +50,7 @@ class App extends Component {
 	// };
 
   updateUser = res => {
-    console.log("updateUser response: ")
+    console.log("updateUser response: ");
     console.log(res);
     this.setState({
       userState: {
@@ -72,13 +71,13 @@ class App extends Component {
       value = value.substring(0, 15);
     }
     // Updating the input's state
-    this.setState( prevState => {
+    this.setState(prevState => {
       return {
         formState: {
           ...prevState.formState,
           [name]: value
         }
-      }
+      };
     });
   };
 
@@ -89,10 +88,8 @@ class App extends Component {
     let user = {
       password, email, username, address
       // if (this.state.userState...)
-    }
-    AUTH.register(
-      user
-    ).then(res => {
+    };
+    AUTH.register(user).then(res => {
       console.log("this user was registered: ", res);
       this.setState({
         userState: {
@@ -112,7 +109,7 @@ class App extends Component {
     let user = {
       password: this.state.formState.password,
       email: this.state.formState.email
-    }
+    };
     axios
       .post("/auth/login",
         user
@@ -135,6 +132,7 @@ class App extends Component {
       console.log("login error: ")
       console.log(error);
     })
+
   };
 
   render() {
@@ -143,41 +141,70 @@ class App extends Component {
       <div>
         <Router>
           <Navbar />
-          {/* {isLoggedIn && ( */}
+          {isLoggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
-              <Route exact path="/users" component={Users} />
-              <Route exact path="/classifieds" component={Classifieds} />
-              <Route exact path="/events" component={Events} />
-              <Route exact path="/map" component={MapLeaflet} />
-              <Route exact path="/modal" component={ModalTest} />
-            {/* </Switch>
-          )} */}
-          {/* {!isLoggedIn && (
-            <Switch> */}
-              <Route exact path="/register" 
-                render={(routeProps) => (<RegisterUser 
-                {...routeProps} 
-                userState={this.state.userState} 
-                formState={this.state.formState}
-                inputChange={this.handleInputChange} 
-                handleRegister={this.handleRegister}/> 
-                )} />
-              <Route exact path="/login" 
-                render={(routeProps) => (<LoginUser 
-                {...routeProps} 
-                userState={this.state.userState} 
-                formstate={this.state.formState}
-                inputChange={this.handleInputChange} 
-                updateUser={this.updateUser} 
-                handleLogin={this.handleLogin} /> 
-                )} />
+              <Route
+                exact
+                path="/users"
+                render={routeProps => (
+                  <Users {...routeProps} userState={this.state.userState} />
+                )}
+              />
+              <Route
+                exact
+                path="/classifieds"
+                render={routeProps => (
+                  <Classifieds
+                    {...routeProps}
+                    userState={this.state.userState}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/events"
+                render={routeProps => (
+                  <Events {...routeProps} userState={this.state.userState} />
+                )}
+              />
+            </Switch>
+          )}
+          {!isLoggedIn && (
+            <Switch>
+              <Route exact path="/" component={Main} />
+              {/* Contact page should go here  */}
+              <Route
+                exact
+                path="/register"
+                render={routeProps => (
+                  <RegisterUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleRegister}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/login"
+                render={routeProps => (
+                  <LoginUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formstate={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    updateUser={this.updateUser}
+                    handleLogin={this.handleLogin}
+                  />
+                )}
+              />
               <Route component={NoMatch} />
             </Switch>
-          {/* )} */}
-
-          </Router>
-
+          )}
+        </Router>
 
         {/* <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
         <Jumbotron /> */}
@@ -189,4 +216,3 @@ class App extends Component {
 }
 
 export default App;
-
