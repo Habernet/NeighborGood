@@ -11,8 +11,8 @@ mongoose.connect(
 const users = [
   {
     username: "DJ Fill",
-    password: "encrypted",
-    address: "404 Not Found lane",
+    password: "djfill",
+    address: "10230, Broadstone way,nc 27502",
     email: "djphil@example.com",
     phonenumber: 8675309,
     name: "Philip",
@@ -21,8 +21,8 @@ const users = [
   },
   {
     username: "Cakes",
-    password: "encrypted",
-    address: "2600 Pickett Branch road",
+    password: "patrick",
+    address: "2600 Pickett Branch road, nc 27519",
     email: "phaberern@gmail.com",
     phonenumber: 8675309,
     name: "Patrick",
@@ -30,10 +30,9 @@ const users = [
     gender: "male"
   },
   {
-    
     username: "Timbo",
-    password: "encrypted",
-    address: "500 I'm really ritch lane",
+    password: "Timbo",
+    address: "10230, Broadstone way,nc 27502",
     email: "TimG@example.com",
     phonenumber: 8675309,
     name: "Tim",
@@ -42,8 +41,8 @@ const users = [
   },
   {
     username: "Abhi",
-    password: "encrypted",
-    address: "The moon",
+    password: "Abhi",
+    address: "10230, Broadstone way,nc 27502",
     email: "Abhi@example.com",
     phonenumber: 8675309,
     name: "Abhi",
