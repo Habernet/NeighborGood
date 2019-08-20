@@ -12,11 +12,11 @@ export default {
     return axios.get("/api/users/" + user);
   },
   getEvent: function(user) {
-    console.log(user)
-    return axios.get("/api/events/"+user);
+    console.log(user);
+    return axios.get("/api/events/" + user);
   },
   getClassified: function(user) {
-    return axios.get("/api/classifieds/"+user);
+    return axios.get("/api/classifieds/" + user);
   },
 
   getUsers: function() {
@@ -37,7 +37,7 @@ export default {
   },
   getUserAddrLatLong: function(address) {
     return axios.get(
-      "http://www.mapquestapi.com/geocoding/v1/address?key=dhqUSipT8jFl3NGid7eL6SwE8YhAcdY9&location=" +
+      "https://www.mapquestapi.com/geocoding/v1/address?key=dhqUSipT8jFl3NGid7eL6SwE8YhAcdY9&location=" +
         address
     );
   }
