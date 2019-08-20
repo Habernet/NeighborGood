@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/navbar";
-import Jumbotron from "./components/Jumbotron/jumbotron";
-import About from "./components/About/about";
-import Footer from "./components/Footer/footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import API from "./utils/API";
 import AUTH from "./utils/AUTH";
@@ -15,14 +12,11 @@ import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
-import registerUser from "./pages/register";
 
 class App extends Component {
   state = {
     userState: {
-      isLoggedIn: false,
-      password: "", //Do we need this?
-      password2: "", //Do we need this?
+      loggedIn: false,
       email: "",
       address: "",
       username: ""
@@ -30,38 +24,69 @@ class App extends Component {
     formState: {
       username: "",
       email: "",
-      address: "",
-      password: "",
-      password2: ""
+      password1: "",
+      password2: "",
+      address1: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipcode: ""
     }
   };
 
   componentDidMount() {
-    AUTH.getUser().then(response => {
-      if (response.data.user) {
-        this.setState({
-          userState: {
+		AUTH.getUser().then(response => {
+			if (response.data.user) {
+        console.log(response.data);
+				this.setState({
+					userState: {
             loggedIn: true,
             username: response.data.user
           }
-        });
-      } else {
-        this.setState({
-          loggedIn: false,
-          user: null
-        });
-      }
-    });
-  }
+				});
+			} else {
+				this.setState({
+					loggedIn: false,
+					user: null
+				});
+			}
+		});
+	};
+
+  logout = (event) => {
+		// Sometime there won't be event (When logout is triggered after submit ratings)
+		if (event) {
+			event.preventDefault();
+		}
+
+		// if (this.state.userState.email === "Guest") {
+		// 	this.setState({
+		// 		user: null,
+		// 		loggedIn: false
+		// 	});
+		// }
+		// else {
+      {
+			AUTH.logout().then(response => {
+				if (response.status === 200) {
+					this.setState({
+            userState: {
+              loggedIn: false,
+              username: null
+            }
+					});
+				}
+			});
+		}
+
+	}
 
   updateUser = res => {
     console.log("updateUser response: ");
     console.log(res);
     this.setState({
       userState: {
-        isLoggedIn: true,
-        email: res.email,
-        address: res.address,
+        loggedIn: true,
         username: res.username
       }
     });
@@ -95,7 +120,6 @@ class App extends Component {
       email,
       username,
       address
-      // if (this.state.userState...)
     };
     AUTH.register(user).then(res => {
       console.log("this user was registered: ", res);
@@ -103,9 +127,8 @@ class App extends Component {
         userState: {
           email: res.data.user.email,
           username: res.data.user.username,
-          password: "", // Do we need this?
           address: res.data.user.address,
-          isLoggedIn: true
+          loggedIn: true
         }
       });
     });
@@ -119,13 +142,37 @@ class App extends Component {
       email: this.state.formState.email
     };
     axios
+
+      .post("/auth/login",
+        user
+      )
+    .then(response => {
+      console.log("login response: ");
+      console.log(response);
+      if (response.status === 200) {
+        this.updateUser({
+          loggedIn: true,
+          username: response.data.user.username,
+          email: response.data.user.email,
+          address: response.data.user.address
+        })
+        this.setState({
+          redirectoTo: "/"
+        })
+      }
+    }).catch(error => {
+      console.log("login error: ")
+      console.log(error);
+    })
+
+
       .post("/auth/login", user)
       .then(response => {
         console.log("login response: ");
         console.log(response);
         if (response.status === 200) {
           this.updateUser({
-            isLoggedIn: true,
+            loggedIn: true,
             username: response.data.user.username,
             email: response.data.user.email,
             address: response.data.user.address
@@ -139,15 +186,16 @@ class App extends Component {
         console.log("login error: ");
         console.log(error);
       });
+
   };
 
   render() {
-    const { isLoggedIn } = this.state.userState;
+    const { loggedIn } = this.state.userState;
     return (
       <div>
         <Router>
-          <Navbar />
-          {isLoggedIn && (
+          <Navbar logOut={this.logout}/>
+          {loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
               <Route
@@ -176,7 +224,7 @@ class App extends Component {
               />
             </Switch>
           )}
-          {!isLoggedIn && (
+          {!loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
               {/* Contact page should go here  */}
