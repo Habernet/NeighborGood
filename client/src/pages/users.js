@@ -18,15 +18,15 @@ import Button from "../components/Button";
 
 class Users extends Component {
   state = {
-    users: [],
-    username: "Abhi",
+    // users: [],
+    // username: "",
     isShowing1: false,
     isShowing2: false,
     myEvents: [],
     myClassifieds: [],
     lat: "",
     lng: "",
-    address: "10230, Broadstone way,nc 27502",
+    // address: "",
     classifiedsForm: {
       title: "",
       description: "",
@@ -43,47 +43,22 @@ class Users extends Component {
   };
 
   componentDidMount() {
-    this.loadUsers();
+    // this.loadUsers();
     this.loadUserEvents();
     this.loadUserClassifieds();
-    API.getUserAddrLatLong(this.state.address)
+    API.getUserAddrLatLong(this.props.userState.address)
       .then(res => {
         this.setState({
           lat: res.data.results[0].locations[0].latLng.lat,
           lng: res.data.results[0].locations[0].latLng.lng
         });
-        console.log(this.state.lat, this.state.lng);
+        console.log(
+          `${this.props.userState.username}'s location: `,
+          this.state.lat,
+          this.state.lng
+        );
       })
       .catch(err => console.log(err));
-
-    // Check the state to see if the user is logged in...if they are not redirect them to login page. If they are load the page with stuff from users database entry.
-    // this.loadUsers();
-    // this.setState({
-    //   ...this.prevState
-    // // });
-    // // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
-    // console.log(
-    //   "PROPS.USERSTATE.ISLOGGEDIN: ",
-    //   this.props.userState.isLoggedIn
-    // );
-    // if (this.props.userState.isLoggedIn) {
-    //   // use the API to grab the user and it's information...
-    //   console.log(
-    //     `USER IS LOGGED IN, RETRIVING ${
-    //       this.props.userState.username
-    //     }'s information...`
-    //   );
-    //   API.getUser(this.props.userState.username)
-    //   .then(res => {
-    //     console.log(`USER: ${this.props.userState.username} FOUND`),
-    //       console.log(res);
-    //     //Change the state of the page to the users information...this way we can use JSX to render their profile.
-    //     this.setState({ state: this.state });
-    //   })
-    //   .catch(err => {
-    //     console.log(`ERROR RETRIEVING LOGGED IN USER: `,)
-    //   });
-    // }
   }
 
   // Split this into two functions for each of the forms to update the state
@@ -130,6 +105,7 @@ class Users extends Component {
     // make a post request to /api/classifieds
     let formObject = this.state.classifiedsForm;
     formObject.email = this.props.userState.email;
+    formObject.user_id = this.props.userState.username;
     console.log("OBJECT TO SUBMIT: ", formObject);
 
     event.preventDefault();
@@ -148,6 +124,7 @@ class Users extends Component {
 
     let formObject = this.state.eventsForm;
     formObject.email = this.props.userState.email;
+    formObject.user_id = this.props.userState.username;
     console.log("OBJECT TO SUBMIT: ", formObject);
 
     axios
@@ -160,30 +137,37 @@ class Users extends Component {
       });
   };
 
-  loadUsers = () => {
-    // This must be rewritten to check for the cookie and load from there..only one user.
-    API.getUsers()
-      .then(res => {
-        this.setState({ users: res.data });
-        console.log(res.data);
-      })
-      .catch(err => console.log(err));
-  };
+  // loadUsers = () => {
+  //   // This must be rewritten to check for the cookie and load from there..only one user.
+  //   API.getUsers()
+  //     .then(res => {
+  //       this.setState({ users: res.data });
+  //       console.log(res.data);
+  //     })
+  //     .catch(err => console.log(err));
+  // };
 
   loadUserEvents = () => {
-    API.getEvent(this.state.username)
+    console.log("LOADING USER EVENTS...");
+    API.getEvent(this.props.userState.username)
       .then(res => {
         this.setState({ myEvents: res.data });
-        console.log(this.state.myEvents);
+        console.log(
+          `${this.props.userState.username}'s EVENTS LOADED: `,
+          this.state.myEvents
+        );
       })
       .catch(err => console.log(err));
   };
 
   loadUserClassifieds = () => {
-    API.getClassified(this.state.username)
+    API.getClassified(this.props.userState.username)
       .then(res => {
         this.setState({ myClassifieds: res.data });
-        console.log(res.data);
+        console.log(
+          `${this.props.userState.username}'s CLASSIFIEDS LOADED: `,
+          this.state.myEvents
+        );
       })
       .catch(err => console.log(err));
   };
@@ -275,7 +259,7 @@ class Users extends Component {
             <Col size="sm-6">
               <div className="userData text-center">
                 {/* <div className="userfront" > */}
-                <h4>{this.state.username}</h4>
+                <h4>{this.props.userState.username}</h4>
                 <img
                   // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b"
                   src="http://www.dentistdarlington.com/img/portfolio/photo.png"
