@@ -12,14 +12,11 @@ import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
-import ModalTest from "./pages/modaltest";
 
 class App extends Component {
   state = {
     userState: {
-      isLoggedIn: false,
-      password: "",
-      password2: "",
+      loggedIn: false,
       email: "",
       address: "",
       username: ""
@@ -27,36 +24,69 @@ class App extends Component {
     formState: {
       username: "",
       email: "",
-      password: ""
+      password1: "",
+      password2: "",
+      address1: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipcode: ""
     }
   };
 
-  // componentDidMount() {
-	// 	AUTH.getUser().then(response => {
-	// 		if (response.data.user) {
-	// 			this.setState({
-	// 				userState: {
-  //           loggedIn: true,
-  //           username: response.data.user
-  //         }
-	// 			});
-	// 		} else {
-	// 			this.setState({
-	// 				loggedIn: false,
-	// 				user: null
-	// 			});
-	// 		}
-	// 	});
-	// };
+  componentDidMount() {
+		AUTH.getUser().then(response => {
+			if (response.data.user) {
+        console.log(response.data);
+				this.setState({
+					userState: {
+            loggedIn: true,
+            username: response.data.user
+          }
+				});
+			} else {
+				this.setState({
+					loggedIn: false,
+					user: null
+				});
+			}
+		});
+	};
+
+  logout = (event) => {
+		// Sometime there won't be event (When logout is triggered after submit ratings)
+		if (event) {
+			event.preventDefault();
+		}
+
+		// if (this.state.userState.email === "Guest") {
+		// 	this.setState({
+		// 		user: null,
+		// 		loggedIn: false
+		// 	});
+		// }
+		// else {
+      {
+			AUTH.logout().then(response => {
+				if (response.status === 200) {
+					this.setState({
+            userState: {
+              loggedIn: false,
+              username: null
+            }
+					});
+				}
+			});
+		}
+
+	}
 
   updateUser = res => {
     console.log("updateUser response: ");
     console.log(res);
     this.setState({
       userState: {
-        isLoggedIn: true,
-        email: res.email,
-        address: res.address,
+        loggedIn: true,
         username: res.username
       }
     });
@@ -97,7 +127,7 @@ class App extends Component {
           username: res.data.user.username,
           password: "",
           address: res.data.user.address,
-          isLoggedIn: true
+          loggedIn: true
         }
       });
     });
@@ -119,7 +149,7 @@ class App extends Component {
       console.log(response);
       if (response.status === 200) {
         this.updateUser({
-          isLoggedIn: true,
+          loggedIn: true,
           username: response.data.user.username,
           email: response.data.user.email,
           address: response.data.user.address
@@ -136,12 +166,12 @@ class App extends Component {
   };
 
   render() {
-    const { isLoggedIn } = this.state.userState;
+    const { loggedIn } = this.state.userState;
     return (
       <div>
         <Router>
-          <Navbar />
-          {isLoggedIn && (
+          <Navbar logOut={this.logout}/>
+          {loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
               <Route
@@ -170,7 +200,7 @@ class App extends Component {
               />
             </Switch>
           )}
-          {!isLoggedIn && (
+          {!loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
               {/* Contact page should go here  */}
