@@ -16,6 +16,7 @@ import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
 import registerUser from "./pages/register";
+import UpdateUserForm from "./components/Update-User/UpdateUserForm";
 
 class App extends Component {
   state = {
@@ -172,6 +173,14 @@ class App extends Component {
                   <Users {...routeProps} userState={this.state.userState} />
                 )}
               />
+               <Route
+                exact
+                path="/updateuser"
+                render={routeProps => (
+                  <UpdateUserForm {...routeProps} userState={this.state.userState} />
+                )}
+              />
+
               <Route
                 exact
                 path="/classifieds"

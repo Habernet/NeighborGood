@@ -32,13 +32,13 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  addressLine1:{
+  address1:{
     type: String,
     required:true
 
 
   },
-  addressLine2:{
+  address2:{
     type: String,
 
 

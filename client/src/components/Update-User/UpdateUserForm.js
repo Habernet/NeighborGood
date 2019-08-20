@@ -3,7 +3,7 @@ import React from 'react';
 function UpdateUserForm(props) {
   
     return ( 
-      <form className="form">
+      <form className="form text-center">
       <input
         value={props.userState.firstName}
         name="firstName"
@@ -32,7 +32,7 @@ function UpdateUserForm(props) {
         type="text"
         placeholder="Email"
       />
-      <input
+      {/* <input
         value={props.formState}
         name="password"
         onChange={props.inputChange}
@@ -45,7 +45,7 @@ function UpdateUserForm(props) {
         onChange={props.inputChange}
         type="password"
         placeholder="Verify Password"
-      />
+      /> */}
       <input
         value={props.userState.address}
         name="address"

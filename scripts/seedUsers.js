@@ -21,8 +21,9 @@ const users = [
     phonenumber: 8675309,
     name: "Philip",
     age: 75,
-    gender: "male"
-  },
+    gender: "male",
+    savedEvents:[] 
+ },
   {
     username: "Cakes",
     password: "encrypted",
@@ -35,10 +36,11 @@ const users = [
     phonenumber: 8675309,
     name: "Patrick",
     age: 28,
-    gender: "male"
+    gender: "male",
+    savedEvents:[] 
+
   },
   {
-    
     username: "Timbo",
     password: "encrypted",
     address1: "14310",
@@ -50,7 +52,9 @@ const users = [
     phonenumber: 8675309,
     name: "Tim",
     age: 25,
-    gender: "male"
+    gender: "male",
+    savedEvents:[] 
+
   },
   {
     username: "abhi",
@@ -64,7 +68,9 @@ const users = [
     phonenumber: 8675309,
     name: "Abhi",
     age: 20,
-    gender: "female"
+    gender: "female",
+    savedEvents:[] 
+
   }
 ];
 

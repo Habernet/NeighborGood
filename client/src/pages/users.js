@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 // import Footer from "../components/Footer/footer";
 import { Row, Col, Container } from "../components/Grid";
-import {  ListItem } from "../components/List";
+import { ListItem } from "../components/List";
 import API from "../utils/API";
 import axios from "axios";
 import ClassifiedsForm from "../components/ClassifiedsForm/classifiedsform";
 import EventsForm from "../components/EventsForm/eventsform";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
-import Moment from 'react-moment';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import Moment from "react-moment";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
-
-import Button from '../components/Button';
+import Button from "../components/Button";
 
 // const EventCalendar = require('react-event-calendar');
 
@@ -115,40 +114,13 @@ import Button from '../components/Button';
     this.loadUsers();
     this.loadUserEvents();
     this.loadUserClassifieds();
-    API.getUserAddrLatLong(this.state.addr)
-      .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
-      .catch(err => console.log(err));
+  }
+  
+  loadUserAddress = () => {
 
-
-
-    // Check the state to see if the user is logged in...if they are not redirect them to login page. If they are load the page with stuff from users database entry.
-    // this.loadUsers();
-    // this.setState({
-    //   ...this.prevState
-    // // });
-    // // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
-    // console.log(
-    //   "PROPS.USERSTATE.ISLOGGEDIN: ",
-    //   this.props.userState.isLoggedIn
-    // );
-    // if (this.props.userState.isLoggedIn) {
-    //   // use the API to grab the user and it's information...
-    //   console.log(
-    //     `USER IS LOGGED IN, RETRIVING ${
-    //       this.props.userState.username
-    //     }'s information...`
-    //   );
-    //   API.getUser(this.props.userState.username)
-    //   .then(res => {
-    //     console.log(`USER: ${this.props.userState.username} FOUND`),
-    //       console.log(res);
-    //     //Change the state of the page to the users information...this way we can use JSX to render their profile.
-    //     this.setState({ state: this.state });
-    //   })
-    //   .catch(err => {
-    //     console.log(`ERROR RETRIEVING LOGGED IN USER: `,)
-    //   });
-    // }
+  API.getUserAddrLatLong(this.state.address)
+  .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
+  .catch(err => console.log(err));
   }
 
   // Split this into two functions for each of the forms to update the state
@@ -225,41 +197,43 @@ import Button from '../components/Button';
       });
   };
 
-  handleClassifiedsFormSubmit = event => {
-    // grab the data we need
-    // price, description, title from the form state.
-    // make a post request to /api/classifieds
-    let formObject = this.state.classifiedsForm;
-    formObject.email = this.props.userState.email;
-    console.log("OBJECT TO SUBMIT: ", formObject);
+  // handleClassifiedsFormSubmit = event => {
+  //   // grab the data we need
+  //   // price, description, title from the form state.
+  //   // make a post request to /api/classifieds
+  //   let formObject = this.state.classifiedsForm;
+  //   formObject.email = this.props.userState.email;
+  //   formObject.user_id = this.props.userState.username;
+  //   console.log("OBJECT TO SUBMIT: ", formObject);
 
-    event.preventDefault();
-    axios
-      .post("/api/classifieds", formObject)
-      .then(res => {
-        console.log("POSTED SUCCESSFULLY: ", res);
-      })
-      .catch(err => {
-        console.log("POSTED UNSUCCESSFULLY:", err);
-      });
-  };
+  //   event.preventDefault();
+  //   axios
+  //     .post("/api/classifieds", formObject)
+  //     .then(res => {
+  //       console.log("POSTED SUCCESSFULLY: ", res);
+  //     })
+  //     .catch(err => {
+  //       console.log("POSTED UNSUCCESSFULLY:", err);
+  //     });
+  // };
 
-  handleEventsFormSubmit = event => {
-    event.preventDefault();
+  // handleEventsFormSubmit = event => {
+  //   event.preventDefault();
 
-    let formObject = this.state.eventsForm;
-    formObject.email = this.props.userState.email;
-    console.log("OBJECT TO SUBMIT: ", formObject);
+  //   let formObject = this.state.eventsForm;
+  //   formObject.email = this.props.userState.email;
+  //   formObject.user_id = this.props.userState.username;
+  //   console.log("OBJECT TO SUBMIT: ", formObject);
 
-    axios
-      .post("/api/events", formObject)
-      .then(res => {
-        console.log("POSTED SUCCESSFULLY: ", res);
-      })
-      .catch(err => {
-        console.log("POSTED UNSUCCESSFULLY: ", err);
-      });
-  };
+  //   axios
+  //     .post("/api/events", formObject)
+  //     .then(res => {
+  //       console.log("POSTED SUCCESSFULLY: ", res);
+  //     })
+  //     .catch(err => {
+  //       console.log("POSTED UNSUCCESSFULLY: ", err);
+  //     });
+  // };
 
   loadUser = () => {
     // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
@@ -280,9 +254,9 @@ import Button from '../components/Button';
             ...this.prevState,
             username: res.data.username,
             savedEvents: res.data.savedEvents,
-            address:res.data.address1+","+res.data.address2+","+res.data.city+","+
+            address:res.data.address1+(res.data.address2?","+res.data.address2:"")+","+res.data.city+","+
             res.data.state         // createdEvents: res.data.createdEvents
-          });
+          });this.loadUserAddress();
         })
         .catch(err => {
           console.log(`ERROR FINDING ${this.props.userState.username}`, err);
@@ -305,56 +279,72 @@ import Button from '../components/Button';
       .catch(err => console.log(err));
   };
 
-  loadUserEvents = () => {
-    API.getEvent(this.props.userState.username)
-      .then(res => { this.setState({ myEvents: res.data }); console.log(this.state.myEvents) }
-      )
-      .catch(err => console.log(err));
+  // loadUserEvents = () => {
+  //   API.getEvent(this.props.userState.username)
+  //     .then(res => { this.setState({ myEvents: res.data }); console.log(this.state.myEvents) }
+  //     )
+  // loadUsers = () => {
+  //   // This must be rewritten to check for the cookie and load from there..only one user.
+  //   API.getUsers()
+  //     .then(res => {
+  //       this.setState({ users: res.data });
+  //       console.log(res.data);
+  //     })
+  //     .catch(err => console.log(err));
+  // };
 
+  loadUserEvents = () => {
+    console.log("LOADING USER EVENTS...");
+    API.getEvent(this.props.userState.username)
+      .then(res => {
+        this.setState({ myEvents: res.data });
+        console.log(
+          `${this.props.userState.username}'s EVENTS LOADED: `,
+          this.state.myEvents
+        );
+      })
+      .catch(err => console.log(err));
   };
 
   loadUserClassifieds = () => {
     API.getClassified(this.props.userState.username)
-      .then(res => { this.setState({ myClassifieds: res.data }); console.log(res.data) }
-      )
+      .then(res => {
+        this.setState({ myClassifieds: res.data });
+        console.log(
+          `${this.props.userState.username}'s CLASSIFIEDS LOADED: `,
+          this.state.myClassifieds
+        );
+      })
       .catch(err => console.log(err));
-
   };
-
 
   openModalHandler1 = () => {
     this.setState({
       isShowing1: true
-
     });
-  }
+  };
   openModalHandler2 = () => {
     console.log("clicked!");
     this.setState({
       isShowing2: true
-
-
     });
-  }
+  };
 
   closeModalHandler1 = () => {
     this.setState({
       isShowing1: false
     });
-  }
+  };
   closeModalHandler2 = () => {
     this.setState({
       isShowing2: false
     });
-  }
-
+  };
 
   render() {
     return (
-
-        <Container>
-
-          {/* <Jumbotron >
+      <Container>
+        {/* <Jumbotron >
           <h4>
             Please sign up!!
 
@@ -410,16 +400,36 @@ import Button from '../components/Button';
 
             </ListItem>))}
           </List>*/}
-<div className="userProfileDiv" style={{padding:'50px'}}>      
-    <Row>
+        <div className="userProfileDiv" style={{ padding: "50px" }}>
+          <Row>
             <Col size="sm-6">
-              <div className='userData text-center'>
+              <div className="userData text-center">
                 {/* <div className="userfront" > */}
                 <h4 >{this.props.userState.username}</h4>
+                <div id="imgDiv">
                 <img
-                  // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b" 
-                  src="http://www.dentistdarlington.com/img/portfolio/photo.png" style={{ borderRadius: '50%', height: '250px', width: '250px' }}></img>
-                   {/* <Button>Update info</Button> */}
+                  // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAL4GK6H1yYwqvXlgoPgKiHHP-Nkvz136CDHRG7BrM1gyI5-2b"
+                  src="http://www.dentistdarlington.com/img/portfolio/photo.png"
+                  style={{
+                    borderRadius: "50%",
+                    height: "250px",
+                    width: "250px"
+                  }}
+                />
+                </div>
+                <Row>
+                  <Col size="sm-2"></Col>
+                  <Col size="sm-4">
+
+                <Button style={{float:'none',margin:'20px 0 20px 70px' }}>
+                <Link to="/updateuser" className="nav-link">
+              <i className="fa fa-user-edit" ></i>Update user info
+        </Link>
+
+                </Button>
+                </Col>
+                </Row>
+
                 {/* <h5>Areas of Interest</h5>
               <ul>
                 <li>Yard Sales</li>
@@ -429,20 +439,16 @@ import Button from '../components/Button';
               </ul> */}
               </div>
             </Col>
-            <Col size="sm-1"></Col>
+            <Col size="sm-1" />
             <Col size="sm-3">
+              <ClassifiedsForm
+                inputChange={this.handleClassifiedsInputChange}
+                formSubmit={this.handleClassifiedsFormSubmit}
+              />
+            </Col>
+          </Row>
 
-
-        <ClassifiedsForm
-          inputChange={this.handleInputChange}
-          formSubmit={this.handleClassifiedsFormSubmit}
-        />
-        </Col>
-        
-            </Row>
-
-
-            {/* <ul className="navbar-nav">
+          {/* <ul className="navbar-nav">
       <li className="nav-item active">
               <Link to="/map" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}><span class="fa fa-map-marker-alt"></span> Map
           
@@ -450,45 +456,40 @@ import Button from '../components/Button';
       </li> 
 
       </ul> */}
-            {/* <div className="map"> */}
-            <Row>
-              <Col size="sm-1"></Col>
-            <Col size="sm-5" >
-
-              <Map style={{ width: '400px', height: '400px' }}
+          {/* <div className="map"> */}
+          <Row>
+            <Col size="sm-1" />
+            <Col size="sm-5">
+              <Map
+                style={{ width: "400px", height: "400px" }}
                 center={[this.state.lat, this.state.lng]}
                 zoom={6}
-                maxZoom={10}
+                maxZoom={20}
                 attributionControl={true}
                 zoomControl={true}
                 doubleClickZoom={true}
                 scrollWheelZoom={true}
                 dragging={true}
                 animate={true}
-                easeLinearity={0.35}      >
-                <TileLayer
-                  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                />
+                easeLinearity={0.35}
+              >
+                <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
 
                 <Marker position={[this.state.lat, this.state.lng]}>
-                  <Popup>
-                    {this.state.address}
-                  </Popup>
+                  <Popup>{this.state.address}</Popup>
                 </Marker>
               </Map>
-              </Col>
-              <Col size="sm-1"></Col>
-
-        <Col size="sm-3">
-
-        <EventsForm
-          inputChange={this.handleInputChange}
-          formSubmit={this.handleEventsFormSubmit}
-        />
-
             </Col>
-</Row>
-        {/* <div>
+            <Col size="sm-1" />
+
+            <Col size="sm-3">
+              <EventsForm
+                inputChange={this.handleEventsInputChange}
+                formSubmit={this.handleEventsFormSubmit}
+              />
+            </Col>
+          </Row>
+          {/* <div>
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
 
@@ -499,79 +500,119 @@ import Button from '../components/Button';
 
     </Modal>
  */}
- <div className="modalDiv" style={{marginTop:'30px'}}>
-      <Row >
-        <Col size="sm-4">
-          <button className="open-modal-btn" onClick={this.openModalHandler2}>Events</button>
-        </Col>
-      </Row>
-      <Row>
-        <Col size="sm-4">
+          <div className="modalDiv" style={{ marginTop: "30px" }}>
+            <Row>
+              <Col size="sm-4">
+                <button
+                  className="open-modal-btn"
+                  onClick={this.openModalHandler2}
+                >
+                  Events
+                </button>
+              </Col>
+            </Row>
+            <Row>
+              <Col size="sm-4">
+                <button
+                  className="open-modal-btn"
+                  onClick={this.openModalHandler1}
+                >
+                  Classifieds
+                </button>
+              </Col>
 
-          <button className="open-modal-btn" onClick={this.openModalHandler1}>Classifieds</button>
+              <Col size="sm-4">
+              {this.state.myEvents.length ? (
 
-        </Col>
+                <Modal
+                  className="modal"
+                  show={this.state.isShowing2}
+                  close={this.closeModalHandler2}
+                >
+                  {this.state.myEvents.map(myEvent => (
+                    <ListItem key={myEvent._id}>
+                      <div className="modal-body">
+                        <h3>{myEvent.title}</h3>
 
-        <Col size="sm-4"> 
-        <Modal
-          className="modal"
+                        <h4>
+                          {" "}
+                          <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
+                        </h4>
+                        <h4>{myEvent.price}</h4>
 
-          show={this.state.isShowing2}
-          close={this.closeModalHandler2}>
-
-
-
-            {this.state.myEvents.map(myEvent => (
-
-              <ListItem key={myEvent._id}>
-                        <div className="modal-body">
-
-                <h3>{myEvent.title}</h3>
-
-                <h4>   <Moment format="MMM-DD-YY">{myEvent.date}</Moment>
-                </h4>
-                <h4>{myEvent.price}</h4>
-
-
-                <p>{myEvent.description}</p>
-                </div>
-
-              </ListItem>
-            ))}
-
-        </Modal>
-        </Col>
-
-        <Col size="sm-4">
-          <Modal
-            className="modal" show={this.state.isShowing1}
-            close={this.closeModalHandler1}>
-            {this.state.myClassifieds.map(myClassified => (
-
-              <ListItem key={myClassified._id}>
-                <div className="modal-body">
-                  <h3>{myClassified.title}</h3>
-
-                  <h4>   <Moment format="MMM-DD-YY">{myClassified.date}</Moment>
-                  </h4>
-                  <h4>{myClassified.price}</h4>
+                        <p>{myEvent.description}</p>
+                      </div>
+                    </ListItem>
+                  ))}
+                </Modal>):(
+                  <Modal
+                                  className="modal"
+                                  show={this.state.isShowing2}
+                                  close={this.closeModalHandler2}
+                                >
+                
+                                    <ListItem >
+                                      <div className="modal-body">
+                                        <h3>No events posted by you to check!</h3>
+                
+                                      </div>
+                                    </ListItem>
+                                  ))}
+                                </Modal>
 
 
-                  <p>{myClassified.description}</p>
-                </div>
+                )}
+              </Col>
 
+              <Col size="sm-4">
+              {this.state.myClassifieds.length ? (
 
-              </ListItem>
-            ))}
+                <Modal
+                  className="modal"
+                  show={this.state.isShowing1}
+                  close={this.closeModalHandler1}
+                >
 
-          </Modal>
-        </Col>
-      </Row>
-      </div>
-      </div>
-</Container >
+                  {this.state.myClassifieds.map(myClassified => (
+                    <ListItem key={myClassified._id}>
+                      <div className="modal-body">
+                        <h3>{myClassified.title}</h3>
 
-)
+                        <h4>
+                          {" "}
+                          <Moment format="MMM-DD-YY">
+                            {myClassified.date}
+                          </Moment>
+                        </h4>
+                        <h4>{myClassified.price}</h4>
+
+                        <p>{myClassified.description}</p>
+                      </div>
+                    </ListItem>
+                  ))}
+                </Modal>):(
+                                  <Modal
+                                  className="modal"
+                                  show={this.state.isShowing1}
+                                  close={this.closeModalHandler1}
+                                >
+                
+                                    <ListItem >
+                                      <div className="modal-body">
+                                        <h3>No listings posted by you to track!</h3>
+                
+                                      </div>
+                                    </ListItem>
+                                  ))}
+                                </Modal>
+
+                )}
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </Container>
+    );
   }
 }
 
