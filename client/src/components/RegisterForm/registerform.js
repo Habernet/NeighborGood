@@ -57,7 +57,7 @@ function RegisterForm(props) {
       />
       <input
         value={props.formState.password}
-        name="password1"
+        name="password"
         onChange={props.inputChange}
         type="password"
         placeholder="Password"

@@ -51,7 +51,7 @@ const Navbar = props =>
         </li>
 
         <li className="nav-item">
-          <button type="button" className="btn btn-danger" onClick={props.logOut}><i className="fa fa-sign-out" area-hidden="true"></i>Log Out</button>
+          <Link to="" className={window.location.pathname === "Logout" ? "nav-link active" : "nav-link"} onClick={props.logOut}><i className="fa fa-sign-out" area-hidden="true"></i>Log Out</Link>
         </li>
 
           </ul>

@@ -114,21 +114,19 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username, address} = this.state.formState;
+    let {password, email, username, address1, address2, city, state, zipcode} = this.state.formState;
     let user = {
-      password, email, username, address
-      // if (this.state.userState...)
+      username, password, email, address1, address2, city, state, zipcode
     };
     AUTH.register(user).then(res => {
       console.log("this user was registered: ", res);
       this.setState({
         userState: {
-          email: res.data.user.email,
           username: res.data.user.username,
-          password: "",
-          address: res.data.user.address,
+          email: res.data.user.email,
           loggedIn: true
-        }
+        },
+        formState: ""
       });
     });
   };
@@ -155,7 +153,7 @@ class App extends Component {
           address: response.data.user.address
         })
         this.setState({
-          redirectoTo: "/"
+          // redirectoTo: "/"
         })
       }
     }).catch(error => {
