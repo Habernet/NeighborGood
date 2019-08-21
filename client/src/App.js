@@ -11,6 +11,9 @@ import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
+// import registerUser from "./pages/register";
+import ContactUser from "./pages/contacts";
+// import ContactForm from "./components/ContactPage/contactform";
 import registerUser from "./pages/register";
 import UpdateUserForm from "./components/Update-User/UpdateUserForm";
 
@@ -204,12 +207,40 @@ class App extends Component {
                   <Events {...routeProps} userState={this.state.userState} />
                 )}
               />
+                <Route
+                exact
+                path="/contact"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleContact}
+                    
+                  />
+                )}
+              />
             </Switch>
           )}
           {!loggedIn && (
             <Switch>
-              <Route exact path="/" component={Main} />
-              {/* Contact page should go here  */}
+          
+               <Route
+                exact
+                path="/contact"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleContact}
+                    
+                  />
+                )}
+              />
+
               <Route
                 exact
                 path="/register"
@@ -219,7 +250,7 @@ class App extends Component {
                     userState={this.state.userState}
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
-                    handleRegister={this.handleRegister}
+                    handleContact={this.handleRegister}
                   />
                 )}
               />
