@@ -1,30 +1,50 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
   username: {
     type: String,
-    trim: true
-    // required: "Username is Required"
+    trim: true,
+    required: "Username is Required"
   },
   password: {
     type: String,
-    trim: true
-    // required: "Password is Required",
-    // validate: [
-    //   function(input) {
-    //     return input.length >= 8;
-    //   },
-    //   "Password should be at least 8 characters."
-    //   // TODO: use regex to make a more impactful password requirement or replace this with passport auth
-    // ]
+    trim: true,
+    required: "Password is Required",
+    validate: [
+      function(input) {
+        return input.length >= 8;
+      },
+      "Password should be at least 8 characters."
+      // TODO: use regex to make a more impactful password requirement or replace this with passport auth
+    ]
   },
   email: {
     type: String,
-    // unique: true,
-    // match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
+    unique: true,
+    required: true,
+    match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
+  },
+  address1: {
+    type: String,
+    required: true
+  },
+  address2: {
+    type: String
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
+  },
+  zipcode: {
+    type: Number,
+    required: true
   },
   createdEvents: [],
   savedEvents: [],
