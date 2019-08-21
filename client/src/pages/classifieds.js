@@ -15,9 +15,9 @@ class Classifieds extends Component {
       classifieds: []
     };
 
-    handleClick=(email)=>{
+    handleClick=(email,title)=>{
       console.log(email);
-      window.location.href = `mailto:${email}`;
+      window.location.href = `mailto:${email}?subject=NEIGHBORGOOD Email!!!  Query about your classifieds listing-${title} `;
 
     }
   
@@ -60,7 +60,7 @@ class Classifieds extends Component {
           <h5>Listed for ${classified.price}</h5>
           <p>{classified.description}</p>
           <Button
-          onClick={ () => this.handleClick(classified.email) }
+          onClick={ () => this.handleClick(classified.email,classified.title) }
 >            Contact Seller!!
           </Button>
           </div>

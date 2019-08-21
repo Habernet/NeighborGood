@@ -34,7 +34,7 @@ gender:" "
         return {
             updateuserForm: {
             ...prevState.updateuserForm,
-            [name] : {value}
+            [name] : value
           }
         };
       });
