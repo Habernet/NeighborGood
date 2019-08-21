@@ -15,7 +15,9 @@ import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
-import registerUser from "./pages/register";
+// import registerUser from "./pages/register";
+import ContactUser from "./pages/contacts";
+// import ContactForm from "./components/ContactPage/contactform";
 
 class App extends Component {
   state = {
@@ -175,8 +177,20 @@ class App extends Component {
           )}
           {!isLoggedIn && (
             <Switch>
-              <Route exact path="/" component={Main} />
-              {/* Contact page should go here  */}
+               <Route
+                exact
+                path="/contacts"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleContact}
+                  />
+                )}
+              />
+
               <Route
                 exact
                 path="/register"
@@ -186,7 +200,7 @@ class App extends Component {
                     userState={this.state.userState}
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
-                    handleRegister={this.handleRegister}
+                    handleContact={this.handleRegister}
                   />
                 )}
               />
