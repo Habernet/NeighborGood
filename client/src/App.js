@@ -173,6 +173,20 @@ class App extends Component {
                   <Events {...routeProps} userState={this.state.userState} />
                 )}
               />
+                <Route
+                exact
+                path="/contact"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleContact}
+                    
+                  />
+                )}
+              />
             </Switch>
           )}
           {!isLoggedIn && (
