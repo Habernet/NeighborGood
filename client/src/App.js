@@ -139,30 +139,6 @@ class App extends Component {
       email: this.state.formState.email
     };
     axios
-
-      .post("/auth/login",
-        user
-      )
-    .then(response => {
-      console.log("login response: ");
-      console.log(response);
-      if (response.status === 200) {
-        this.updateUser({
-          loggedIn: true,
-          username: response.data.user.username,
-          email: response.data.user.email,
-          address: response.data.user.address
-        })
-        this.setState({
-          // redirectoTo: "/"
-        })
-      }
-    }).catch(error => {
-      console.log("login error: ")
-      console.log(error);
-    })
-
-
       .post("/auth/login", user)
       .then(response => {
         console.log("login response: ");
