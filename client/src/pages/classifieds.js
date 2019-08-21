@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/jumbotron";
 // import About from "../components/About/about";
 // import Footer from "../components/Footer/footer";
-import {Row,Col,Container} from "../components/Grid";
+import { Row, Col, Container } from "../components/Grid";
 import Card from "../components/Card";
 import Button from "../components/Button";
 
@@ -11,73 +11,67 @@ import API from "../utils/API";
 import axios from "axios";
 
 class Classifieds extends Component {
-    state = {
-      classifieds: []
-    };
+  state = {
+    classifieds: []
+  };
 
-    handleClick=(email,title)=>{
-      console.log(email);
-      window.location.href = `mailto:${email}?subject=NEIGHBORGOOD Email!!!  Query about your classifieds listing-${title} `;
+  handleClick = (email, title) => {
+    console.log(email);
+    window.location.href = `mailto:${email}?subject=NEIGHBORGOOD Email!!!  Query about your classifieds listing-${title} `;
 
-    }
-  
-    componentDidMount() {
-      this.loadClassifieds();
-    }
-  
-    loadClassifieds = () => {
-      API.getClassifieds()
-      .then(res =>
-       {this.setState({classifieds:res.data});console.log(res.data)}
+  }
+
+  componentDidMount() {
+    this.loadClassifieds();
+  }
+//This function call loads data from MongoDB, model Classified.This loads all the listings that are available in DB
+  loadClassifieds = () => {
+    API.getClassifieds()
+      .then(res => { this.setState({ classifieds: res.data }); console.log(res.data) }
       )
       .catch(err => console.log(err));
-    };
-  
-    render() {
-      return (
-        <Container>
-        <div> 
+  };
 
-                          <Jumbotron
-                          // backgroundImage="./images/classifieds.png"
-                          >
+  render() {
+    return (
+      <Container>
+        <div>
 
-                  <h3> Listings posted by your neighbours</h3>
-                  </Jumbotron>
-  
-<List>
+          <Jumbotron>
+            <h3> Listings posted by your neighbours</h3>
+          </Jumbotron>
 
-{this.state.classifieds.map(classified => (
-  <ListItem key={classified._id}      >
-<Row>
-<Col size="md-12">   
-  <div className="card-title text-center" >
-  <h4 >{classified.title}</h4>
+          <List>
+            {this.state.classifieds.map(classified => (
+              <ListItem key={classified._id}      >
+                <Row>
+                  <Col size="md-12">
+                    <div className="card-title text-center" >
+                      <h4 >{classified.title}</h4>
 
-  </div>
-          <div className="card-body">
-          <h4> Posted by {classified.user_id} </h4>
-          <h5>Listed for ${classified.price}</h5>
-          <p>{classified.description}</p>
-          <Button
-          onClick={ () => this.handleClick(classified.email,classified.title) }
->            Contact Seller!!
+                    </div>
+                    <div className="card-body">
+                      <h4> Posted by {classified.user_id} </h4>
+                      <h5>Listed for ${classified.price}</h5>
+                      <p>{classified.description}</p>
+                      <Button
+                        onClick={() => this.handleClick(classified.email, classified.title)}
+                      >            Contact Seller!!
           </Button>
-          </div>
+                    </div>
 
-          </Col>
-</Row>
+                  </Col>
+                </Row>
 
-</ListItem>))}
-</List>
+              </ListItem>))}
+          </List>
 
 
         </div>
-        </Container>
-      );
-    }
-  
+      </Container>
+    );
   }
-  
-  export default Classifieds;
-  
+
+}
+
+export default Classifieds;

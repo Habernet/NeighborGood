@@ -17,7 +17,7 @@ import ContactUser from "./pages/contacts";
 
 // import ContactForm from "./components/ContactPage/contactform";
 import Neighbors from "./pages/neighbors";
-import UpdateUserForm from "./components/Update-User/UpdateUserForm";
+import UpdaterUserPage from "./components/Update-User/UpdateUserForm";
 
 class App extends Component {
   state = {
@@ -188,7 +188,7 @@ class App extends Component {
                 exact
                 path="/updateuser"
                 render={routeProps => (
-                  <UpdateUserForm {...routeProps} userState={this.state.userState} />
+                  <UpdaterUserPage {...routeProps} userState={this.state.userState} />
                 )}
               />
 

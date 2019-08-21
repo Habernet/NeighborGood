@@ -8,9 +8,7 @@ function registerUser(props) {
     <Container>
     <Row>
       <div style={{"marginRight": "auto", "marginLeft": "auto", "padding": "50px"}}>
-
       <Col size="md-12">
-
       <RegisterForm {...props}/>
       </Col>
       </div>

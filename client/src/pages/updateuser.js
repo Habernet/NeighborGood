@@ -40,6 +40,7 @@ gender:" "
       });
     };
     handleUserUpdateFormSubmit = event => {
+
         // grab the data we need
         // make a put request to /api/users
         let formObject = this.state.updateuserForm;
@@ -131,4 +132,4 @@ render(){
 }
 }
  
-export default UpdaterUserForm;
+export default UpdaterUserPage;
