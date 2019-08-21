@@ -1,8 +1,6 @@
 import React from 'react';
-
-import { Row, Col,Container } from "../components/Grid";
 import ContactForm from '../components/ContactPage/contactform';
-
+import { Row, Col,Container } from "../components/Grid";
 function ContactUser(props) {
   // console.log(props);
   return ( 
