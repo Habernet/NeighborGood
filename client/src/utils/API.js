@@ -40,5 +40,8 @@ export default {
       "https://www.mapquestapi.com/geocoding/v1/address?key=dhqUSipT8jFl3NGid7eL6SwE8YhAcdY9&location=" +
         address
     );
+  },
+  editUser:function(user, userData){
+    return axios.put("/api/users/" + user, userData);
   }
 };

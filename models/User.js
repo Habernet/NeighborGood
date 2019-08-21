@@ -51,7 +51,49 @@ const UserSchema = new Schema({
   userCreated: {
     type: Date,
     default: Date.now
+  },
+  address1:{
+    type: String,
+    required:true
+
+
+  },
+  address2:{
+    type: String,
+
+
+  },
+  city:{
+    type: String,
+    required:true
+
+  },
+  state:{
+    type: String,
+    required:true
+
+
+  },
+  zipcode:{
+    type:Number,
+    required:true
+
+  },
+  name:{
+    type:String
+  },
+  phoneNumber:{
+    type:String
+  },
+  age:{
+    type:String
+  },
+  gender:{
+    type:String
+
   }
+
+
 });
 
 // UserSchema.pre("save", (next) => {

@@ -57,6 +57,30 @@ function RegisterForm(props) {
         type="text"
         placeholder="Zipcode"
       />
+       <input
+        value={props.formState.city}
+        name="city"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="City"
+      />
+             <input
+        value={props.formState.state}
+        name="state"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="State"
+      />
+       <input
+        value={props.formState.zipcode}
+        name="zipcode"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Zipcode"
+      />
+
+
+
       <input
         value={props.formState.password}
         name="password"
