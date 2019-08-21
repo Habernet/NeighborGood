@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import API from "./utils/API";
 import AUTH from "./utils/AUTH";
 import Main from "./pages/Main";
 import Users from "./pages/users";
@@ -113,22 +112,20 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let { password, email, username, address } = this.state.formState;
+    let {password, email, username, address1, address2, city, state, zipcode} = this.state.formState;
     let user = {
-      password,
-      email,
-      username,
-      address
+      username, password, email, address1, address2, city, state, zipcode
     };
     AUTH.register(user).then(res => {
       console.log("this user was registered: ", res);
       this.setState({
         userState: {
-          email: res.data.user.email,
           username: res.data.user.username,
+          email: res.data.user.email,
           address: res.data.user.address,
           loggedIn: true
-        }
+        },
+        formState: ""
       });
     });
   };
@@ -140,7 +137,6 @@ class App extends Component {
       password: this.state.formState.password,
       email: this.state.formState.email
     };
-
     axios
       .post("/auth/login", user)
       .then(response => {
