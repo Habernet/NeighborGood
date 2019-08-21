@@ -34,51 +34,50 @@ class App extends Component {
   };
 
   componentDidMount() {
-		AUTH.getUser().then(response => {
-			if (response.data.user) {
+    AUTH.getUser().then(response => {
+      if (response.data.user) {
         console.log(response.data);
-				this.setState({
-					userState: {
+        this.setState({
+          userState: {
             loggedIn: true,
             username: response.data.user
           }
-				});
-			} else {
-				this.setState({
-					loggedIn: false,
-					user: null
-				});
-			}
-		});
-	};
+        });
+      } else {
+        this.setState({
+          loggedIn: false,
+          user: null
+        });
+      }
+    });
+  }
 
-  logout = (event) => {
-		// Sometime there won't be event (When logout is triggered after submit ratings)
-		if (event) {
-			event.preventDefault();
-		}
+  logout = event => {
+    // Sometime there won't be event (When logout is triggered after submit ratings)
+    if (event) {
+      event.preventDefault();
+    }
 
-		// if (this.state.userState.email === "Guest") {
-		// 	this.setState({
-		// 		user: null,
-		// 		loggedIn: false
-		// 	});
-		// }
-		// else {
-      {
-			AUTH.logout().then(response => {
-				if (response.status === 200) {
-					this.setState({
+    // if (this.state.userState.email === "Guest") {
+    // 	this.setState({
+    // 		user: null,
+    // 		loggedIn: false
+    // 	});
+    // }
+    // else {
+    {
+      AUTH.logout().then(response => {
+        if (response.status === 200) {
+          this.setState({
             userState: {
               loggedIn: false,
               username: null
             }
-					});
-				}
-			});
-		}
-
-	}
+          });
+        }
+      });
+    }
+  };
 
   updateUser = res => {
     console.log("updateUser response: ");
@@ -150,16 +149,12 @@ class App extends Component {
             email: response.data.user.email,
             address: response.data.user.address
           });
-          this.setState({
-            redirectoTo: "/" // Do we need this? This is where we would redirect the user, but this is just setting a state. We then need to implement the actual redirect.
-          });
         }
       })
       .catch(error => {
         console.log("login error: ");
         console.log(error);
       });
-
   };
 
   render() {
@@ -167,7 +162,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <Navbar logOut={this.logout}/>
+          <Navbar logOut={this.logout} />
           {loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
