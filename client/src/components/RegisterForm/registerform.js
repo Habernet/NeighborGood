@@ -4,12 +4,8 @@ import "./style.css";
 function RegisterForm(props) {
   console.log(props);
 
-    return ( 
-      <form id="registerForm" className="form">
-
   return (
     <form className="form">
-
       <h3>Register:</h3>
       <input
         value={props.formState.username}
@@ -26,7 +22,6 @@ function RegisterForm(props) {
         placeholder="Email"
       />
       <input
-
         value={props.formState.address1}
         name="address1"
         onChange={props.inputChange}
@@ -40,26 +35,25 @@ function RegisterForm(props) {
         type="text"
         placeholder="Street Address Line2"
       />
-       <input
+      <input
         value={props.formState.city}
         name="city"
         onChange={props.inputChange}
         type="text"
         placeholder="City"
       />
-             <input
+      <input
         value={props.formState.state}
         name="state"
         onChange={props.inputChange}
         type="text"
         placeholder="State"
       />
-       <input
+      <input
         value={props.formState.zipcode}
         name="zipcode"
         value={props.formState.address}
         name="address"
-
         onChange={props.inputChange}
         type="text"
         placeholder="Zipcode"
