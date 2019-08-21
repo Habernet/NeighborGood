@@ -14,35 +14,6 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 import Button from "../components/Button";
 
-// const EventCalendar = require('react-event-calendar');
-
-
-// class Users extends Component {
-//   state = {
-//     users: [],
-//     username: "Abhi",
-//     isShowing1: false,
-//     isShowing2: false,
-//     myEvents: [],
-//     myClassifieds: [],
-//     lat: "",
-//     lng: "",
-//     address: "10230, Broadstone way,nc 27502",
-//     classifiedsForm: {
-//       title: "",
-//       description: "",
-//       price: ""
-//     },
-//     eventsForm: {
-//       title: "",
-//       description: "",
-//       date: "",
-//       price: ""
-//     },
-//     // ,
-//     isShowing: false
-//   };
-
   class Users extends Component {
     state = {
       classifiedsForm: {
@@ -64,9 +35,11 @@ import Button from "../components/Button";
     myClassifieds: [],
     lat: "",
     lng: "",
-    address: "",
+    address1: "",
+    city:"",
+    state:"",
+    zipcode:""
 };
-  
   
     // Split this into two functions for each of the forms to update the state
     handleEventsInputChange = event => {
@@ -118,48 +91,10 @@ import Button from "../components/Button";
   
   loadUserAddress = () => {
 
-  API.getUserAddrLatLong(this.state.address)
+  API.getUserAddrLatLong(this.state.address1+","+this.state.city+","+this.state.state+","+this.state.zipcode)
   .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
   .catch(err => console.log(err));
   }
-
-  // Split this into two functions for each of the forms to update the state
-  // handleEventsInputChange = event => {
-  //   // Getting the value and name of the input which triggered the change
-  //   let value = event.target.value;
-  //   const name = event.target.name;
-
-  //   // Updating the input's state
-  //   this.setState(prevState => {
-  //     return {
-  //       classifiedsForm: {
-  //         ...prevState.classifiedsForm
-  //       },
-  //       eventsForm: {
-  //         ...prevState.eventsForm,
-  //         [name]: value
-  //       }
-  //     };
-  //   });
-  // };
-  // handleClassifiedsInputChange = event => {
-  //   // Getting the value and name of the input which triggered the change
-  //   let value = event.target.value;
-  //   const name = event.target.name;
-
-  //   // Updating the input's state
-  //   this.setState(prevState => {
-  //     return {
-  //       classifiedsForm: {
-  //         ...prevState.classifiedsForm,
-  //         [name]: value
-  //       },
-  //       eventsForm: {
-  //         ...prevState.eventsForm
-  //       }
-  //     };
-  //   });
-  // };
 
   handleClassifiedsFormSubmit = event => {
     // grab the data we need
@@ -168,7 +103,6 @@ import Button from "../components/Button";
     let formObject = this.state.classifiedsForm;
     formObject.email = this.props.userState.email;
     console.log("OBJECT TO SUBMIT: ", formObject);
-
     event.preventDefault();
     axios
       .post("/api/classifieds", formObject)
@@ -182,11 +116,9 @@ import Button from "../components/Button";
 
   handleEventsFormSubmit = event => {
     event.preventDefault();
-
     let formObject = this.state.eventsForm;
     formObject.email = this.props.userState.email;
     console.log("OBJECT TO SUBMIT: ", formObject);
-
     axios
       .post("/api/events", formObject)
       .then(res => {
@@ -196,49 +128,44 @@ import Button from "../components/Button";
         console.log("POSTED UNSUCCESSFULLY: ", err);
       });
   };
-
-  // handleClassifiedsFormSubmit = event => {
-  //   // grab the data we need
-  //   // price, description, title from the form state.
-  //   // make a post request to /api/classifieds
-  //   let formObject = this.state.classifiedsForm;
-  //   formObject.email = this.props.userState.email;
-  //   formObject.user_id = this.props.userState.username;
-  //   console.log("OBJECT TO SUBMIT: ", formObject);
-
-  //   event.preventDefault();
-  //   axios
-  //     .post("/api/classifieds", formObject)
-  //     .then(res => {
-  //       console.log("POSTED SUCCESSFULLY: ", res);
-  //     })
-  //     .catch(err => {
-  //       console.log("POSTED UNSUCCESSFULLY:", err);
-  //     });
+  // loadUser = () => {
+  //   // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
+  
+  //   if (this.props.userState.isLoggedIn) {
+  //     console.log(
+  //       `USER IS LOGGED IN, RETRIVING ${
+  //         this.props.userState.username
+  //       }'s information...`
+  //     );
+  
+  //     // use the API to grab the user and it's information...
+  
+  //     API.getUser(this.props.userState.username)
+  //       .then(res => {
+  //         console.log(`FOUND ${this.props.userState.username} `, res);
+  //         this.setState({
+  //           ...this.prevState,
+  //           username: res.data.username,
+  //           savedEvents: res.data.savedEvents,
+  //           address:res.data.address1+(res.data.address2?","+res.data.address2:"")+","+res.data.city+","+
+  //           res.data.state         // createdEvents: res.data.createdEvents
+  //         });this.loadUserAddress();
+  //       })
+  //       .catch(err => {
+  //         console.log(`ERROR FINDING ${this.props.userState.username}`, err);
+  //       });
+  //   } else {
+  //     console.log(`USER ISN'T LOGGED IN, FAILED.`);
+  //   }
   // };
-
-  // handleEventsFormSubmit = event => {
-  //   event.preventDefault();
-
-  //   let formObject = this.state.eventsForm;
-  //   formObject.email = this.props.userState.email;
-  //   formObject.user_id = this.props.userState.username;
-  //   console.log("OBJECT TO SUBMIT: ", formObject);
-
-  //   axios
-  //     .post("/api/events", formObject)
-  //     .then(res => {
-  //       console.log("POSTED SUCCESSFULLY: ", res);
-  //     })
-  //     .catch(err => {
-  //       console.log("POSTED UNSUCCESSFULLY: ", err);
-  //     });
-  // };
-
+  
+  
+    
+  
   loadUser = () => {
     // IF USERSTATE IS FILLED..LOAD INFO BASED ON THAT...IF NOT REDIRECT TO LOGIN?
 
-    if (this.props.userState.isLoggedIn) {
+    if (this.props.userState.loggedIn) {
       console.log(
         `USER IS LOGGED IN, RETRIVING ${
           this.props.userState.username
@@ -254,9 +181,15 @@ import Button from "../components/Button";
             ...this.prevState,
             username: res.data.username,
             savedEvents: res.data.savedEvents,
-            address:res.data.address1+(res.data.address2?","+res.data.address2:"")+","+res.data.city+","+
-            res.data.state         // createdEvents: res.data.createdEvents
-          });this.loadUserAddress();
+            address1:res.data.address1,
+            city:res.data.city,
+            state:res.data.state,
+            zipcode:res.data.zipcode
+                  // createdEvents: res.data.createdEvents
+          },()=>{
+            this.loadUserAddress();
+          });
+          console.log("ADDRESS BEFORE API CALL",this.state.address);
         })
         .catch(err => {
           console.log(`ERROR FINDING ${this.props.userState.username}`, err);
@@ -279,19 +212,6 @@ import Button from "../components/Button";
       .catch(err => console.log(err));
   };
 
-  // loadUserEvents = () => {
-  //   API.getEvent(this.props.userState.username)
-  //     .then(res => { this.setState({ myEvents: res.data }); console.log(this.state.myEvents) }
-  //     )
-  // loadUsers = () => {
-  //   // This must be rewritten to check for the cookie and load from there..only one user.
-  //   API.getUsers()
-  //     .then(res => {
-  //       this.setState({ users: res.data });
-  //       console.log(res.data);
-  //     })
-  //     .catch(err => console.log(err));
-  // };
 
   loadUserEvents = () => {
     console.log("LOADING USER EVENTS...");
@@ -448,22 +368,13 @@ import Button from "../components/Button";
             </Col>
           </Row>
 
-          {/* <ul className="navbar-nav">
-      <li className="nav-item active">
-              <Link to="/map" className={window.location.pathname === "MapLeaflet" ? "nav-link active" : "nav-link"}><span class="fa fa-map-marker-alt"></span> Map
-          
-        </Link>
-      </li> 
-
-      </ul> */}
-          {/* <div className="map"> */}
           <Row>
             <Col size="sm-1" />
             <Col size="sm-5">
               <Map
                 style={{ width: "400px", height: "400px" }}
                 center={[this.state.lat, this.state.lng]}
-                zoom={6}
+                zoom={10}
                 maxZoom={20}
                 attributionControl={true}
                 zoomControl={true}
@@ -476,7 +387,7 @@ import Button from "../components/Button";
                 <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
 
                 <Marker position={[this.state.lat, this.state.lng]}>
-                  <Popup>{this.state.address}</Popup>
+                  <Popup>{this.state.address1+","+this.state.city+","+this.state.state+","+this.state.zipcode}</Popup>
                 </Marker>
               </Map>
             </Col>
@@ -489,23 +400,30 @@ import Button from "../components/Button";
               />
             </Col>
           </Row>
-          {/* <div>
-
-                <button className="open-modal-btn" onClick={this.openModalHandler}>Open Modal</button>
-
-                <Modal
-                    className="modal"
-                    show={this.state.isShowing}
-                    close={this.closeModalHandler}>
-
-    </Modal>
- */}
           <div className="modalDiv" style={{ marginTop: "30px" }}>
+                <Row>
+              <Col size="sm-4">
+                <button
+                  className="open-modal-btn"
+                >
+                <Link to="/neighbors" className="nav-link"
+                style={{backgroundColor:'#90cdd1',
+                  color:'black',padding:'0'
+                }}>
+              Neighbors      
+                </Link>
+
+                </button>
+              </Col>
+              </Row>
+ 
+
             <Row>
               <Col size="sm-4">
                 <button
                   className="open-modal-btn"
                   onClick={this.openModalHandler2}
+                  style={{color:'black'}}
                 >
                   Events
                 </button>
@@ -516,6 +434,8 @@ import Button from "../components/Button";
                 <button
                   className="open-modal-btn"
                   onClick={this.openModalHandler1}
+                  style={{color:'black'}}
+
                 >
                   Classifieds
                 </button>

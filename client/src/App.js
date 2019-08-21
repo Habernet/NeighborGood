@@ -9,12 +9,14 @@ import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
 import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
+
 import LoginUser from "./pages/login";
 import axios from "axios";
 // import registerUser from "./pages/register";
 import ContactUser from "./pages/contacts";
+
 // import ContactForm from "./components/ContactPage/contactform";
-import registerUser from "./pages/register";
+import Neighbors from "./pages/neighbors";
 import UpdateUserForm from "./components/Update-User/UpdateUserForm";
 
 class App extends Component {
@@ -207,6 +209,17 @@ class App extends Component {
                   <Events {...routeProps} userState={this.state.userState} />
                 )}
               />
+                <Route
+                exact
+                path="/neighbors"
+                render={routeProps => (
+                  <Neighbors
+                    {...routeProps}
+                    userState={this.state.userState}
+                  />
+                )}
+              />
+
                 <Route
                 exact
                 path="/contact"

@@ -4,7 +4,7 @@ import "./style.css";
 function RegisterForm(props) {
 
   return (
-    <form className="form">
+    <form className="form" id="registerForm" >
       <h3>Register:</h3>
       <input
         value={props.formState.username}
