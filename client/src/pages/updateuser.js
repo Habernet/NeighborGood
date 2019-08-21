@@ -4,18 +4,21 @@ import { Row, Col,Container } from "../components/Grid";
 
 
 
-class UpdaterUserForm extends Component {
+class UpdaterUserPage extends Component {
     state = {
       updateuserForm: {
-firstName:"",
-lastName:"",
+name:" ",
 username:"",
 email:"",
-address:"",
+address1:"",
+address2:"",
+city:"",
+state:"",
+zipcode:"",
 phoneNumber:"",
 age:"",
-gender:""
-   },
+gender:" "
+   }
     
 };
   
@@ -30,22 +33,20 @@ gender:""
       this.setState(prevState => {
         return {
             updateuserForm: {
-            ...prevState.updateuserForm
+            ...prevState.updateuserForm,
+            [name] : {value}
           }
         };
       });
     };
     handleUserUpdateFormSubmit = event => {
         // grab the data we need
-        // price, description, title from the form state.
-        // make a post request to /api/classifieds
+        // make a put request to /api/users
         let formObject = this.state.updateuserForm;
-        // formObject.email = this.props.userState.email;
         console.log("OBJECT TO SUBMIT: ", formObject);
     
         event.preventDefault();
-        axios
-          .put("/api/user"+this.state.username, formObject)
+        API.editUser(this.props.userState.username, formObject)
           .then(res => {
             console.log("POSTED SUCCESSFULLY: ", res);
           })
@@ -55,23 +56,23 @@ gender:""
       };
     
     
-  componentDidMount() {
-    console.log(this.props.userState.username);
-    // this.loadUser();
+  // componentDidMount() {
+  //   console.log(this.props.userState.username);
+  //   // this.loadUser();
 
-    this.loadUsers();
-    // this.loadUserEvents();
-    // this.loadUserClassifieds();
-  }
+  //   this.loadUsers();
+  //   // this.loadUserEvents();
+  //   // this.loadUserClassifieds();
+  // }
   
-  loadUserAddress = () => {
+  // loadUserAddress = () => {
 
-  API.getUserAddrLatLong(this.state.address)
-  .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
-  .catch(err => console.log(err));
-  }
+  // API.getUserAddrLatLong(this.state.address)
+  // .then(res => { this.setState({ lat: res.data.results[0].locations[0].latLng.lat, lng: res.data.results[0].locations[0].latLng.lng }); console.log(this.state.lat, this.state.lng) })
+  // .catch(err => console.log(err));
+  // }
 
-  // Split this into two functions for each of the forms to update the state
+  // // Split this into two functions for each of the forms to update the state
   // handleEventsInputChange = event => {
   //   // Getting the value and name of the input which triggered the change
   //   let value = event.target.value;

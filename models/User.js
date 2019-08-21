@@ -58,7 +58,21 @@ const UserSchema = new Schema({
     type:Number,
     required:true
 
+  },
+  name:{
+    type:String
+  },
+  phoneNumber:{
+    type:String
+  },
+  age:{
+    type:String
+  },
+  gender:{
+    type:String
+
   }
+
 
 });
 

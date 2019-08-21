@@ -38,12 +38,12 @@ class Events extends Component {
           city:res.data.city,
           state:res.data.state,
  savedEvents: res.data.savedEvents
-        })
- },           this.loadLocalEvents()
-        )
-      
-      .catch(err => console.log(err));
-  };
+        },
+        ()=>{
+                this.loadLocalEvents()
+        }
+      )   })
+};
 
   loadLocalEvents=()=>{
     console.log("City", this.state.city);
@@ -76,7 +76,8 @@ class Events extends Component {
           ...this.prevState,
           savedEvents: res.data.savedEvents
         },console.log(res.data),
-        this.loadUser()
+          this.loadUser()
+        
       );
     });
   };
