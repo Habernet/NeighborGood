@@ -11,11 +11,8 @@ import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
 import LoginUser from "./pages/login";
 import axios from "axios";
-<<<<<<< HEAD
 import registerUser from "./pages/register";
 import UpdateUserForm from "./components/Update-User/UpdateUserForm";
-=======
->>>>>>> 7af35543d553d47bbf0254df504fca2107768973
 
 class App extends Component {
   state = {
