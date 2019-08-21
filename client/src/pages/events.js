@@ -215,7 +215,7 @@ class Events extends Component {
           </List>
           Local Events
           <List>
-            {this.state.localEvents.map(localEvent => (
+            {this.state.localEvents.slice(0,10).map(localEvent => (
               <ListItem>
                 <Row>
                   <Col size="md-12">
