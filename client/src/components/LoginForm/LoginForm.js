@@ -4,7 +4,7 @@ import "./style.css";
 function LoginForm(props) {
   
     return ( 
-      <form className="form">
+      <form id="loginForm" className="form">
       <h3>Login:</h3>
       <input
         value={props.formState}

@@ -10,7 +10,7 @@ mongoose.connect(
 
 const classifieds = [
   {
-    user_id: "Abhi",
+    user_id: "abhi",
     title: "Ferarri",
     description: "Enzo for sale, 10k miles.",
     price: 1000000,

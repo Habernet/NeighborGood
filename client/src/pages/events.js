@@ -11,41 +11,49 @@ import Tabs from "../components/Tabs";
 import Moment from "react-moment";
 
 class Events extends Component {
-  state = {
-    events: [],
-    // username: "",
-    city: "apex",
-    state: "north carolina",
-    savedEvents: [],
-    localEvents: [],
-    isEnabled: true
-  };
-  //  componentWillMount(){
+    state = {
+      events: [],
+    // username:"",
+    city:" ",
+    state:" ",
+     savedEvents:[],
+    localEvents:[],
+    isEnabled:true
+     };
+    componentDidMount() {
+      this.loadUser();
+      this.loadEvents();
+      // this.loadLocalEvents();
+    };
 
-  //  }
-
-  componentDidMount() {
-    const date = Date();
-    this.loadUser();
-    this.loadEvents();
-    API.getLocalEvents(this.state.city + "," + this.state.state)
-      .then(res => {
-        this.setState({ localEvents: res.data.events });
-        console.log(this.state.localEvents);
-      })
-      .catch(err => console.log(err));
-  }
 
   loadUser = () => {
     console.log(`GETTING ${this.props.userState.username}'S SAVED EVENTS..`);
     API.getUser(this.props.userState.username)
       .then(res => {
         // const savedEvents = this.state.savedEvents.filter(savedEvents => savedEvents.date < date);
-        this.setState({ savedEvents: res.data.savedEvents });
-        console.log(`UPDATED SAVED EVENTS IN STATE: `, res.data.savedEvents);
-      })
-      .catch(err => console.log(err));
-  };
+
+        this.setState({
+          ...this.prevState,
+          city:res.data.city,
+          state:res.data.state,
+ savedEvents: res.data.savedEvents
+        },
+        ()=>{
+                this.loadLocalEvents()
+        }
+      )   })
+};
+
+  loadLocalEvents=()=>{
+    console.log("City", this.state.city);
+    console.log("State", this.state.state);
+    API.getLocalEvents(this.state.city+","+this.state.state)
+    .then(res => {this.setState({ localEvents: res.data.events });
+    console.log("LOCAL EVENTS IN PAGE STATE", this.state.localEvents)})
+    .catch(err => console.log("ERROR IN EVENTBRITE API CALL", err));
+    console.log("THIS FINISHED")
+  }
 
   loadEvents = () => {
     API.getEvents()
@@ -53,6 +61,7 @@ class Events extends Component {
         res => {
           this.setState({ events: res.data });
         }
+        
         //  ;console.log(res.data)}
       )
       .catch(err => console.log(err));
@@ -64,9 +73,11 @@ class Events extends Component {
     }).then(res => {
       this.setState(
         {
+          ...this.prevState,
           savedEvents: res.data.savedEvents
-        },
-        this.loadUser()
+        },console.log(res.data),
+          this.loadUser()
+        
       );
     });
   };

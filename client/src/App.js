@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/navbar";
-import Jumbotron from "./components/Jumbotron/jumbotron";
-import About from "./components/About/about";
-import Footer from "./components/Footer/footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import API from "./utils/API";
 import AUTH from "./utils/AUTH";
 import Main from "./pages/Main";
 import Users from "./pages/users";
@@ -18,27 +14,38 @@ import axios from "axios";
 // import registerUser from "./pages/register";
 import ContactUser from "./pages/contacts";
 // import ContactForm from "./components/ContactPage/contactform";
+import registerUser from "./pages/register";
+import UpdateUserForm from "./components/Update-User/UpdateUserForm";
 
 class App extends Component {
   state = {
     userState: {
-      isLoggedIn: false,
-      password: "",
-      password2: "",
+      loggedIn: false,
       email: "",
-      address: "",
+      address1: "",
+      address2: "",
+      city:"",
+      state:"",
+      zipcode:"",
       username: ""
     },
     formState: {
       username: "",
       email: "",
-      password: ""
+      password1: "",
+      password2: "",
+      address1: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipcode: ""
     }
   };
 
   componentDidMount() {
     AUTH.getUser().then(response => {
       if (response.data.user) {
+        console.log(response.data);
         this.setState({
           userState: {
             loggedIn: true,
@@ -54,14 +61,39 @@ class App extends Component {
     });
   }
 
+  logout = event => {
+    // Sometime there won't be event (When logout is triggered after submit ratings)
+    if (event) {
+      event.preventDefault();
+    }
+
+    // if (this.state.userState.email === "Guest") {
+    // 	this.setState({
+    // 		user: null,
+    // 		loggedIn: false
+    // 	});
+    // }
+    // else {
+    {
+      AUTH.logout().then(response => {
+        if (response.status === 200) {
+          this.setState({
+            userState: {
+              loggedIn: false,
+              username: null
+            }
+          });
+        }
+      });
+    }
+  };
+
   updateUser = res => {
     console.log("updateUser response: ");
     console.log(res);
     this.setState({
       userState: {
-        isLoggedIn: true,
-        email: res.email,
-        address: res.address,
+        loggedIn: true,
         username: res.username
       }
     });
@@ -89,21 +121,20 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username, address} = this.state.formState;
+    let {password, email, username, address1, address2, city, state, zipcode} = this.state.formState;
     let user = {
-      password, email, username, address
-      // if (this.state.userState...)
+      username, password, email, address1, address2, city, state, zipcode
     };
     AUTH.register(user).then(res => {
       console.log("this user was registered: ", res);
       this.setState({
         userState: {
-          email: res.data.user.email,
           username: res.data.user.username,
-          password: "",
+          email: res.data.user.email,
           address: res.data.user.address,
-          isLoggedIn: true
-        }
+          loggedIn: true
+        },
+        formState: ""
       });
     });
   };
@@ -116,37 +147,32 @@ class App extends Component {
       email: this.state.formState.email
     };
     axios
-      .post("/auth/login",
-        user
-      )
-    .then(response => {
-      console.log("login response: ");
-      console.log(response);
-      if (response.status === 200) {
-        this.updateUser({
-          isLoggedIn: true,
-          username: response.data.user.username,
-          email: response.data.user.email,
-          address: response.data.user.address
-        })
-        this.setState({
-          redirectoTo: "/"
-        })
-      }
-    }).catch(error => {
-      console.log("login error: ")
-      console.log(error);
-    })
-
+      .post("/auth/login", user)
+      .then(response => {
+        console.log("login response: ");
+        console.log(response);
+        if (response.status === 200) {
+          this.updateUser({
+            loggedIn: true,
+            username: response.data.user.username,
+            email: response.data.user.email,
+            address: response.data.user.address
+          });
+        }
+      })
+      .catch(error => {
+        console.log("login error: ");
+        console.log(error);
+      });
   };
 
   render() {
-    const { isLoggedIn } = this.state.userState;
+    const { loggedIn } = this.state.userState;
     return (
       <div>
         <Router>
-          <Navbar />
-          {isLoggedIn && (
+          <Navbar logOut={this.logout} />
+          {loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
               <Route
@@ -156,6 +182,14 @@ class App extends Component {
                   <Users {...routeProps} userState={this.state.userState} />
                 )}
               />
+               <Route
+                exact
+                path="/updateuser"
+                render={routeProps => (
+                  <UpdateUserForm {...routeProps} userState={this.state.userState} />
+                )}
+              />
+
               <Route
                 exact
                 path="/classifieds"
@@ -189,7 +223,7 @@ class App extends Component {
               />
             </Switch>
           )}
-          {!isLoggedIn && (
+          {!loggedIn && (
             <Switch>
           
                <Route

@@ -16,6 +16,7 @@ class Classifieds extends Component {
     };
 
     handleClick=(email)=>{
+      console.log(email);
       window.location.href = `mailto:${email}`;
 
     }
