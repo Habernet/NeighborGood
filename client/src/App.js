@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import API from "./utils/API";
 import AUTH from "./utils/AUTH";
 import Main from "./pages/Main";
 import Users from "./pages/users";
@@ -124,6 +123,7 @@ class App extends Component {
         userState: {
           username: res.data.user.username,
           email: res.data.user.email,
+          address: res.data.user.address,
           loggedIn: true
         },
         formState: ""
@@ -139,6 +139,7 @@ class App extends Component {
       email: this.state.formState.email
     };
     axios
+
       .post("/auth/login",
         user
       )
@@ -160,6 +161,28 @@ class App extends Component {
       console.log("login error: ")
       console.log(error);
     })
+
+
+      .post("/auth/login", user)
+      .then(response => {
+        console.log("login response: ");
+        console.log(response);
+        if (response.status === 200) {
+          this.updateUser({
+            loggedIn: true,
+            username: response.data.user.username,
+            email: response.data.user.email,
+            address: response.data.user.address
+          });
+          this.setState({
+            redirectoTo: "/" // Do we need this? This is where we would redirect the user, but this is just setting a state. We then need to implement the actual redirect.
+          });
+        }
+      })
+      .catch(error => {
+        console.log("login error: ");
+        console.log(error);
+      });
 
   };
 
