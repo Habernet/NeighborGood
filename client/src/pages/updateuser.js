@@ -34,12 +34,13 @@ gender:" "
         return {
             updateuserForm: {
             ...prevState.updateuserForm,
-            [name] : {value}
+            [name] : value
           }
         };
       });
     };
     handleUserUpdateFormSubmit = event => {
+
         // grab the data we need
         // make a put request to /api/users
         let formObject = this.state.updateuserForm;
@@ -131,4 +132,4 @@ render(){
 }
 }
  
-export default UpdaterUserForm;
+export default UpdaterUserPage;
