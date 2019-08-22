@@ -268,7 +268,7 @@ class Users extends Component {
                     }}
                   />
                 </div>
-                <Row>
+                {/* <Row>
                   <Col size="sm-2" />
                   <Col size="sm-4">
                     <Button
@@ -280,7 +280,7 @@ class Users extends Component {
                       </Link>
                     </Button>
                   </Col>
-                </Row>
+                </Row> */}
               </div>
             </Col>
             <Col size="sm-1" />

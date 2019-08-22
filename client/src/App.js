@@ -276,7 +276,7 @@ class App extends Component {
           {!loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
-              <Route
+              {/* <Route
                 exact
                 path="/contact"
                 render={routeProps => (
@@ -286,10 +286,8 @@ class App extends Component {
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
                     handleContact={this.handleContact}
-                  />
-                )}
-              />
-
+                  /> */}
+              )} />
               <Route
                 exact
                 path="/register"

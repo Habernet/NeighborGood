@@ -32,7 +32,6 @@ const ClassifiedSchema = new Schema({
   },
   email: {
     type: String,
-    unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   }
 });

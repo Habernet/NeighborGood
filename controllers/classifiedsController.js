@@ -13,7 +13,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   find: function(req, res) {
-    db.Classified.find({user_id:req.params.user_id})
+    db.Classified.find({ user_id: req.params.user_id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -22,7 +22,7 @@ module.exports = {
     console.log("REQ BODY FOR CLASSIFIEDS POST REQUEST: ", req.body);
     db.Classified.create(req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.json(err));
   },
   update: function(req, res) {
     db.Classified.findOneAndUpdate({ _id: req.params.id }, req.body)
