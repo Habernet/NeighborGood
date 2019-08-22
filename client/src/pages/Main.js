@@ -20,11 +20,11 @@ function Main(){
         Welcome to our landing pages!
       </p>
       <div className="column">
-    <img src="./images/cp.jpg" className="wpmobile"></img>
+    <img src="./images/cp.jpg" className="wpmobile" alt="mobile"></img>
     <p>This way you can have everything within miles of your fingertips!</p>
-    <img src="./images/lock.png"className="wplock"></img>
+    <img src="./images/lock.png"className="wplock" alt="secure"></img>
     <p>Security matters here! Everyone on this app is verified.</p>
-    <img src="./images/community.png" className="wpcommunity"></img>
+    <img src="./images/community.png" className="wpcommunity" alt="community"></img>
     <p>A community exchange built by you and your neighbhors!</p>
     </div>
     </div>

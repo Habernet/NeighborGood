@@ -30,7 +30,7 @@ class App extends Component {
       city: "",
       state: "",
       zipcode: ""
-    }
+    },
   };
 
   componentDidMount() {
@@ -85,7 +85,8 @@ class App extends Component {
     this.setState({
       userState: {
         loggedIn: true,
-        username: res.username
+        username: res.username,
+        email: res.email
       }
     });
   };
@@ -112,11 +113,22 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username, address1, address2, city, state, zipcode} = this.state.formState;
-    let user = {
-      username, password, email, address1, address2, city, state, zipcode
+    let {password, password2, email, username, address1, address2, city, state, zipcode} = this.state.formState;
+    
+    if( !password || !password2 || !email || !username || !address1 || !city || !state || !zipcode ) {
+      alert("Please fill in all reqired fields")
+    }
+
+    if( !(password === password2)) {
+      alert("Password entries do not match.")
     };
-    AUTH.register(user).then(res => {
+    
+    let user = {
+      username, password, password2, email, address1, address2, city, state, zipcode
+    };
+    console.log(user);
+    AUTH.register(user)
+    .then(res => {
       console.log("this user was registered: ", res);
       this.setState({
         userState: {
@@ -127,6 +139,10 @@ class App extends Component {
         },
         formState: ""
       });
+    })
+    .catch(error => {
+      console.log("login error: ");
+      console.log(error);
     });
   };
 
@@ -152,6 +168,7 @@ class App extends Component {
         }
       })
       .catch(error => {
+        alert(error);
         console.log("login error: ");
         console.log(error);
       });
