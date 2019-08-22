@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/navbar";
-import Jumbotron from "./components/Jumbotron/jumbotron";
-import About from "./components/About/about";
-import Footer from "./components/Footer/footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import API from "./utils/API";
 import AUTH from "./utils/AUTH";
 import Main from "./pages/Main";
 import Users from "./pages/users";
@@ -13,55 +9,90 @@ import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
 import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
+
 import LoginUser from "./pages/login";
 import axios from "axios";
-import registerUser from "./pages/register";
+// import registerUser from "./pages/register";
+import ContactUser from "./pages/contacts";
+
+// import ContactForm from "./components/ContactPage/contactform";
+import Neighbors from "./pages/neighbors";
+import UpdaterUserPage from "./components/Update-User/UpdateUserForm";
 
 class App extends Component {
   state = {
     userState: {
-      isLoggedIn: false,
-      password: "",
-      password2: "",
+      loggedIn: false,
       email: "",
-      address: "",
+      address1: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipcode: "",
       username: ""
     },
     formState: {
       username: "",
       email: "",
-      password: ""
+      password1: "",
+      password2: "",
+      address1: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipcode: ""
     }
   };
 
   componentDidMount() {
     AUTH.getUser().then(response => {
       if (response.data.user) {
+        console.log(response.data);
         this.setState({
           userState: {
             loggedIn: true,
-            username: response.data.user
+            username: response.data.username,
+            email: response.data.user.email
           }
         });
       } else {
         this.setState({
-          loggedIn: false,
-          user: null
+          loggedIn: false
         });
       }
     });
   }
+
+  logout = event => {
+    // Sometime there won't be event (When logout is triggered after submit ratings)
+    if (event) {
+      event.preventDefault();
+    }
+
+    {
+      AUTH.logout().then(response => {
+        if (response.status === 200) {
+          this.setState({
+            userState: {
+              loggedIn: false,
+              username: null
+            }
+          });
+        }
+      });
+    }
+  };
 
   updateUser = res => {
     console.log("updateUser response: ");
     console.log(res);
     this.setState({
       userState: {
-        isLoggedIn: true,
-        email: res.email,
-        address: res.address,
-        username: res.username
-      }
+        loggedIn: true,
+        username: res.username,
+        email: res.email
+      },
+      formstate: ""
     });
   };
 
@@ -87,23 +118,64 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, email, username, address} = this.state.formState;
+    let {
+      password,
+      password2,
+      email,
+      username,
+      address1,
+      address2,
+      city,
+      state,
+      zipcode
+    } = this.state.formState;
+
+    if (
+      !password ||
+      !password2 ||
+      !email ||
+      !username ||
+      !address1 ||
+      !city ||
+      !state ||
+      !zipcode
+    ) {
+      alert("Please fill in all reqired fields");
+    }
+
+    if (!(password === password2)) {
+      alert("Password entries do not match.");
+    }
+
     let user = {
-      password, email, username, address
-      // if (this.state.userState...)
+      username,
+      password,
+      password2,
+      email,
+      address1,
+      address2,
+      city,
+      state,
+      zipcode
     };
-    AUTH.register(user).then(res => {
-      console.log("this user was registered: ", res);
-      this.setState({
-        userState: {
-          email: res.data.user.email,
-          username: res.data.user.username,
-          password: "",
-          address: res.data.user.address,
-          isLoggedIn: true
-        }
+    console.log(user);
+    AUTH.register(user)
+      .then(res => {
+        console.log("this user was registered: ", res);
+        this.setState({
+          userState: {
+            username: res.data.user.username,
+            email: res.data.user.email,
+            address: res.data.user.address,
+            loggedIn: true
+          },
+          formState: ""
+        });
+      })
+      .catch(error => {
+        console.log("login error: ");
+        console.log(error);
       });
-    });
   };
 
   handleLogin = event => {
@@ -114,37 +186,33 @@ class App extends Component {
       email: this.state.formState.email
     };
     axios
-      .post("/auth/login",
-        user
-      )
-    .then(response => {
-      console.log("login response: ");
-      console.log(response);
-      if (response.status === 200) {
-        this.updateUser({
-          isLoggedIn: true,
-          username: response.data.user.username,
-          email: response.data.user.email,
-          address: response.data.user.address
-        })
-        this.setState({
-          redirectoTo: "/"
-        })
-      }
-    }).catch(error => {
-      console.log("login error: ")
-      console.log(error);
-    })
-
+      .post("/auth/login", user)
+      .then(response => {
+        console.log("login response: ");
+        console.log(response);
+        if (response.status === 200) {
+          this.updateUser({
+            loggedIn: true,
+            username: response.data.user.username,
+            email: response.data.user.email,
+            address: response.data.user.address
+          });
+        }
+      })
+      .catch(error => {
+        alert(error);
+        console.log("login error: ");
+        console.log(error);
+      });
   };
 
   render() {
-    const { isLoggedIn } = this.state.userState;
+    const { loggedIn } = this.state.userState;
     return (
       <div>
         <Router>
-          <Navbar />
-          {isLoggedIn && (
+          <Navbar logOut={this.logout} />
+          {loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
               <Route
@@ -154,6 +222,17 @@ class App extends Component {
                   <Users {...routeProps} userState={this.state.userState} />
                 )}
               />
+              <Route
+                exact
+                path="/updateuser"
+                render={routeProps => (
+                  <UpdaterUserPage
+                    {...routeProps}
+                    userState={this.state.userState}
+                  />
+                )}
+              />
+
               <Route
                 exact
                 path="/classifieds"
@@ -171,12 +250,46 @@ class App extends Component {
                   <Events {...routeProps} userState={this.state.userState} />
                 )}
               />
+              <Route
+                exact
+                path="/neighbors"
+                render={routeProps => (
+                  <Neighbors {...routeProps} userState={this.state.userState} />
+                )}
+              />
+
+              <Route
+                exact
+                path="/contact"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleContact}
+                  />
+                )}
+              />
             </Switch>
           )}
-          {!isLoggedIn && (
+          {!loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
-              {/* Contact page should go here  */}
+              <Route
+                exact
+                path="/contact"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleContact={this.handleContact}
+                  />
+                )}
+              />
+
               <Route
                 exact
                 path="/register"
@@ -209,8 +322,6 @@ class App extends Component {
           )}
         </Router>
 
-        {/* <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
-        <Jumbotron /> */}
         {/* <About /> */}
         {/* <Footer /> */}
       </div>

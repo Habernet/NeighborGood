@@ -17,7 +17,7 @@ const Navbar = props =>
       </li>
             
             <li className="nav-item">
-              <Link to="/Contact" className="nav-link">
+              <Link to="/Contact" className={window.location.pathname === "Contact" ? "nav-link active" : "nav-link"}>
               <i className="fa fa-mobile" aria-hidden="true"></i>Contact
         </Link>
       </li>
@@ -50,7 +50,9 @@ const Navbar = props =>
           </Link>
         </li>
 
-            
+        <li className="nav-item">
+          <Link to="" className={window.location.pathname === "Logout" ? "nav-link active" : "nav-link"} onClick={props.logOut}><i className="fa fa-sign-out" area-hidden="true"></i>Log Out</Link>
+        </li>
 
           </ul>
         </div>

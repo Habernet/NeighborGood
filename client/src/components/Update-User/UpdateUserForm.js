@@ -1,83 +1,88 @@
-import React from 'react';
+import React from "react";
 
 function UpdateUserForm(props) {
-  
-    return ( 
-      <form className="form">
+  const formStyle = {
+    width: "500px"
+  };
+  return (
+    <form className="form">
       <input
-        value={props.userState.firstName}
-        name="firstName"
+        name="name"
         onChange={props.inputChange}
         type="text"
-        placeholder="First Name"
+        placeholder="Name"
       />
       <input
-        value={props.userState.lastName}
-        name="lastName"
-        onChange={props.inputChange}
-        type="text"
-        placeholder="Last Name"
-      /> 
-      <input
-        value={props.userState.username}
+        // style={formStyle}
         name="username"
         onChange={props.inputChange}
         type="text"
         placeholder="Username"
       />
       <input
-        value={props.formState}
         name="email"
         onChange={props.inputChange}
         type="text"
-        placeholder="Email"
+        placeholder="email"
       />
-      <input
-        value={props.formState}
-        name="password"
-        onChange={props.inputChange}
-        type="password"
-        placeholder="Password"
-      />
-      <input
-        value={props.userState.password2}
-        name="password2"
-        onChange={props.inputChange}
-        type="password"
-        placeholder="Verify Password"
-      />
-      <input
-        value={props.userState.address}
-        name="address"
+       <input
+        name="address1"
         onChange={props.inputChange}
         type="text"
-        placeholder="Street Address"
+        placeholder="Street Address Line1"
       />
-      <input
-        value={props.userState.phoneNumber}
+             <input
+        name="address2"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Street Address Line2"
+      />
+       <input
+        name="city"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="City"
+      />
+       <input
+        name="state"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="State"
+      />
+         <input
+        name="zipcode"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Street Address Line1"
+      />
+
+       <input
         name="phoneNumber"
         onChange={props.inputChange}
         type="text"
-        placeholder="Phone Number"
+        placeholder="Phone number"
       />
       <input
-        value={props.userState.age}
-        name="age"
-        onChange={props.inputChange}
-        type="age"
-        placeholder="Age"
-      />
-      <input
-        value={props.userState.gender}
-        name="gender"
+      name="gender"
         onChange={props.inputChange}
         type="text"
         placeholder="Gender"
       />
-      <button onClick={props.handleLogin}>Submit</button>
-    </form>
-     );
-  }
 
- 
+       <input
+        name="age"
+        onChange={props.inputChange}
+        type="text"
+        placeholder="Age"
+      />
+
+
+
+
+
+      <button className="submitButton" onClick={props.formSubmit}>Submit</button>
+    </form>
+  );
+}
+
 export default UpdateUserForm;

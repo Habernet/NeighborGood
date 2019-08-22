@@ -10,7 +10,7 @@ mongoose.connect(
 
 const events = [
   {
-    user_id: "Abhi",
+    user_id: "abhi",
     title: "Block Party",
     description: "Whole subdivision, 48 hour event. Contact for details.",
     date: new Date(Date.now()),

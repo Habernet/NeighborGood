@@ -11,43 +11,66 @@ mongoose.connect(
 const users = [
   {
     username: "DJ Fill",
-    password: "djfill",
-    address: "10230, Broadstone way,nc 27502",
+    password: "encrypted",
+    address1: "15230",
+    address2:"Broadstone way",
+    city:"Apex",
+    state:"NC",
+    zipcode:27502,
     email: "djphil@example.com",
     phonenumber: 8675309,
     name: "Philip",
     age: 75,
-    gender: "male"
-  },
+    gender: "male",
+    savedEvents:[] 
+ },
   {
     username: "Cakes",
-    password: "patrick",
-    address: "2600 Pickett Branch road, nc 27519",
+    password: "encrypted",
+    address1: "2600 Pickett Branch road",
+    address2:"",
+    city:"Cary",
+    state:"NC",
+    zipcode:27519,
     email: "phaberern@gmail.com",
     phonenumber: 8675309,
     name: "Patrick",
     age: 28,
-    gender: "male"
+    gender: "male",
+    savedEvents:[] 
+
   },
   {
     username: "Timbo",
-    password: "Timbo",
-    address: "10230, Broadstone way,nc 27502",
+    password: "encrypted",
+    address1: "14310",
+    address2:"Broadstone way",
+    city:"Apex",
+    state:"NC",
+    zipcode:27502,
     email: "TimG@example.com",
     phonenumber: 8675309,
     name: "Tim",
     age: 25,
-    gender: "male"
+    gender: "male",
+    savedEvents:[] 
+
   },
   {
-    username: "Abhi",
-    password: "Abhi",
-    address: "10230, Broadstone way,nc 27502",
+    username: "abhi",
+    password: "encrypted",
+    address1: "10230",
+    address2:"Broadstone way",
+    city:"Apex",
+    state:"NC",
+    zipcode:27502,
     email: "Abhi@example.com",
     phonenumber: 8675309,
     name: "Abhi",
     age: 20,
-    gender: "female"
+    gender: "female",
+    savedEvents:[] 
+
   }
 ];
 

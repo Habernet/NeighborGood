@@ -41,14 +41,14 @@ module.exports = {
 
   getUser: (req, res, next) => {
     console.log("===== user!!======");
-    // if (req.user) {
-    //   return res.json({ user: req.user });
-    // } else {
-    //   return res.json({ user: null });
-    // }
+    if (req.user) {
+      return res.json({ user: req.user });
+    } else {
+      return res.json({ user: null });
+    }
   },
   register: (req, res) => {
-    console.log("Req body:", req.body);
+    console.log("Req body:", req.body.address1, req.body);
     db.User.findOne({ email: req.body.email })
       .then(resp => {
         console.log(`Finding email: ${resp}`);
