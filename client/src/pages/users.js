@@ -19,7 +19,7 @@ class Users extends Component {
     classifiedsForm: {
       title: "",
       description: "",
-      price: ""
+      price: "", 
     },
     eventsForm: {
       title: "",

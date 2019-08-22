@@ -38,7 +38,7 @@ class Classifieds extends Component {
         <div>
 
           <Jumbotron>
-            <h3> Listings posted by your neighbours</h3>
+            <h3> Listings posted by your neighbors</h3>
           </Jumbotron>
 
           <List>

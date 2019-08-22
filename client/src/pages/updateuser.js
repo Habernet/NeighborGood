@@ -39,15 +39,29 @@ gender:" "
         };
       });
     };
+
+  //   event.preventDefault();
+  //   if (this.state.title && this.state.author) {
+  //     API.saveBook({
+  //       title: this.state.title,
+  //       author: this.state.author,
+  //       synopsis: this.state.synopsis
+  //     })
+  //       .then(res => this.loadBooks())
+  //       .catch(err => console.log(err));
+  //   }
+  // };
+
     handleUserUpdateFormSubmit = event => {
+        event.preventDefault();
 
         // grab the data we need
         // make a put request to /api/users
         let formObject = this.state.updateuserForm;
         console.log("OBJECT TO SUBMIT: ", formObject);
     
-        event.preventDefault();
-        API.editUser(this.props.userState.username, formObject)
+        API.editUser(this.props.userState.username,{formObject}
+        )
           .then(res => {
             console.log("POSTED SUCCESSFULLY: ", res);
           })

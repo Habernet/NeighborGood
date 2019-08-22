@@ -25,7 +25,7 @@ function Main() {
             <img src="./images/lock.png" className="wplock"></img>
             <p>Security matters here! Everyone on this app is verified.</p>
             <img src="./images/community.png" className="wpcommunity"></img>
-            <p>A community exchange built by you and your neighbhors!</p>
+            <p>A community exchange built by you and your neighbors!</p>
           </div>
         </div>
       </Jumbotron>

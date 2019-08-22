@@ -55,7 +55,8 @@ export default {
     );
   },
   //Update or edit logged in user information
-  editUser:function(user, userData){
-    return axios.put("/api/users/" + user, userData);
+  editUser:function(user, {userData}){
+    console.log({userData})
+    return axios.put("/api/users/" + user,{userData});
   }
 };
