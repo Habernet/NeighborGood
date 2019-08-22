@@ -17,7 +17,7 @@ const Navbar = props =>
       </li>
             
             <li className="nav-item">
-              <Link to="/Contact" className="nav-link">
+              <Link to="/Contact" className={window.location.pathname === "Contact" ? "nav-link active" : "nav-link"}>
               <i className="fa fa-mobile" aria-hidden="true"></i>Contact
         </Link>
       </li>

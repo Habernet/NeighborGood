@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/jumbotron";
-// import About from "../components/About/about";
-// import Footer from "../components/Footer/footer";
 import { Row, Col, Container } from "../components/Grid";
-import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
 import Button from "../components/Button";
@@ -13,154 +10,88 @@ import Moment from "react-moment";
 class Events extends Component {
   state = {
     events: [],
-    // username: "",
-    city: "apex",
-    state: "north carolina",
+    // username:"",
+    city: " ",
+    state: " ",
     savedEvents: [],
     localEvents: [],
     isEnabled: true
   };
-  //  componentWillMount(){
-
-  //  }
-
   componentDidMount() {
-    const date = Date();
     this.loadUser();
     this.loadEvents();
-    API.getLocalEvents(this.state.city + "," + this.state.state)
-      .then(res => {
-        this.setState({ localEvents: res.data.events });
-        console.log(this.state.localEvents);
-      })
-      .catch(err => console.log(err));
-  }
+    // this.loadLocalEvents();
+  };
 
+//This function sets state after the user logs in. The userstate props is used to get the user specific information
   loadUser = () => {
     console.log(`GETTING ${this.props.userState.username}'S SAVED EVENTS..`);
     API.getUser(this.props.userState.username)
       .then(res => {
         // const savedEvents = this.state.savedEvents.filter(savedEvents => savedEvents.date < date);
-        this.setState({ savedEvents: res.data.savedEvents });
-        console.log(`UPDATED SAVED EVENTS IN STATE: `, res.data.savedEvents);
+
+        this.setState({
+          ...this.prevState,
+          city: res.data.city,
+          state: res.data.state,
+          savedEvents: res.data.savedEvents
+        },
+          () => {
+            this.loadLocalEvents()
+          }
+        )
       })
-      .catch(err => console.log(err));
   };
 
+  // This is an API call to Eventbrite that loads local events(within 10 miles of users address-city,state)
+  loadLocalEvents = () => {
+    console.log("City", this.state.city);
+    console.log("State", this.state.state);
+    API.getLocalEvents(this.state.city + "," + this.state.state)
+      .then(res => {
+        this.setState({ localEvents: res.data.events });
+        console.log("LOCAL EVENTS IN PAGE STATE", this.state.localEvents)
+      })
+      .catch(err => console.log("ERROR IN EVENTBRITE API CALL", err));
+    console.log("THIS FINISHED")
+  }
+
+  // This loads all the events that are stored in the DB
   loadEvents = () => {
     API.getEvents()
       .then(
         res => {
           this.setState({ events: res.data });
         }
+
         //  ;console.log(res.data)}
       )
       .catch(err => console.log(err));
   };
-
+//This click handler saves an event(listed by a neighbor, event from EventBrite API)
   handleClick = (host_name, title, description, date) => {
     API.updateUserEvent(this.props.userState.username, {
       $push: { savedEvents: { host_name, title, description, date } }
     }).then(res => {
       this.setState(
         {
+          ...this.prevState,
           savedEvents: res.data.savedEvents
-        },
+        }, console.log(res.data),
         this.loadUser()
+
       );
     });
   };
 
   render() {
     return (
+
       <Container>
         <Jumbotron>
           <h3>Events near you</h3>
         </Jumbotron>
-        {/* <Row>
-    <Col size="md-6">
-    <List >
-
-  loadEvents = () => {
-    API.getEvents()
-      .then(
-        res => {
-          this.setState({ events: res.data });
-        }
-        //  ;console.log(res.data)}
-      )
-      .catch(err => console.log(err));
-  };
-
-  // this.setState((prevState, props) => ({
-  //   counter: prevState.counter + props.increment
-  // }));
-
-  handleClick = (host_name, title, description, date) => {
-    API.updateUserEvent(this.state.username, {
-      $push: { savedEvents: { host_name, title, description, date } }
-    }).then(res => {
-      this.setState(prevState => ({
-        savedEvents: prevState.savedEvents
-      }));
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Jumbotron>
-          <h4>Events in your neighborhood</h4>
-        </Jumbotron>
-        {/* <Row>
-  <Col size="md-6">
-  <List >
-{this.state.events.map(event => (
-<ListItem key={event._id}      >
-<Row>
-<Col size="md-12">   
-      <div className="card" style={ {width:'80%'}
-}>
-        <div className="card-body">
-        <h4 >{event.title}</h4>
-        <h5>{event.user_id}</h5>
-        <p>{event.description}</p>
-      
-        </div>
-        <Button
-        ref="btn"
-        id={event._id}
-        disabled={false}
-        onClick={
-          () => { {this.handleClick(event._id,event.user_id,event.title,event.description)}}}>Save to my events</Button>
-                    </div>
-        </Col>
-</Row>
-</ListItem>))}
-</List>
-</Col>
-<Col size="md-6">
-<List >
-{this.state.savedEvents.map(savedEvent => (
-<ListItem   >
-<Row>
-<Col size="md-12">   
-      <div className="card" style={ {width:'80%'}
-}>
-        <div className="card-body">
-        <h4 >{savedEvent.title}</h4>
-        <h5>{savedEvent.user_id}</h5>
-        <p>{savedEvent.description}</p>
-      
-        </div>
-                    </div>
-        </Col>
-</Row>
-</ListItem>))}
-</List>
-</Col>
-</Row> */}
-
+        {/* This tab  has all the events from database */}
         <Tabs>
           Events posted by neighbors
           <List>
@@ -202,9 +133,11 @@ class Events extends Component {
               </ListItem>
             ))}
           </List>
+        {/* This tab that has all the events from Erentbrite, specific to city, state of the user. The slice function renders only the first 10 events in the array. The EventBrite API call renders atleast 50 events */}
+
           Local Events
           <List>
-            {this.state.localEvents.map(localEvent => (
+            {this.state.localEvents.slice(0, 10).map(localEvent => (
               <ListItem>
                 <Row>
                   <Col size="md-12">
@@ -252,6 +185,9 @@ class Events extends Component {
               </ListItem>
             ))}
           </List>
+
+          {/* This tab  has all the saved events, loaded from database. This is specific to the logged in user*/}
+
           My Saved Events
           <List>
             {this.state.savedEvents.map(savedEvent => (

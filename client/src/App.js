@@ -9,15 +9,26 @@ import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
 import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
+
 import LoginUser from "./pages/login";
 import axios from "axios";
+// import registerUser from "./pages/register";
+import ContactUser from "./pages/contacts";
+
+// import ContactForm from "./components/ContactPage/contactform";
+import Neighbors from "./pages/neighbors";
+import UpdaterUserPage from "./components/Update-User/UpdateUserForm";
 
 class App extends Component {
   state = {
     userState: {
       loggedIn: false,
       email: "",
-      address: "",
+      address1: "",
+      address2: "",
+      city:"",
+      state:"",
+      zipcode:"",
       username: ""
     },
     formState: {
@@ -190,6 +201,14 @@ class App extends Component {
                   <Users {...routeProps} userState={this.state.userState} />
                 )}
               />
+               <Route
+                exact
+                path="/updateuser"
+                render={routeProps => (
+                  <UpdaterUserPage {...routeProps} userState={this.state.userState} />
+                )}
+              />
+
               <Route
                 exact
                 path="/classifieds"
@@ -207,12 +226,51 @@ class App extends Component {
                   <Events {...routeProps} userState={this.state.userState} />
                 )}
               />
+                <Route
+                exact
+                path="/neighbors"
+                render={routeProps => (
+                  <Neighbors
+                    {...routeProps}
+                    userState={this.state.userState}
+                  />
+                )}
+              />
+
+                <Route
+                exact
+                path="/contact"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleContact}
+                    
+                  />
+                )}
+              />
             </Switch>
           )}
           {!loggedIn && (
             <Switch>
-              <Route exact path="/" component={Main} />
-              {/* Contact page should go here  */}
+          
+               <Route
+                exact
+                path="/contact"
+                render={routeProps => (
+                  <ContactUser
+                    {...routeProps}
+                    userState={this.state.userState}
+                    formState={this.state.formState}
+                    inputChange={this.handleInputChange}
+                    handleRegister={this.handleContact}
+                    
+                  />
+                )}
+              />
+
               <Route
                 exact
                 path="/register"
@@ -222,7 +280,7 @@ class App extends Component {
                     userState={this.state.userState}
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
-                    handleRegister={this.handleRegister}
+                    handleContact={this.handleRegister}
                   />
                 )}
               />
