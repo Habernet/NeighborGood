@@ -26,9 +26,9 @@ class App extends Component {
       email: "",
       address1: "",
       address2: "",
-      city:"",
-      state:"",
-      zipcode:"",
+      city: "",
+      state: "",
+      zipcode: "",
       username: ""
     },
     formState: {
@@ -41,7 +41,7 @@ class App extends Component {
       city: "",
       state: "",
       zipcode: ""
-    },
+    }
   };
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class App extends Component {
           userState: {
             loggedIn: true,
             username: response.data.username,
-            email: response.data.user.email,
+            email: response.data.user.email
           }
         });
       } else {
@@ -92,7 +92,7 @@ class App extends Component {
         username: res.username,
         email: res.email
       },
-      formstate: "",
+      formstate: ""
     });
   };
 
@@ -118,37 +118,64 @@ class App extends Component {
   handleRegister = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    let {password, password2, email, username, address1, address2, city, state, zipcode} = this.state.formState;
-    
-    if( !password || !password2 || !email || !username || !address1 || !city || !state || !zipcode ) {
-      alert("Please fill in all reqired fields")
+    let {
+      password,
+      password2,
+      email,
+      username,
+      address1,
+      address2,
+      city,
+      state,
+      zipcode
+    } = this.state.formState;
+
+    if (
+      !password ||
+      !password2 ||
+      !email ||
+      !username ||
+      !address1 ||
+      !city ||
+      !state ||
+      !zipcode
+    ) {
+      alert("Please fill in all reqired fields");
     }
 
-    if( !(password === password2)) {
-      alert("Password entries do not match.")
-    };
-    
+    if (!(password === password2)) {
+      alert("Password entries do not match.");
+    }
+
     let user = {
-      username, password, password2, email, address1, address2, city, state, zipcode
+      username,
+      password,
+      password2,
+      email,
+      address1,
+      address2,
+      city,
+      state,
+      zipcode
     };
     console.log(user);
     AUTH.register(user)
-    .then(res => {
-      console.log("this user was registered: ", res);
-      this.setState({
-        userState: {
-          username: res.data.user.username,
-          email: res.data.user.email,
-          address: res.data.user.address,
-          loggedIn: true
-        },
-        formState: ""
+      .then(res => {
+        console.log("this user was registered: ", res);
+        this.setState({
+          userState: {
+            username: res.data.user.username,
+            email: res.data.user.email,
+            address: res.data.user.address,
+            loggedIn: true
+          },
+          formState: ""
+        });
+      })
+      .catch(error => {
+        console.log("login error: ");
+        console.log(error);
       });
-    })
-    .catch(error => {
-      console.log("login error: ");
-      console.log(error);
-    });
   };
 
   handleLogin = event => {
@@ -195,11 +222,14 @@ class App extends Component {
                   <Users {...routeProps} userState={this.state.userState} />
                 )}
               />
-               <Route
+              <Route
                 exact
                 path="/updateuser"
                 render={routeProps => (
-                  <UpdaterUserPage {...routeProps} userState={this.state.userState} />
+                  <UpdaterUserPage
+                    {...routeProps}
+                    userState={this.state.userState}
+                  />
                 )}
               />
 
@@ -220,18 +250,15 @@ class App extends Component {
                   <Events {...routeProps} userState={this.state.userState} />
                 )}
               />
-                <Route
+              <Route
                 exact
                 path="/neighbors"
                 render={routeProps => (
-                  <Neighbors
-                    {...routeProps}
-                    userState={this.state.userState}
-                  />
+                  <Neighbors {...routeProps} userState={this.state.userState} />
                 )}
               />
 
-                <Route
+              <Route
                 exact
                 path="/contact"
                 render={routeProps => (
@@ -241,7 +268,6 @@ class App extends Component {
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
                     handleRegister={this.handleContact}
-                    
                   />
                 )}
               />
@@ -249,8 +275,8 @@ class App extends Component {
           )}
           {!loggedIn && (
             <Switch>
-          
-               <Route
+              <Route exact path="/" component={Main} />
+              <Route
                 exact
                 path="/contact"
                 render={routeProps => (
@@ -295,7 +321,7 @@ class App extends Component {
             </Switch>
           )}
         </Router>
-        
+
         {/* <About /> */}
         {/* <Footer /> */}
       </div>
