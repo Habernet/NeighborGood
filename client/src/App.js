@@ -51,13 +51,13 @@ class App extends Component {
         this.setState({
           userState: {
             loggedIn: true,
-            username: response.data.user
+            username: response.data.username,
+            email: response.data.user.email,
           }
         });
       } else {
         this.setState({
-          loggedIn: false,
-          user: null
+          loggedIn: false
         });
       }
     });
@@ -91,7 +91,8 @@ class App extends Component {
         loggedIn: true,
         username: res.username,
         email: res.email
-      }
+      },
+      formstate: "",
     });
   };
 
@@ -259,7 +260,6 @@ class App extends Component {
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
                     handleContact={this.handleContact}
-                    
                   />
                 )}
               />
