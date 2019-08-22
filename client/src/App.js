@@ -69,13 +69,6 @@ class App extends Component {
       event.preventDefault();
     }
 
-    // if (this.state.userState.email === "Guest") {
-    // 	this.setState({
-    // 		user: null,
-    // 		loggedIn: false
-    // 	});
-    // }
-    // else {
     {
       AUTH.logout().then(response => {
         if (response.status === 200) {
@@ -265,7 +258,7 @@ class App extends Component {
                     userState={this.state.userState}
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
-                    handleRegister={this.handleContact}
+                    handleContact={this.handleContact}
                     
                   />
                 )}
@@ -280,7 +273,7 @@ class App extends Component {
                     userState={this.state.userState}
                     formState={this.state.formState}
                     inputChange={this.handleInputChange}
-                    handleContact={this.handleRegister}
+                    handleRegister={this.handleRegister}
                   />
                 )}
               />
@@ -302,9 +295,7 @@ class App extends Component {
             </Switch>
           )}
         </Router>
-
-        {/* <AuthForm formSubmit={this.handleFormSubmit} inputChange={this.handleInputChange} userState={this.state.userState}> </AuthForm>
-        <Jumbotron /> */}
+        
         {/* <About /> */}
         {/* <Footer /> */}
       </div>
