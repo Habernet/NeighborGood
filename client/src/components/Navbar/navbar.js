@@ -91,19 +91,22 @@ const Navbar = props => (
           </Link>
         </li>
 
-        <li className="nav-item">
-          <Link
-            to="/Login"
-            className={
-              window.location.pathname === "Login"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >
-            <i className="fa fa-sign-in" area-hidden="true" />
-            Login
-          </Link>
-        </li>
+        {/* If user is logged in..they cannot view this link */}
+        {!props.loggedIn && (
+          <li className="nav-item">
+            <Link
+              to="/Login"
+              className={
+                window.location.pathname === "Login"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              <i className="fa fa-sign-in" area-hidden="true" />
+              Login
+            </Link>
+          </li>
+        )}
 
         <li className="nav-item">
           <Link

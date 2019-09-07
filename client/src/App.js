@@ -211,7 +211,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <Navbar logOut={this.logout} />
+          <Navbar logOut={this.logout} loggedIn={loggedIn} />
           {loggedIn && (
             <Switch>
               <Route exact path="/" component={Main} />
