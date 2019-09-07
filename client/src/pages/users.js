@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Jumbotron from "../components/Jumbotron/jumbotron";
 // import Footer from "../components/Footer/footer";
 import { Row, Col, Container } from "../components/Grid";
 import { ListItem } from "../components/List";
@@ -11,8 +10,6 @@ import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
 import Moment from "react-moment";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-
-import Button from "../components/Button";
 
 class Users extends Component {
   state = {
@@ -149,9 +146,7 @@ class Users extends Component {
 
     if (this.props.userState.loggedIn) {
       console.log(
-        `USER IS LOGGED IN, RETRIVING ${
-          this.props.userState.username
-        }'s information...`
+        `USER IS LOGGED IN, RETRIVING ${this.props.userState.username}'s information...`
       );
 
       // use the API to grab the user and it's information...
@@ -266,6 +261,7 @@ class Users extends Component {
                       height: "250px",
                       width: "250px"
                     }}
+                    alt="User profile"
                   />
                 </div>
                 {/* <Row>

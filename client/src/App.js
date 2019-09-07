@@ -9,6 +9,7 @@ import Classifieds from "./pages/classifieds";
 import Events from "./pages/events";
 import NoMatch from "./pages/NoMatch";
 import RegisterUser from "./pages/register";
+import Footer from "./components/Footer/footer";
 
 import LoginUser from "./pages/login";
 import axios from "axios";
@@ -69,18 +70,16 @@ class App extends Component {
       event.preventDefault();
     }
 
-    {
-      AUTH.logout().then(response => {
-        if (response.status === 200) {
-          this.setState({
-            userState: {
-              loggedIn: false,
-              username: null
-            }
-          });
-        }
-      });
-    }
+    AUTH.logout().then(response => {
+      if (response.status === 200) {
+        this.setState({
+          userState: {
+            loggedIn: false,
+            username: null
+          }
+        });
+      }
+    });
   };
 
   updateUser = res => {
@@ -321,7 +320,7 @@ class App extends Component {
         </Router>
 
         {/* <About /> */}
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }

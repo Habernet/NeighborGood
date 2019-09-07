@@ -1,9 +1,6 @@
 import React from "react";
 
 function ClassifiedsForm(props) {
-  const formStyle = {
-    width: "500px"
-  };
   return (
     <form className="form">
       <h3>Post a classifieds listing of your own!</h3>
@@ -26,7 +23,9 @@ function ClassifiedsForm(props) {
         type="text"
         placeholder="Price"
       />
-      <button className="submitButton" onClick={props.formSubmit}>Submit</button>
+      <button className="submitButton" onClick={props.formSubmit}>
+        Submit
+      </button>
     </form>
   );
 }

@@ -23,15 +23,27 @@ function Main() {
 
           <div className="row">
             <div className="col">
-              <img src="./images/community.png" className="wpcommunity" />
+              <img
+                src="./images/community.png"
+                className="wpcommunity"
+                alt="Community Together"
+              />
               <p>A community exchange built by you and your neighbors!</p>
             </div>
             <div className="col">
-              <img src="./images/lock.png" className="wplock" />
+              <img
+                src="./images/lock.png"
+                className="wplock"
+                alt="Security For ALl"
+              />
               <p>Security matters here! Everyone on this app is verified.</p>
             </div>
             <div className="col">
-              <img src="./images/cp.jpg" className="wpmobile" />
+              <img
+                src="./images/cp.jpg"
+                className="wpmobile"
+                alt="Mobile Friendly"
+              />
               <p>Mobile Friendly! Everything at your fingertips.</p>
             </div>
           </div>

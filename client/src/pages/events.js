@@ -21,26 +21,26 @@ class Events extends Component {
     this.loadUser();
     this.loadEvents();
     // this.loadLocalEvents();
-  };
+  }
 
-//This function sets state after the user logs in. The userstate props is used to get the user specific information
+  //This function sets state after the user logs in. The userstate props is used to get the user specific information
   loadUser = () => {
     console.log(`GETTING ${this.props.userState.username}'S SAVED EVENTS..`);
-    API.getUser(this.props.userState.username)
-      .then(res => {
-        // const savedEvents = this.state.savedEvents.filter(savedEvents => savedEvents.date < date);
+    API.getUser(this.props.userState.username).then(res => {
+      // const savedEvents = this.state.savedEvents.filter(savedEvents => savedEvents.date < date);
 
-        this.setState({
+      this.setState(
+        {
           ...this.prevState,
           city: res.data.city,
           state: res.data.state,
           savedEvents: res.data.savedEvents
         },
-          () => {
-            this.loadLocalEvents()
-          }
-        )
-      })
+        () => {
+          this.loadLocalEvents();
+        }
+      );
+    });
   };
 
   // This is an API call to Eventbrite that loads local events(within 10 miles of users address-city,state)
@@ -50,11 +50,11 @@ class Events extends Component {
     API.getLocalEvents(this.state.city + "," + this.state.state)
       .then(res => {
         this.setState({ localEvents: res.data.events });
-        console.log("LOCAL EVENTS IN PAGE STATE", this.state.localEvents)
+        console.log("LOCAL EVENTS IN PAGE STATE", this.state.localEvents);
       })
       .catch(err => console.log("ERROR IN EVENTBRITE API CALL", err));
-    console.log("THIS FINISHED")
-  }
+    console.log("THIS FINISHED");
+  };
 
   // This loads all the events that are stored in the DB
   loadEvents = () => {
@@ -68,7 +68,7 @@ class Events extends Component {
       )
       .catch(err => console.log(err));
   };
-//This click handler saves an event(listed by a neighbor, event from EventBrite API)
+  //This click handler saves an event(listed by a neighbor, event from EventBrite API)
   handleClick = (host_name, title, description, date) => {
     API.updateUserEvent(this.props.userState.username, {
       $push: { savedEvents: { host_name, title, description, date } }
@@ -77,16 +77,15 @@ class Events extends Component {
         {
           ...this.prevState,
           savedEvents: res.data.savedEvents
-        }, console.log(res.data),
+        },
+        console.log(res.data),
         this.loadUser()
-
       );
     });
   };
 
   render() {
     return (
-
       <Container>
         <Jumbotron>
           <h3>Events near you</h3>
@@ -116,14 +115,12 @@ class Events extends Component {
                       disabled={false}
                       style={{ margin: "0 100px 30px 600px", width: "200px" }}
                       onClick={() => {
-                        {
-                          this.handleClick(
-                            event.user_id,
-                            event.title,
-                            event.description,
-                            event.date
-                          );
-                        }
+                        this.handleClick(
+                          event.user_id,
+                          event.title,
+                          event.description,
+                          event.date
+                        );
                       }}
                     >
                       Save to my events
@@ -133,8 +130,7 @@ class Events extends Component {
               </ListItem>
             ))}
           </List>
-        {/* This tab that has all the events from Erentbrite, specific to city, state of the user. The slice function renders only the first 10 events in the array. The EventBrite API call renders atleast 50 events */}
-
+          {/* This tab that has all the events from Erentbrite, specific to city, state of the user. The slice function renders only the first 10 events in the array. The EventBrite API call renders atleast 50 events */}
           Local Events
           <List>
             {this.state.localEvents.slice(0, 10).map(localEvent => (
@@ -168,14 +164,12 @@ class Events extends Component {
                       disabled={false}
                       style={{ margin: "0 100px 30px 600px", width: "200px" }}
                       onClick={() => {
-                        {
-                          this.handleClick(
-                            localEvent.name.text,
-                            localEvent.name.text,
-                            localEvent.description.text,
-                            localEvent.start.local
-                          );
-                        }
+                        this.handleClick(
+                          localEvent.name.text,
+                          localEvent.name.text,
+                          localEvent.description.text,
+                          localEvent.start.local
+                        );
                       }}
                     >
                       Save to my events
@@ -185,9 +179,7 @@ class Events extends Component {
               </ListItem>
             ))}
           </List>
-
           {/* This tab  has all the saved events, loaded from database. This is specific to the logged in user*/}
-
           My Saved Events
           <List>
             {this.state.savedEvents.map(savedEvent => (

@@ -1,9 +1,6 @@
 import React from "react";
 
 function UpdateUserForm(props) {
-  const formStyle = {
-    width: "500px"
-  };
   return (
     <form className="form">
       <input
@@ -25,62 +22,60 @@ function UpdateUserForm(props) {
         type="text"
         placeholder="email"
       />
-       <input
+      <input
         name="address1"
         onChange={props.inputChange}
         type="text"
         placeholder="Street Address Line1"
       />
-             <input
+      <input
         name="address2"
         onChange={props.inputChange}
         type="text"
         placeholder="Street Address Line2"
       />
-       <input
+      <input
         name="city"
         onChange={props.inputChange}
         type="text"
         placeholder="City"
       />
-       <input
+      <input
         name="state"
         onChange={props.inputChange}
         type="text"
         placeholder="State"
       />
-         <input
+      <input
         name="zipcode"
         onChange={props.inputChange}
         type="text"
         placeholder="Street Address Line1"
       />
 
-       <input
+      <input
         name="phoneNumber"
         onChange={props.inputChange}
         type="text"
         placeholder="Phone number"
       />
       <input
-      name="gender"
+        name="gender"
         onChange={props.inputChange}
         type="text"
         placeholder="Gender"
       />
 
-       <input
+      <input
         name="age"
         onChange={props.inputChange}
         type="text"
         placeholder="Age"
       />
 
-
-
-
-
-      <button className="submitButton" onClick={props.formSubmit}>Submit</button>
+      <button className="submitButton" onClick={props.formSubmit}>
+        Submit
+      </button>
     </form>
   );
 }

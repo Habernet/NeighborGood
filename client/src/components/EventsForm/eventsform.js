@@ -1,9 +1,9 @@
 import React from "react";
 
 function EventsForm(props) {
-  const formStyle = {
-    width: "500px"
-  };
+  // const formStyle = {
+  //   width: "500px"
+  // };
   return (
     <form className="form">
       <h3>Post Events of your own!</h3>
@@ -27,7 +27,9 @@ function EventsForm(props) {
         placeholder="Price"
       />
       <input type="date" name="date" onChange={props.inputChange} />
-      <button className="submitButton" onClick={props.formSubmit}>Submit</button>
+      <button className="submitButton" onClick={props.formSubmit}>
+        Submit
+      </button>
     </form>
   );
 }
