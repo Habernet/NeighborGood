@@ -1,12 +1,10 @@
-import React from 'react';
-// import "./style.css";
-​
+import React from "react";
+
 function ContactForm(props) {
-  console.log(props);
-    return ( 
-      <form className="form">
-      <h3>Having a query?</h3>
-      {/* <input
+  return (
+    <form className="form">
+      <h3>Contact us!</h3>
+      <input
         value={props.Name}
         name="Name"
         onChange={props.inputChange}
@@ -26,11 +24,12 @@ function ContactForm(props) {
         onChange={props.inputChange}
         type="textbox"
         placeholder="comments"
-      /> */}
-      <button className="submitButton" onClick={props.formSubmit}>Contact Us</button>
+      />
+      <button className="submitButton" onClick={props.formSubmit}>
+        Contact Us
+      </button>
     </form>
-     );
-  }
-​
- 
+  );
+}
+
 export default ContactForm;

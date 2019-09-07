@@ -24,7 +24,7 @@ const Navbar = props => (
           </Link>
         </li>
 
-        {/* <li className="nav-item">
+        <li className="nav-item">
           <Link
             to="/Contact"
             className={
@@ -33,9 +33,10 @@ const Navbar = props => (
                 : "nav-link"
             }
           >
-            <i className="fa fa-mobile" aria-hidden="true" />Contact
+            <i className="fa fa-mobile" aria-hidden="true" />
+            Contact
           </Link>
-        </li> */}
+        </li>
 
         {!props.loggedIn && (
           <li className="nav-item">
