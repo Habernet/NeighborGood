@@ -20,7 +20,7 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "css-loader": "^3.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nodemon": "^1.18.7",
     "react-big-calendar": "^0.22.0",
     "style-loader": "^1.0.0"
